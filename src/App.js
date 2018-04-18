@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+import Login from './components/login'
+import Registration from './components/registration'
+
+import { Link, Route } from 'react-router-dom'
+
 import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
-import MenuIcon from 'material-ui/Menu'
 
 class App extends Component {
 
@@ -20,20 +23,22 @@ class App extends Component {
           <div className={classes.root}>
             <AppBar position="static">
               <Toolbar>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                  <MenuIcon />
-                </IconButton>
                 <Typography variant="title" color="inherit" className={classes.flex}>
                   Title
                 </Typography>
-                <Button color="inherit">Login</Button>
-                <Button color="inherit">Registration</Button>
+                <Link to="/login">
+                  <Button color="inherit">Login</Button>
+                </Link>
+                <Link to="/registration">
+                  <Button color="inherit">Registration</Button>
+                </Link>
               </Toolbar>
             </AppBar>
           </div>
         </header>
         <main>
-          <h1>The body</h1>
+          <Route path="/login" component={Login}/>
+          <Route path="/registration" component={Registration} />
         </main>
       </div>
     );
