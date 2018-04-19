@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import Login from './components/login'
-import Registration from './components/registration'
+import Login from './components/Login'
+import Registration from './components/Registration'
+import Home from './components/Home'
 
 import { Link, Route } from 'react-router-dom'
 
 import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 
 class App extends Component {
@@ -23,9 +23,11 @@ class App extends Component {
           <div className={classes.root}>
             <AppBar position="static">
               <Toolbar>
-                <Typography variant="title" color="inherit" className={classes.flex}>
-                  Title
-                </Typography>
+                <div className={classes.leftMenu}>
+                  <Link to="/">
+                    <Button color="inherit">Home</Button>
+                  </Link>
+                </div>
                 <Link to="/login">
                   <Button color="inherit">Login</Button>
                 </Link>
@@ -37,6 +39,7 @@ class App extends Component {
           </div>
         </header>
         <main>
+          <Route exact path="/" component={Home} />
           <Route path="/login" component={Login}/>
           <Route path="/registration" component={Registration} />
         </main>
@@ -49,8 +52,10 @@ const styles = {
   root: {
     flexGrow: 1,
   },
-  flex: {
+  leftMenu: {
+    display: 'flex',
     flex: 1,
+    justifyContent: 'flex-start'
   },
   menuButton: {
     marginLeft: -12,
