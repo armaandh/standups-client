@@ -4,20 +4,20 @@ import Team from './Team'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
+import Typography from 'material-ui/Typography'
 import Dialog, {
     DialogActions,
     DialogContent,
     DialogTitle,
     withMobileDialog,
   } from 'material-ui/Dialog'
+
 import TextField from 'material-ui/TextField'
 
 class TeamList extends Component{
     state={
         addTeamDialogOpen: false,
-        addMemberDialogOpen: false,
-        teamNameField: '',
-        memberNameField: ''
+        teamNameField: ''
     }
 
     handleChange = name => event => {
@@ -35,13 +35,13 @@ class TeamList extends Component{
                     <Button color="primary" className={classes.button} onClick={() => this.setState({ addTeamDialogOpen: true })}>
                         add team
                     </Button>
-                    {team == null && 
-                        <Button color="primary" className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
-                            add member
-                        </Button>
-                    }
                 </Grid>
-                {subTeams.map(t => <Team team={t}/>)}
+                {subTeams.lenght === 0 && 
+                    <Typography variant="subheading">
+                        No Teams
+                    </Typography>
+                }
+                {subTeams.map(t => <Team team={t} key={t.id}/>)}
                 <Dialog
                     fullScreen={fullScreen}
                     open={this.state.addTeamDialogOpen}
@@ -102,18 +102,17 @@ class TeamList extends Component{
 const styles = theme => ({
     root:{
         display: 'flex',
-        flex: '1 wrap',
         padding: '10px',
-        justifyContent: 'space-around',    
         flexDirection: 'column',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
     },
     button: {
         margin: theme.spacing.unit,
     },
     actionBlock: {
         display: 'flex',
-        alignItems: 'flex-start'
+        alignItems: 'center',
+        flexDirection: 'column'
     },
     textField: {
         marginLeft: theme.spacing.unit,

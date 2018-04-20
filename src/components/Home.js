@@ -15,13 +15,19 @@ class Home extends Component{
 
     componentDidMount(){
         const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
-        myPromise(0).then(() => {
+        myPromise(2000).then(() => {
             const data = getAllTeams()
             this.setState({
                 teams: data,
                 isDataFetched: true
             })
         })
+    }
+
+    handleChange = name => event => {
+        this.setState({
+          [name]: event.target.value,
+        });
     }
 
     render(){

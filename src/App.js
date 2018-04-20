@@ -3,6 +3,7 @@ import './App.css';
 import Login from './components/Login'
 import Registration from './components/Registration'
 import Home from './components/Home'
+import TeamView from './components/TeamView'
 
 import { Link, Route } from 'react-router-dom'
 
@@ -42,6 +43,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login}/>
           <Route path="/registration" component={Registration} />
+          <Route path="/team/:id" component={TeamView} />
         </main>
       </div>
     );
