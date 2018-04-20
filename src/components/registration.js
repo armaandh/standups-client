@@ -56,7 +56,7 @@ class Registration extends Component{
                             onChange={this.handleChange('password')}
                         />
                         <TextField
-                            id="password"
+                            id="confirmPassword"
                             label="Confirm Password"
                             className={classes.textField}
                             type="password"
