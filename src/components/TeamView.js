@@ -35,6 +35,7 @@ import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 class TeamView extends Component{
     state = {
         isTeamFetched: false,
+        isVideosFetched: false,
         team: {},
         videos: [],
         addStanupDialogOpen: false,
@@ -52,22 +53,19 @@ class TeamView extends Component{
                 isTeamFetched: true
             })
         })
-        getAllVideos('/')
-            .then((data) => this.setState({videos: data}))
-            .catch((error) => console.log('Fetch all videos ERROR: ', error))
+        if (!this.state.isVideosFetched){
+            getAllVideos('/')
+                .then((data) => this.setState({videos: data, isVideosFetched: true}))
+                .catch((error) => console.log('Fetch all videos ERROR: ', error))
+        }
     }
 
     componentDidUpdate() {
-        const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
-        myPromise(2000).then(() => { 
-            this.setState({
-                team: getTeam(this.props.match.params.id),
-                isTeamFetched: true
-            })
-        })
-        getAllVideos('/')
-            .then((data) => this.setState({videos: data}))
-            .catch((error) => console.log('Fetch all videos ERROR: ', error))
+        if (!this.state.isVideosFetched){
+            getAllVideos('/')
+                .then((data) => this.setState({videos: data, isVideosFetched: true}))
+                .catch((error) => console.log('Fetch all videos ERROR: ', error))
+        }
     }
 
     openVideoRecordingDialog = () => {
@@ -80,7 +78,11 @@ class TeamView extends Component{
         const { recorderedVideo } = this.state
         if (recorderedVideo !== null){
             saveToAWS(getVideoBlob(), Date.now().toString())
-                .then(() => this.handleAddVideoDialogClose())
+                .then(() => 
+                {
+                    this.setState({isVideosFetched: false})
+                    this.handleAddVideoDialogClose()
+                })
                 .catch((erorr) => console.log(erorr))
         }else{
             this.handleAddVideoDialogClose()
@@ -141,7 +143,7 @@ class TeamView extends Component{
                         </Typography>
                     </Grid>
                     <TeamList team={team} subTeams={team.subteams}/>
-                    <VideoList videos={videos} />
+                    <VideoList videos={videos}/>
                     <MembersList members={team.members} />
                     <Button variant="fab" color="primary" className={classes.recordVideoButton} onClick={this.openVideoRecordingDialog}>
                         <Videocam />
