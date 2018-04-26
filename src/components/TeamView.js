@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MembersList from './MembersList'
 import TeamList from './TeamList'
+import VideoList from './VideoList'
 
 import { 
     startRecording, 
@@ -11,7 +12,7 @@ import {
     getVideoBlob
 } from '../utils/videoRecording'
 
-import { saveToAWS, getAllVideos } from '../utils/api'
+import { saveToAWS, getAllVideos, getTeam } from '../utils/api'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -31,12 +32,11 @@ import Toolbar from 'material-ui/Toolbar'
 import Stop from '@material-ui/icons/Stop'
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 
-import { getTeam } from './../utils/api'
-
 class TeamView extends Component{
     state = {
         isTeamFetched: false,
         team: {},
+        videos: [],
         addStanupDialogOpen: false,
         isVideoRecoring: false,
         isVideoStreamEnabled: false,
@@ -52,6 +52,9 @@ class TeamView extends Component{
                 isTeamFetched: true
             })
         })
+        getAllVideos('/')
+            .then((data) => this.setState({videos: data}))
+            .catch((error) => console.log('Fetch all videos ERROR: ', error))
     }
 
     openVideoRecordingDialog = () => {
@@ -65,6 +68,7 @@ class TeamView extends Component{
         if (recorderedVideo !== null){
             saveToAWS(getVideoBlob(), Date.now().toString())
                 .then(() => this.handleAddVideoDialogClose())
+                .catch((erorr) => console.log(erorr))
         }else{
             this.handleAddVideoDialogClose()
         }
@@ -109,7 +113,7 @@ class TeamView extends Component{
     }
 
     render(){
-        const { team, isTeamFetched, isVideoRecoring, isVideoStreamEnabled, videoStream, recorderedVideo } = this.state 
+        const { videos, team, isTeamFetched, isVideoRecoring, isVideoStreamEnabled, videoStream, recorderedVideo } = this.state 
         const { classes } = this.props
 
         if (isTeamFetched){
@@ -124,6 +128,7 @@ class TeamView extends Component{
                         </Typography>
                     </Grid>
                     <TeamList team={team} subTeams={team.subteams}/>
+                    <VideoList videos={videos} />
                     <MembersList members={team.members} />
                     <Button variant="fab" color="primary" className={classes.recordVideoButton} onClick={this.openVideoRecordingDialog}>
                         <Videocam />
@@ -151,7 +156,7 @@ class TeamView extends Component{
                             </Toolbar>
                         </AppBar>
                         <div className={classes.addVideoContent}>
-                            <div >
+                            <div className={classes.streamVideo}>
                                 {isVideoStreamEnabled && 
                                     <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
                                 }

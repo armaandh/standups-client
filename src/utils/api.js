@@ -2,7 +2,7 @@ import AWS from 'aws-sdk'
 
 const host = ""
 
-var endpointUrl = "https://s3.amazonaws.com/ed-photoss/"
+export const endpointUrl = "https://s3.amazonaws.com/ed-photoss/"
 var bucketName = 'ed-photoss';
 AWS.config.region = 'us-east-1'; // Region
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -40,19 +40,24 @@ export const saveToAWS = (videoBlob, key) => {
       }))
 }
 
-export const getAllVideos = () => {
-    s3.listObjects({ Delimiter: '/' }, ( err, data ) => {
-        if (err){
-            return alert('There is an error listing your videos: ' + err.message)
-        } else{
-            /* let videos = data.Contents.map(v => {
-                let video = document.createElement('video')
-                video.src = endpointUrl + v.Key
-                video.controls = true
-                videosBlock.appendChild(video)
-            }) */
-            return data.Contents
-        }
+// '/'
+export const getAllVideos = (delimiter) => {
+    return new Promise((resolve, reject) => {
+        s3.listObjects({ Delimiter: delimiter }, ( err, data ) => {
+            if (err){
+                reject(err.message)
+                return alert('There is an error listing your videos: ' + err.message)
+            } else{
+                resolve(data.Contents)
+                /* let videos = data.Contents.map(v => {
+                    let video = document.createElement('video')
+                    video.src = endpointUrl + v.Key
+                    video.controls = true
+                    videosBlock.appendChild(video)
+                }) */
+                //return data.Contents
+            }
+        })
     })
 }
 
