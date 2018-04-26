@@ -57,6 +57,19 @@ class TeamView extends Component{
             .catch((error) => console.log('Fetch all videos ERROR: ', error))
     }
 
+    componentDidUpdate() {
+        const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
+        myPromise(2000).then(() => { 
+            this.setState({
+                team: getTeam(this.props.match.params.id),
+                isTeamFetched: true
+            })
+        })
+        getAllVideos('/')
+            .then((data) => this.setState({videos: data}))
+            .catch((error) => console.log('Fetch all videos ERROR: ', error))
+    }
+
     openVideoRecordingDialog = () => {
             this.setState({
                 addStanupDialogOpen: true,
