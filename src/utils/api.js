@@ -3,10 +3,10 @@ import AWS from 'aws-sdk'
 const host = ""
 
 export const endpointUrl = "https://s3.amazonaws.com/ed-photoss/"
-var bucketName = 'ed-photoss';
+var bucketName = '*****';
 AWS.config.region = 'us-east-1'; // Region
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'us-east-1:1ab2516e-ee9d-4c0f-9a7b-ef4bf2489260',
+    IdentityPoolId: '*****',
 })
 
 var s3 = new AWS.S3({
