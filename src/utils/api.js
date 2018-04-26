@@ -1,4 +1,18 @@
+import AWS from 'aws-sdk'
+
 const host = ""
+
+var endpointUrl = "https://s3.amazonaws.com/ed-photoss/"
+var bucketName = 'ed-photoss';
+AWS.config.region = 'us-east-1'; // Region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'us-east-1:1ab2516e-ee9d-4c0f-9a7b-ef4bf2489260',
+})
+
+var s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    params: {Bucket: bucketName}
+});
 
 export const getAllTeams = () => {
     return allTeams
@@ -9,6 +23,36 @@ export const getTeam = (id) => {
 }
 
 // Static data untill we get api working
+
+export const saveToAWS = (videoBlob, key) => {
+    return s3.upload({
+        Key: key,
+        Body: videoBlob,
+        ACL: 'public-read'
+      }, function(err, data) {
+        if (err) {
+          return alert('There was an error uploading your photo: ', err.message);
+        }
+        alert('Successfully uploaded photo.');
+        console.log(data)
+      });
+}
+
+export const getAllVideos = () => {
+    s3.listObjects({ Delimiter: '/' }, ( err, data ) => {
+        if (err){
+            return alert('There is an error listing your videos: ' + err.message)
+        } else{
+            /* let videos = data.Contents.map(v => {
+                let video = document.createElement('video')
+                video.src = endpointUrl + v.Key
+                video.controls = true
+                videosBlock.appendChild(video)
+            }) */
+            return data.Contents
+        }
+    })
+}
 
 const allTeams = [
     {

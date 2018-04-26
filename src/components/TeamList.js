@@ -68,32 +68,6 @@ class TeamList extends Component{
                         </Button>
                     </DialogActions>
                 </Dialog>
-                <Dialog
-                    fullScreen={fullScreen}
-                    open={this.state.addMemberDialogOpen}
-                    onClose={() => this.setState({ addMemberDialogOpen: false })}
-                    aria-labelledby="responsive-dialog-title"
-                    >
-                    <DialogTitle id="responsive-dialog-title">{"Add Member"}</DialogTitle>
-                    <DialogContent>
-                    <TextField
-                        id="team-name"
-                        label="Member's name"
-                        className={classes.textField}
-                        type="text"
-                        margin="normal"
-                        onChange={this.handleChange('memberNameField')}
-                    />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => this.setState({ addMemberDialogOpen: false })} color="primary">
-                            Add
-                        </Button>
-                        <Button onClick={() => this.setState({ addMemberDialogOpen: false })} color="secondary" autoFocus>
-                            Cancel
-                        </Button>
-                    </DialogActions>
-                </Dialog>
             </Grid>
         )
     }
