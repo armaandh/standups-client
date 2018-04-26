@@ -7,7 +7,8 @@ import {
     stopRecording, 
     initVideoRecording , 
     getVideoRecordURL, 
-    getVideoStreamURL
+    getVideoStreamURL,
+    getVideoBlob
 } from '../utils/videoRecording'
 
 import { saveToAWS, getAllVideos } from '../utils/api'
@@ -23,14 +24,12 @@ import Videocam from '@material-ui/icons/Videocam'
 import Typography from 'material-ui/Typography'
 import CloseIcon from '@material-ui/icons/Close'
 import Slide from 'material-ui/transitions/Slide'
-import Divider from 'material-ui/Divider'
 import AppBar from 'material-ui/AppBar'
 import Dialog from 'material-ui/Dialog'
 import Toolbar from 'material-ui/Toolbar'
 
 import Stop from '@material-ui/icons/Stop'
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
-import PlayArrow from '@material-ui/icons/PlayArrow'
 
 import { getTeam } from './../utils/api'
 
@@ -62,8 +61,13 @@ class TeamView extends Component{
     }
 
     submitVideo = () => {
-        saveToAWS(this.state.recorderedVideo, Date.now.toString())
-            .then(() => this.handleAddVideoDialogClose())
+        const { recorderedVideo } = this.state
+        if (recorderedVideo !== null){
+            saveToAWS(getVideoBlob(), Date.now().toString())
+                .then(() => this.handleAddVideoDialogClose())
+        }else{
+            this.handleAddVideoDialogClose()
+        }
     }
 
     handleRecording = () => {
@@ -93,7 +97,6 @@ class TeamView extends Component{
         stopRecording()
         this.setState({
             addStanupDialogOpen: false, 
-            addStanupDialogOpen: false,
             isVideoRecoring: false,
             isVideoStreamEnabled: false,
             recorderedVideo: null,
@@ -140,9 +143,11 @@ class TeamView extends Component{
                             <Typography variant="title" color="inherit" className={classes.flex}>
                                 Add Standup
                             </Typography>
-                            <Button color="inherit" onClick={() => this.setState({addStanupDialogOpen: false})}>
-                                save
-                            </Button>
+                            {recorderedVideo !== null &&
+                                <Button color="inherit" onClick={this.submitVideo}>
+                                    save
+                                </Button>
+                            }
                             </Toolbar>
                         </AppBar>
                         <div className={classes.addVideoContent}>
@@ -164,11 +169,6 @@ class TeamView extends Component{
                                         <FiberManualRecord />
                                     </IconButton>
                                 )}
-                                {recorderedVideo !== null &&
-                                    <IconButton color="default" className={classes.button} aria-label="Play record" onClick={this.handleRecording}>
-                                        <PlayArrow onClick={this.playRecorderedVideo}/>
-                                    </IconButton>
-                                }
                             </div>
                         </div>
                     </Dialog>

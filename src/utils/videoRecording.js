@@ -8,8 +8,6 @@ let constraints = {
     video: true
 }
 
-let videoStream
-
 const handleSuccess = (stream, callback) => {
     console.log('getUserMedia() got stream: ', stream)
     console.log('callback' , callback)
@@ -100,6 +98,10 @@ export const getVideoStreamURL = () => {
 export const getVideoRecordURL = () => {
     let supperBuffer = new Blob(recordedBlobs, { type: 'video/webm' })
     return window.URL.createObjectURL(supperBuffer)
+}
+
+export const getVideoBlob = () => {
+    return new Blob(recordedBlobs, { type: 'video/webm' })
 }
 
 export const initVideoRecording = () => {

@@ -25,17 +25,19 @@ export const getTeam = (id) => {
 // Static data untill we get api working
 
 export const saveToAWS = (videoBlob, key) => {
-    return s3.upload({
+    return new Promise((resolve, reject) => s3.upload({
         Key: key,
         Body: videoBlob,
         ACL: 'public-read'
       }, function(err, data) {
         if (err) {
+            reject(err.message)
           return alert('There was an error uploading your photo: ', err.message);
         }
+        resolve(data)
         alert('Successfully uploaded photo.');
         console.log(data)
-      });
+      }))
 }
 
 export const getAllVideos = () => {
