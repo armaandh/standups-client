@@ -7,6 +7,8 @@ import Grid from 'material-ui/Grid'
 import { CircularProgress } from 'material-ui/Progress'
 import Fade from 'material-ui/transitions/Fade'
 
+import Paper from 'material-ui/Paper'
+
 class Home extends Component{
     state = {
         isDataFetched: false,
@@ -37,7 +39,13 @@ class Home extends Component{
         if (isDataFetched){
             return (
                 <Grid container spacing={0} className={classes.root}>
-                    <TeamList team={null} subTeams={teams} />
+                    {/* <Grid item xs={6} sm={4} zeroMinWidth> */}
+             
+                    <TeamList team={null} subTeams={teams}/>
+          
+                    
+                    {/* </Grid> */}
+                    
                 </Grid>
             )
         }else{

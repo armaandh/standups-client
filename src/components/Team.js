@@ -10,7 +10,7 @@ function Team(props){
     return (
         <Link to={`/team/${props.team.id}`}>
             <Paper elevation={2} className={props.classes.teamCard}>
-                <Typography variant="display1">{props.team.name}</Typography>
+                <Typography variant="display1" className={props.classes.font}>{props.team.name}</Typography>
             </Paper>
         </Link>
     )
@@ -23,6 +23,9 @@ const styles = theme => ({
         justifyContent: 'center',
         padding: '16px',
     },
+    font:{
+        color: '#616161'
+    }
 });
   
 

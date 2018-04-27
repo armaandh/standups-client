@@ -29,7 +29,7 @@ class App extends Component {
           <div className={classes.root}>
           <MuiThemeProvider theme={theme1}>
             <AppBar position="static">
-              <Toolbar>
+              <Toolbar className={classes.font}>
                 <div className={classes.leftMenu}>
                   <Link to="/">
                     <Button color="inherit"><HomeIcon style={{ fontSize: 36 }}/></Button>
@@ -70,6 +70,9 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  font:{
+      color: '#424242'
+  }
 };
 
 const theme1 = createMuiTheme({

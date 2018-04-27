@@ -7,6 +7,9 @@ import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 
+import { InputAdornment } from 'material-ui/Input';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
 class Login extends Component{
     constructor(props){
         super(props)
@@ -44,6 +47,13 @@ class Login extends Component{
                             className={classes.textField}
                             margin="normal"
                             onChange={this.handleChange('email')}
+                            InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <AccountCircle />
+                                  </InputAdornment>
+                                ),
+                              }}
                         />
                         <TextField
                             id="password"
@@ -53,6 +63,13 @@ class Login extends Component{
                             autoComplete="current-password"
                             margin="normal"
                             onChange={this.handleChange('password')}
+                            InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <AccountCircle />
+                                  </InputAdornment>
+                                ),
+                              }}
                         />
                         <Button color="primary" className={classes.button} onClick={this.submitLogin}>
                             Login

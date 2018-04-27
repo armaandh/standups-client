@@ -11,13 +11,18 @@ import Dialog, {
     DialogTitle,
     withMobileDialog,
   } from 'material-ui/Dialog'
-
 import TextField from 'material-ui/TextField'
+
+import GroupAdd from '@material-ui/icons/GroupAdd'
+import MobileStepper from 'material-ui/MobileStepper';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 class TeamList extends Component{
     state={
         addTeamDialogOpen: false,
-        teamNameField: ''
+        teamNameField: '',
+        activeStep: 0,
     }
 
     handleChange = name => event => {
@@ -26,15 +31,28 @@ class TeamList extends Component{
         });
     }
 
+    handleNext = () => {
+        this.setState(prevState => ({
+          activeStep: prevState.activeStep + 1,
+        }));
+      };
+    
+    handleBack = () => {
+    this.setState(prevState => ({
+        activeStep: prevState.activeStep - 1,
+    }));
+    };
+
     render(){
-        const { classes, subTeams, team, fullScreen } = this.props
+        const { classes, subTeams, team, fullScreen, theme } = this.props
 
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Grid item xs={12} className={classes.actionBlock}>
-                    <Button color="primary" className={classes.button} onClick={() => this.setState({ addTeamDialogOpen: true })}>
-                        add team
+                    <Button color="primary" className={classes.button} className={classes.font} onClick={() => this.setState({ addTeamDialogOpen: true })}>
+                        <GroupAdd /> . add team
                     </Button>
+                    <div><br/></div>
                 </Grid>
                 {subTeams.lenght === 0 && 
                     <Typography variant="subheading">
@@ -68,6 +86,26 @@ class TeamList extends Component{
                         </Button>
                     </DialogActions>
                 </Dialog>
+
+                 <MobileStepper
+          variant="text"
+          steps={6}
+          position="static"
+          activeStep={this.state.activeStep}
+          className={classes.mobileStepper}
+          nextButton={
+            <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === 5}>
+              Next
+              {/* {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />} */}
+            </Button>
+          }
+          backButton={
+            <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
+              {/* {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />} */}
+              Back
+            </Button>
+          }
+        />
             </Grid>
         )
     }
@@ -93,6 +131,10 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 200,
     },
+    font:{
+        color: '#1976D2',
+        fontSize: '1.4rem'
+    }
 });
   
 
