@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Registration from './components/Registration'
 import Home from './components/Home'
 import TeamView from './components/TeamView'
+import Main from './components/Main'
 
 import { Link, Route } from 'react-router-dom'
 
@@ -41,6 +42,7 @@ class App extends Component {
                 <Link to="/registration">
                   <Button color="inherit">Registration</Button>
                 </Link>
+                <img src={require('./images/Hootsuite_logo.svg.png')} />
               </Toolbar>
             </AppBar>
           </MuiThemeProvider>
@@ -48,6 +50,7 @@ class App extends Component {
         </header>
         <main>
           <Route exact path="/" component={Home} />
+          <Route path="/main" component={Main} />
           <Route path="/login" component={Login}/>
           <Route path="/registration" component={Registration} />
           <Route path="/team/:id" component={TeamView} />
@@ -71,13 +74,17 @@ const styles = {
     marginRight: 20,
   },
   font:{
-      color: '#424242'
+      color: '#795548'
   }
 };
 
 const theme1 = createMuiTheme({
   palette: {
-    primary: amber,
+    primary: {
+      light: amber[300],
+      main: '#FFD54F',
+      
+    },
   }
 });
 
