@@ -65,7 +65,8 @@ const styles = theme => ({
         height: '100%',
         padding: '16px',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexGrow: 1,
     }
 });
 

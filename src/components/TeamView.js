@@ -32,6 +32,8 @@ import Toolbar from 'material-ui/Toolbar'
 import Stop from '@material-ui/icons/Stop'
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 
+import Divider from 'material-ui/Divider';
+
 class TeamView extends Component{
     state = {
         isTeamFetched: false,

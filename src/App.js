@@ -12,6 +12,11 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Button from 'material-ui/Button'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { createMuiTheme } from 'material-ui/styles';
+import HomeIcon from '@material-ui/icons/Home'
+import amber from 'material-ui/colors/amber';
+
 class App extends Component {
 
   render() {
@@ -22,11 +27,12 @@ class App extends Component {
       <div className="App">
         <header>
           <div className={classes.root}>
+          <MuiThemeProvider theme={theme1}>
             <AppBar position="static">
               <Toolbar>
                 <div className={classes.leftMenu}>
                   <Link to="/">
-                    <Button color="inherit">Home</Button>
+                    <Button color="inherit"><HomeIcon style={{ fontSize: 36 }}/></Button>
                   </Link>
                 </div>
                 <Link to="/login">
@@ -37,6 +43,7 @@ class App extends Component {
                 </Link>
               </Toolbar>
             </AppBar>
+          </MuiThemeProvider>
           </div>
         </header>
         <main>
@@ -64,5 +71,11 @@ const styles = {
     marginRight: 20,
   },
 };
+
+const theme1 = createMuiTheme({
+  palette: {
+    primary: amber,
+  }
+});
 
 export default withStyles(styles)(App);

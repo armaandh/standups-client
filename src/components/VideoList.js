@@ -10,9 +10,12 @@ class VideoList extends Component{
         console.log(videos)
 
         return (
-            <Grid container spacing={0} className={classes.root}>
-                {videos.map(v => <Video video={v} key={v.Key}/>)}
-            </Grid>
+            <div>
+                <Grid container spacing={0} className={classes.root}>
+                    {videos.map(v => <Video video={v} key={v.Key}/>)}
+                </Grid>
+                <hr/>
+            </div>
         )
     }
 }

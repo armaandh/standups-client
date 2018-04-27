@@ -28,7 +28,7 @@ class MembersList extends Component{
         const { members, classes, fullScreen } = this.props
 
         return(
-            <Grid item xs={12} className={classes.membersList}>
+            <Grid container className={classes.membersList}>
                 <Grid item xs={12}>
                     <Button color="primary" className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
                         add member
