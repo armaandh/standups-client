@@ -87,25 +87,26 @@ class TeamList extends Component{
                     </DialogActions>
                 </Dialog>
 
+                <div><br/></div>
                  <MobileStepper
-          variant="text"
-          steps={6}
-          position="static"
-          activeStep={this.state.activeStep}
-          className={classes.mobileStepper}
-          nextButton={
-            <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === 5}>
-              Next
-              {/* {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />} */}
-            </Button>
-          }
-          backButton={
-            <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
-              {/* {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />} */}
-              Back
-            </Button>
-          }
-        />
+                    variant="text"
+                    steps={6}
+                    position="static"
+                    activeStep={this.state.activeStep}
+                    className={classes.mobileStepper}
+                    nextButton={
+                        <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === 5}>
+                        Next
+                        {/* {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />} */}
+                        </Button>
+                    }
+                    backButton={
+                        <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
+                        {/* {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />} */}
+                        Back
+                        </Button>
+                    }
+                    />
             </Grid>
         )
     }
@@ -117,6 +118,8 @@ const styles = theme => ({
         padding: '10px',
         flexDirection: 'column',
         alignSelf: 'flex-start',
+        // width: '40%',
+        margin: 'auto',
     },
     button: {
         margin: theme.spacing.unit,
@@ -134,6 +137,9 @@ const styles = theme => ({
     font:{
         color: '#1976D2',
         fontSize: '1.4rem'
+    },
+    mobileStepper:{
+        background: 'white'
     }
 });
   

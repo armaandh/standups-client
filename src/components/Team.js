@@ -22,6 +22,7 @@ const styles = theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '16px',
+       
     },
     font:{
         color: '#616161'
