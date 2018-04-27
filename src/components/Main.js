@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import Card, { CardContent } from 'material-ui/Card';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
 import Input from '@material-ui/icons/Input';
+import Grid from 'material-ui/Grid'
 
 class Main extends Component {
   render() {
@@ -13,37 +14,46 @@ class Main extends Component {
     
     return(
       <div>
+        <Grid container spacing={0} className={classes.root}>
         <Card className={classes.card}>
-                    <CardContent>
-                    <div><img src={require('../images/252px-Hootsuite_logo.svg.png')} /><br/><br/></div>
-                    <Button
-                        variant="raised"
-                        color="primary"
-                        disableRipple
-                        className={classNames(classes.margin, classes.bootstrapRoot2)}
-                    >
-                    <Input className={classes.leftIcon}/>
-                        Sign In
-                    </Button>
-                    <br/>
-                    <Button
-                        variant="raised"
-                        color="primary"
-                        disableRipple
-                        className={classNames(classes.margin, classes.bootstrapRoot)}
-                    >
-                    <AssignmentInd className={classes.leftIcon}/>
-                        Sign Up
-                    </Button>
-                    </CardContent>
-                </Card>
-
+          <CardContent>
+          <div><img src={require('../images/252px-Hootsuite_logo.svg.png')} /><br/><br/></div>
+          <Button
+              variant="raised"
+              color="primary"
+              disableRipple
+              className={classNames(classes.margin, classes.bootstrapRoot2)}
+          >
+          <Input className={classes.leftIcon}/>
+              Sign In
+          </Button>
+          <br/>
+          <Button
+              variant="raised"
+              color="primary"
+              disableRipple
+              className={classNames(classes.margin, classes.bootstrapRoot)}
+          >
+          <AssignmentInd className={classes.leftIcon}/>
+              Sign Up
+          </Button>
+          </CardContent>
+        </Card>
+        </Grid>
       </div>
     )
   }
 }
 
 const styles = theme => ({
+  root:{
+    display: 'flex',
+    height: '100%',
+    padding: '40px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexGrow: 1,
+  },
   bootstrapRoot: {
       boxShadow: 'none',
       textTransform: 'none',
@@ -92,7 +102,7 @@ const styles = theme => ({
       margin: theme.spacing.unit,
   },
   card: {
-      maxWidth: 650,
+      // maxWidth: 650,
       margin: 'auto'
   },
   leftIcon: {
