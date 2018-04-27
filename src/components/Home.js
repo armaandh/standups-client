@@ -52,7 +52,7 @@ class Home extends Component{
                 </Grid>
                 <Card className={classes.card}>
                     <CardContent>
-                    <div><img src={'../images/252px-Hootsuite_logo.svg.png'} /></div>
+                    <div><img src={require('../images/252px-Hootsuite_logo.svg.png')} /><br/><br/></div>
                     <Button
                         variant="raised"
                         color="primary"
