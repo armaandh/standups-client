@@ -18,7 +18,28 @@ import { createMuiTheme } from 'material-ui/styles';
 import HomeIcon from '@material-ui/icons/Home'
 import amber from 'material-ui/colors/amber';
 
+import { withAuthenticator } from 'aws-amplify-react';
+import { Auth } from 'aws-amplify';
+
+import Amplify, { Storage } from 'aws-amplify'
+import { configuration } from './utils/amazonConfig'
+Amplify.configure(configuration)
+
+
 class App extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  signOut = () => {
+    Auth.signOut()
+      .then(data => 
+        {
+          console.log(data)
+          window.location.reload()
+        })
+      .catch(err => console.log(err));
+  }
 
   render() {
 
@@ -36,11 +57,20 @@ class App extends Component {
                     <Button color="inherit"><HomeIcon style={{ fontSize: 36 }}/></Button>
                   </Link>
                 </div>
-                <Link to="/login">
-                  <Button color="inherit">Login</Button>
-                </Link>
-                <Link to="/registration">
-                  <Button color="inherit">Registration</Button>
+                {false && 
+                (
+                  <div>
+                    <Link to="/login">
+                      <Button color="inherit">Login</Button>
+                    </Link>
+                    <Link to="/registration">
+                      <Button color="inherit">Registration</Button>
+                    </Link>
+                  </div>
+                )
+                }
+                <Link to="#" onClick={this.signOut}>
+                  <Button color="inherit">Logout</Button>
                 </Link>
                 <img src={require('./images/Hootsuite_logo.svg.png')} />
               </Toolbar>
@@ -88,4 +118,4 @@ const theme1 = createMuiTheme({
   }
 });
 
-export default withStyles(styles)(App);
+export default withAuthenticator(withStyles(styles)(App), false);

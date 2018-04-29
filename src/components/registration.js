@@ -7,6 +7,8 @@ import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 
+import { Auth } from 'aws-amplify';
+
 class Registration extends Component{
     constructor(props){
         super(props)
@@ -27,7 +29,22 @@ class Registration extends Component{
     }
 
     submitRegistration() {
+        const { email, password, confirmPassword } = this.state
         console.log(`Email: ${this.state.email} P1: ${this.state.password} P2: ${this.state.confirmPassword}`)
+        /* Auth.signUp({
+            username: email,
+            password: password,
+            attributes: {
+            },
+            validationData: []  //optional
+        })
+        .then(data => console.log(data))
+        .catch(err => console.log(err)); */
+    
+        //console.log(code)
+        Auth.confirmSignUp('edgar.zapeka@gmail.com', '990722')
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
     }
 
     render() {

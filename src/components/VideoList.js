@@ -4,6 +4,7 @@ import Video from './Video'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 
+
 class VideoList extends Component{
     render(){
         const { videos, classes } = this.props
@@ -12,7 +13,7 @@ class VideoList extends Component{
         return (
             <div>
                 <Grid container spacing={0} className={classes.root}>
-                    {videos.map(v => <Video video={v} key={v.Key}/>)}
+                    {videos.map(v => <Video video={v.key} key={v.key}/>)}
                 </Grid>
                 <hr/>
             </div>

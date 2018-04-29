@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MembersList from './MembersList'
 import TeamList from './TeamList'
 import VideoList from './VideoList'
+import { Storage } from 'aws-amplify';
 
 import { 
     startRecording, 
@@ -32,7 +33,7 @@ import Toolbar from 'material-ui/Toolbar'
 import Stop from '@material-ui/icons/Stop'
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 
-import Divider from 'material-ui/Divider';
+import Divider from 'material-ui/Divider'
 
 class TeamView extends Component{
     state = {
@@ -56,17 +57,35 @@ class TeamView extends Component{
             })
         })
         if (!this.state.isVideosFetched){
-            getAllVideos('/')
-                .then((data) => this.setState({videos: data, isVideosFetched: true}))
-                .catch((error) => console.log('Fetch all videos ERROR: ', error))
+            Storage.list('')
+                .then((data) => 
+                {
+                    console.log('*********** ', data)
+                    this.setState({videos: data, isVideosFetched: true})
+                })
+                .catch((error) => console.log('Fetch all videos ERROR: ', error));   
+
+            //getAllVideos('/')
+                //.then((data) => this.setState({videos: data, isVideosFetched: true}))
+                //.catch((error) => console.log('Fetch all videos ERROR: ', error))
         }
     }
 
     componentDidUpdate() {
+        const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
+        myPromise(2000).then(() => { 
+            this.setState({
+                team: getTeam(this.props.match.params.id),
+                isTeamFetched: true
+            })
+        })
         if (!this.state.isVideosFetched){
-            getAllVideos('/')
-                .then((data) => this.setState({videos: data, isVideosFetched: true}))
-                .catch((error) => console.log('Fetch all videos ERROR: ', error))
+            Storage.list('')
+                .then((data) => 
+                { 
+                    this.setState({videos: data, isVideosFetched: true})
+                })
+                .catch((error) => console.log('Fetch all videos ERROR: ', error));   
         }
     }
 
@@ -79,13 +98,22 @@ class TeamView extends Component{
     submitVideo = () => {
         const { recorderedVideo } = this.state
         if (recorderedVideo !== null){
-            saveToAWS(getVideoBlob(), Date.now().toString())
+            console.log('***** ', getVideoBlob(), { contentType: "video/webm" })
+            Storage.put(Date.now().toString(), getVideoBlob())
+                .then (result => {
+                    this.setState({isVideosFetched: false})
+                    console.log(result)
+                })
+                .catch(err => console.log(err))
+                .then(() => this.handleAddVideoDialogClose());
+
+            /* saveToAWS(getVideoBlob(), Date.now().toString())
                 .then(() => 
                 {
                     this.setState({isVideosFetched: false})
                     this.handleAddVideoDialogClose()
                 })
-                .catch((erorr) => console.log(erorr))
+                .catch((erorr) => console.log(erorr)) */
         }else{
             this.handleAddVideoDialogClose()
         }

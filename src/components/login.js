@@ -10,6 +10,8 @@ import Button from 'material-ui/Button'
 import { InputAdornment } from 'material-ui/Input';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
+import { Auth } from 'aws-amplify'
+
 class Login extends Component{
     constructor(props){
         super(props)
@@ -29,7 +31,12 @@ class Login extends Component{
     }
 
     submitLogin(){
+        const { email, password } = this.state
         console.log(`Email: ${this.state.email} P: ${this.state.password} `)
+
+        Auth.signIn(email, password)
+            .then(user => console.log(user))
+            .catch(err => console.log(err));
     }
 
     render() {
