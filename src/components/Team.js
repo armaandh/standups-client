@@ -8,7 +8,7 @@ import Typography from 'material-ui/Typography';
 
 function Team(props){
     return (
-        <Link to={`/team/${props.team.id}`}>
+        <Link to={`/team/${props.team.id}`} onClick={props.refetchTeamData}>
             <Paper elevation={2} className={props.classes.teamCard}>
                 <Typography variant="display1" className={props.classes.font}>{props.team.name}</Typography>
             </Paper>

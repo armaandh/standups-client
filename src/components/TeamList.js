@@ -44,7 +44,7 @@ class TeamList extends Component{
     };
 
     render(){
-        const { classes, subTeams, team, fullScreen, theme } = this.props
+        const { classes, subTeams, team, fullScreen, theme, refetchTeamData } = this.props
 
         return (
             <Grid container spacing={0} className={classes.root}>
@@ -59,7 +59,7 @@ class TeamList extends Component{
                         No Teams
                     </Typography>
                 }
-                {subTeams.map(t => <Team team={t} key={t.id}/>)}
+                {subTeams.map(t => <Team team={t} key={t.id} refetchTeamData={refetchTeamData}/>)}
                 <Dialog
                     fullScreen={fullScreen}
                     open={this.state.addTeamDialogOpen}

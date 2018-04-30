@@ -50,12 +50,14 @@ class TeamView extends Component{
 
     componentDidMount(){
         const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
-        myPromise(2000).then(() => { 
-            this.setState({
-                team: getTeam(this.props.match.params.id),
-                isTeamFetched: true
+        if (!this.state.isTeamFetched){
+            myPromise(2000).then(() => { 
+                this.setState({
+                    team: getTeam(this.props.match.params.id),
+                    isTeamFetched: true
+                })
             })
-        })
+        }
         if (!this.state.isVideosFetched){
             Storage.list('')
                 .then((data) => 
@@ -64,21 +66,19 @@ class TeamView extends Component{
                     this.setState({videos: data, isVideosFetched: true})
                 })
                 .catch((error) => console.log('Fetch all videos ERROR: ', error));   
-
-            //getAllVideos('/')
-                //.then((data) => this.setState({videos: data, isVideosFetched: true}))
-                //.catch((error) => console.log('Fetch all videos ERROR: ', error))
         }
     }
 
     componentDidUpdate() {
         const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
-        myPromise(2000).then(() => { 
-            this.setState({
-                team: getTeam(this.props.match.params.id),
-                isTeamFetched: true
+        if (!this.state.isTeamFetched){
+            myPromise(2000).then(() => { 
+                this.setState({
+                    team: getTeam(this.props.match.params.id),
+                    isTeamFetched: true
+                })
             })
-        })
+        }
         if (!this.state.isVideosFetched){
             Storage.list('')
                 .then((data) => 
@@ -106,14 +106,6 @@ class TeamView extends Component{
                 })
                 .catch(err => console.log(err))
                 .then(() => this.handleAddVideoDialogClose());
-
-            /* saveToAWS(getVideoBlob(), Date.now().toString())
-                .then(() => 
-                {
-                    this.setState({isVideosFetched: false})
-                    this.handleAddVideoDialogClose()
-                })
-                .catch((erorr) => console.log(erorr)) */
         }else{
             this.handleAddVideoDialogClose()
         }
@@ -152,10 +144,12 @@ class TeamView extends Component{
             videoStream: null,
         })
     }
- 
-    playRecorderedVideo = () => {
 
+    refetchTeamData = () => {
+        this.setState({ isTeamFetched: false })
     }
+ 
+    playRecorderedVideo = () => {}
 
     render(){
         const { videos, team, isTeamFetched, isVideoRecoring, isVideoStreamEnabled, videoStream, recorderedVideo } = this.state 
@@ -165,14 +159,14 @@ class TeamView extends Component{
             return (
                 <Grid container spacing={0} className={classes.root}>
                     <Grid item xs={12} className={classes.teamHeader}>
-                        <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={() => this.props.history.goBack()}>
+                        <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
                             <ArrowBack />
                         </IconButton>
                         <Typography className={classes.teamTitle} variant="headline"> 
                             {team.name}
                         </Typography>
                     </Grid>
-                    <TeamList team={team} subTeams={team.subteams}/>
+                    <TeamList team={team} subTeams={team.subteams} refetchTeamData={this.refetchTeamData}/>
                     <VideoList videos={videos}/>
                     <MembersList members={team.members} />
                     <Button variant="fab" color="primary" className={classes.recordVideoButton} onClick={this.openVideoRecordingDialog}>
@@ -241,7 +235,6 @@ class TeamView extends Component{
         }
     }
 }
-
 
 const Transition = (props) => {
     return <Slide direction="up" {...props} />;
