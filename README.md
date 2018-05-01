@@ -12,4 +12,4 @@
 * ReactJS
 * Material-UI
 * WebRTC
-* AWS Apmplify
+* AWS Amplify
