@@ -10,9 +10,11 @@ class Video extends Component{
         super(props)
 
         Storage.get(props.video)
-            .then(result => this.setState({videoURL: result}))
+            .then(result => {
+                console.log(result)
+                this.setState({videoURL: result})
+            })
             .catch(err => console.log(err));
-
     }
 
     state = {

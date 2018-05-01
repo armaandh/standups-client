@@ -1,5 +1,4 @@
 import React from 'react'
-// import sprint_core from '../images/instagram_sprite_core_2x.png'
 import hootsuite from '../images/252px-Hootsuite_logo.svg.png'
 
 export const Container = {
