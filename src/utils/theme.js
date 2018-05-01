@@ -1,5 +1,5 @@
 import React from 'react'
-import sprint_core from '../images/instagram_sprite_core_2x.png'
+// import sprint_core from '../images/instagram_sprite_core_2x.png'
 import hootsuite from '../images/252px-Hootsuite_logo.svg.png'
 
 export const Container = {
@@ -144,7 +144,8 @@ export const Input = {
     borderRadius: '3px',
     fontSize: '14px',
     lineHeight: '18px',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    // marginTop: '18px'
 }
 
 export const Button = {
@@ -160,7 +161,7 @@ export const Button = {
     color: '#fff',
     backgroundColor: '#3897f0',
     borderColor: '#3897f0',
-    width: '100%'
+    width: '100%',  
 }
 
 export const SignInButton = {

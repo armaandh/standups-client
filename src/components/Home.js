@@ -7,12 +7,6 @@ import Grid from 'material-ui/Grid'
 import { CircularProgress } from 'material-ui/Progress'
 import Fade from 'material-ui/transitions/Fade'
 
-import Button from 'material-ui/Button';
-import classNames from 'classnames';
-import Card, { CardContent } from 'material-ui/Card';
-import AssignmentInd from '@material-ui/icons/AssignmentInd';
-import Input from '@material-ui/icons/Input';
-
 class Home extends Component{
     state = {
         isDataFetched: false,
@@ -47,8 +41,6 @@ class Home extends Component{
                     {/* <Grid item xs={6} sm={4} zeroMinWidth> */}
                     <TeamList team={null} subTeams={teams}/>
                     {/* </Grid> */}
-
-                    
                 </Grid>
                 </div> 
             )
