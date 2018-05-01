@@ -8,26 +8,21 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 
 import { InputAdornment } from 'material-ui/Input';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import Lock from '@material-ui/icons/Lock';
 
 import { Auth } from 'aws-amplify'
 
 import { Link } from 'react-router-dom'
 
-class Login extends Component{
+class ForgotPassword extends Component{
     constructor(props){
         super(props)
 
-        this.state = {
-            isLoggedIn: false,
-        }
-
-        this.submitLogin = this.submitLogin.bind(this)
+        this.submitForgotPassword = this.submitForgotPassword.bind(this)
     }
 
     state = {
         email: '',
-        password: ''
     }
 
     handleChange = name => event => {
@@ -36,18 +31,12 @@ class Login extends Component{
         });
     }
 
-    submitLogin(){
-        const { email, password } = this.state
-        console.log(`Email: ${this.state.email} P: ${this.state.password} `)
+    submitForgotPassword(){
+        const { email } = this.state
+        console.log(`Email: ${this.state.email}`)
 
-        Auth.signIn(email, password)
-            // .then(user => console.log(user))
-            .then(user => {
-                this.setState({
-                    isLoggedIn: true
-                });
-                this.props.history.push("/home");
-            })
+        Auth.forgotPassword(email)
+            .then(data => console.log(data))
             .catch(err => console.log(err));
     }
 
@@ -57,7 +46,7 @@ class Login extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.loginContainer}>
-                    <Typography variant='headline'>Sign In Account</Typography>
+                    <Typography variant='headline'>Forgot Password?</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             id="email"
@@ -69,40 +58,22 @@ class Login extends Component{
                             InputProps={{
                                 startAdornment: (
                                   <InputAdornment position="start">
-                                    <AccountCircle />
-                                  </InputAdornment>
-                                ),
-                              }}
-                        />
-                        <TextField
-                            id="password"
-                            label="Password"
-                            className={classes.textField}
-                            type="password"
-                            autoComplete="current-password"
-                            margin="normal"
-                            onChange={this.handleChange('password')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <AccountCircle />
+                                    <Lock />
                                   </InputAdornment>
                                 ),
                               }}
                         />
                         <Button color="primary" className={classes.button} onClick={this.submitLogin}>
-                            Sign in
+                            Send Code
                         </Button>
                     </form>
-
+                    
                     <div className={classes.link}>
-                        <Link to="/forgotpassword" className={classes.linkmargin}>
-                        Forgot Password?
-                        </Link>
-                        <Link to="/registration" >
-                        Sign up
-                        </Link>
+                    <Link to="/login" >
+                      Back to Sign in
+                    </Link>
                     </div>
+                    
                 </Paper>
             </Grid>
         )
@@ -132,12 +103,10 @@ const styles = theme => ({
         width: 240,
     },
     link: {
-        color: '#448AFF',
-    },
-    linkmargin: {
-        marginRight: '60px'
-    }
+      color: '#448AFF',
+      marginTop: '30px'  
+  },
 });
   
 
-export default withStyles(styles)(Login)
+export default withStyles(styles)(ForgotPassword)

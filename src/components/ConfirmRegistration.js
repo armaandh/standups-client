@@ -10,21 +10,17 @@ import Button from 'material-ui/Button'
 import { Auth } from 'aws-amplify';
 
 import { Link } from 'react-router-dom'
-import { InputAdornment } from 'material-ui/Input';
-import LockOutline from '@material-ui/icons/LockOutline';
-import AssignmentInd from '@material-ui/icons/AssignmentInd';
 
-class Registration extends Component{
+class ConfirmRegistration extends Component{
     constructor(props){
         super(props)
 
-        this.submitRegistration = this.submitRegistration.bind(this)
+        this.confirmRegistration = this.confirmRegistration.bind(this)
     }
 
     state = {
         email: '',
-        password: '',
-        confirmPassword: ''
+        code: ''
     }
 
     handleChange = name => event => {
@@ -33,9 +29,9 @@ class Registration extends Component{
         });
     }
 
-    submitRegistration() {
-        const { email, password, confirmPassword } = this.state
-        console.log(`Email: ${this.state.email} P1: ${this.state.password} P2: ${this.state.confirmPassword}`)
+    confirmRegistration() {
+        const { email, code } = this.state
+        console.log(`Email: ${this.state.email} Code: ${this.state.code}`)
         /* Auth.signUp({
             username: email,
             password: password,
@@ -47,7 +43,7 @@ class Registration extends Component{
         .catch(err => console.log(err)); */
     
         //console.log(code)
-        Auth.confirmSignUp('edgar.zapeka@gmail.com', '990722')
+        Auth.confirmSignUp(email, code)
             .then(data => console.log(data))
             .catch(err => console.log(err));
     }
@@ -67,60 +63,22 @@ class Registration extends Component{
                             className={classes.textField}
                             margin="normal"
                             onChange={this.handleChange('email')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <AssignmentInd />
-                                  </InputAdornment>
-                                ),
-                              }}
-                            
                         />
                         <TextField
                             id="password"
-                            label="Password"
+                            label="Code"
                             className={classes.textField}
-                            type="password"
                             autoComplete="current-password"
                             margin="normal"
                             onChange={this.handleChange('password')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <LockOutline />
-                                  </InputAdornment>
-                                ),
-                              }}
-                        />
-                        <TextField
-                            id="confirmPassword"
-                            label="Confirm Password"
-                            className={classes.textField}
-                            type="password"
-                            autoComplete="current-password"
-                            margin="normal"
-                            onChange={this.handleChange('confirmPassword')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <LockOutline />
-                                  </InputAdornment>
-                                ),
-                              }}
                         />
                         <Button color="primary" className={classes.button} onClick={this.submitRegistration}>
                             Sign up
                         </Button>
      
                     </form>
-                        <div className={classes.link}>
-                            <Link to="/forgotpassword" className={classes.linkmargin}>
-                                Forgot Password?
-                            </Link>
-                            <Link to="/login" >
-                                Sign in
-                            </Link>
-                        </div>      
+
+                        <Button>Confirm</Button>
                 </Paper>
             </Grid>
         )
@@ -148,14 +106,7 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 240,
     },
-    link: {
-      color: '#448AFF', 
-    },
-    linkmargin: {
-        marginRight: '60px'
-    }
-
 });
   
 
-export default withStyles(styles)(Registration)
+export default withStyles(styles)(ConfirmRegistration)

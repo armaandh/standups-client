@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper'
 
 import Typography from 'material-ui/Typography';
 
-function Team(props){
+const Team = (props) => {
     return (
         <Link to={`/team/${props.team.id}`} onClick={props.refetchTeamData}>
             <Paper elevation={2} className={props.classes.teamCard}>

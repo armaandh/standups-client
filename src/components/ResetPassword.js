@@ -14,13 +14,9 @@ import { Auth } from 'aws-amplify'
 
 import { Link } from 'react-router-dom'
 
-class Login extends Component{
+class ResetPassword extends Component{
     constructor(props){
         super(props)
-
-        this.state = {
-            isLoggedIn: false,
-        }
 
         this.submitLogin = this.submitLogin.bind(this)
     }
@@ -41,13 +37,7 @@ class Login extends Component{
         console.log(`Email: ${this.state.email} P: ${this.state.password} `)
 
         Auth.signIn(email, password)
-            // .then(user => console.log(user))
-            .then(user => {
-                this.setState({
-                    isLoggedIn: true
-                });
-                this.props.history.push("/home");
-            })
+            .then(user => console.log(user))
             .catch(err => console.log(err));
     }
 
@@ -57,11 +47,11 @@ class Login extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.loginContainer}>
-                    <Typography variant='headline'>Sign In Account</Typography>
+                    <Typography variant='headline'>Forgot Password?</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
-                            id="email"
-                            label="Email"
+                            id="email" // code
+                            label="Code"
                             defaultValue=""
                             className={classes.textField}
                             margin="normal"
@@ -76,7 +66,7 @@ class Login extends Component{
                         />
                         <TextField
                             id="password"
-                            label="Password"
+                            label="New Password"
                             className={classes.textField}
                             type="password"
                             autoComplete="current-password"
@@ -91,18 +81,14 @@ class Login extends Component{
                               }}
                         />
                         <Button color="primary" className={classes.button} onClick={this.submitLogin}>
-                            Sign in
+                            Submit
                         </Button>
                     </form>
 
-                    <div className={classes.link}>
-                        <Link to="/forgotpassword" className={classes.linkmargin}>
-                        Forgot Password?
-                        </Link>
-                        <Link to="/registration" >
-                        Sign up
-                        </Link>
-                    </div>
+                    <Button>Forgot Password?</Button>
+                    <Link to="/login" >
+                    <Button>Back to Sign in</Button>
+                    </Link>
                 </Paper>
             </Grid>
         )
@@ -131,13 +117,7 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 240,
     },
-    link: {
-        color: '#448AFF',
-    },
-    linkmargin: {
-        marginRight: '60px'
-    }
 });
   
 
-export default withStyles(styles)(Login)
+export default withStyles(styles)(ResetPassword)

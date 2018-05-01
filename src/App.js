@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
-import Login from './components/Login'
-import Registration from './components/Registration'
+// import Login from './components/Login'
+// import Registration from './components/Registration'
 import Home from './components/Home'
 import TeamView from './components/TeamView'
 import Main from './components/Main'
+// import AppWithAuth from './AppWithAuth'
+// import Welcome from './components/Welcome'
 
 import { Link, Route } from 'react-router-dom'
 
@@ -21,15 +23,15 @@ import amber from 'material-ui/colors/amber';
 import { withAuthenticator } from 'aws-amplify-react';
 import { Auth } from 'aws-amplify';
 
-import Amplify, { Storage } from 'aws-amplify'
+import Amplify from 'aws-amplify'
 import { configuration } from './utils/amazonConfig'
 Amplify.configure(configuration)
 
 
 class App extends Component {
-  constructor(props){
-    super(props)
-  }
+  // constructor(props){
+  //   super(props)
+  // }
 
   signOut = () => {
     Auth.signOut()
@@ -53,7 +55,7 @@ class App extends Component {
             <AppBar position="static">
               <Toolbar className={classes.font}>
                 <div className={classes.leftMenu}>
-                  <Link to="/">
+                  <Link to="/home">
                     <Button color="inherit"><HomeIcon style={{ fontSize: 36 }}/></Button>
                   </Link>
                 </div>
@@ -72,18 +74,21 @@ class App extends Component {
                 <Link to="#" onClick={this.signOut}>
                   <Button color="inherit">Logout</Button>
                 </Link>
-                <img src={require('./images/Hootsuite_logo.svg.png')} />
+                <img src={require('./images/Hootsuite_logo.svg.png')} alt="hootsuite_logo"/>
               </Toolbar>
             </AppBar>
           </MuiThemeProvider>
           </div>
         </header>
         <main>
-          <Route exact path="/" component={Home} />
-          <Route path="/main" component={Main} />
-          <Route path="/login" component={Login}/>
-          <Route path="/registration" component={Registration} />
-          <Route path="/team/:id" component={TeamView} />
+          <Fragment>
+        {/* <Authenticator theme={Instagram} hideDefault={true}> */}
+            <Route path="/home" component={Home} />
+            <Route exact path="/" component={Main} />
+            {/* <Route path="/welcome" component={Welcome} /> */}
+            <Route path="/team/:id" component={TeamView} />
+        {/* </Authenticator> */}
+        </Fragment>
         </main>
       </div>
     );
@@ -118,4 +123,4 @@ const theme1 = createMuiTheme({
   }
 });
 
-export default withAuthenticator(withStyles(styles)(App), false);
+export default withAuthenticator(withStyles(styles)(App), false, [<Main />]);
