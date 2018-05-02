@@ -76,65 +76,6 @@ const styles = theme => ({
     alignItems: 'center',
     flexGrow: 1,
   },
-  // btn:{
-  //   display: 'block',
-  //   textAlign: 'center',
-  // },
-  // bootstrapRoot: {
-  //     boxShadow: 'none',
-  //     textTransform: 'none',
-  //     borderRadius: 4,
-  //     fontSize: 16,
-  //     padding: '6px 12px',
-  //     border: '1px solid',
-  //     backgroundColor: '#007bff',
-  //     borderColor: '#007bff',
-  //     '&:hover': {
-  //       backgroundColor: '#0069d9',
-  //       borderColor: '#0062cc',
-  //     },
-  //     '&:active': {
-  //       boxShadow: 'none',
-  //       backgroundColor: '#0062cc',
-  //       borderColor: '#005cbf',
-  //     },
-  //     '&:focus': {
-  //       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-  //     },
-  //   },
-  // bootstrapRoot2: {
-  //   boxShadow: 'none',
-  //   textTransform: 'none',
-  //   borderRadius: 4,
-  //   fontSize: 16,
-  //   padding: '6px 12px',
-  //   border: '1px solid',
-  //   backgroundColor: '#43A047',
-  //   borderColor: '#43A047',
-  //   '&:hover': {
-  //     backgroundColor: '#388E3C',
-  //     borderColor: '#388E3C',
-  //   },
-  //   '&:active': {
-  //     boxShadow: 'none',
-  //     backgroundColor: '#388E3C',
-  //     borderColor: '#388E3C',
-  //   },
-  //   '&:focus': {
-  //     boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-  //   },
-  // },  
-  // margin: {
-  //     margin: theme.spacing.unit,
-  // },
-  // card: {
-  //     // maxWidth: 650,
-  //     margin: 'auto',  
-  // },
-  // leftIcon: {
-  //   marginRight: theme.spacing.unit,
-  // },
-  
 });
 
 export default withStyles(styles)(Main)
