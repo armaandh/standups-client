@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { getAllTeams } from './../utils/api'
-import TeamList from './TeamList'
+import TeamList from './../containers/TeamList'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'

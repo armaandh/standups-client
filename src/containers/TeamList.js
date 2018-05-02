@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Team from './Team'
+import Team from './../components/Team'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'

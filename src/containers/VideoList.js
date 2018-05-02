@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Video from './Video'
+import Video from './../components/Video'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'

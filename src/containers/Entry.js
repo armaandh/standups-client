@@ -3,13 +3,13 @@ import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import { Route, Switch } from 'react-router-dom'
 
-import Login from './Login'
-import Registration from './Registration'
-import Welcome from './Welcome'
-import ForgotPassword from './ForgotPassword'
-import ResetPassword from './ResetPassword';
+import Login from './../components/Login'
+import Registration from './../components/Registration'
+import Welcome from './../components/Welcome'
+import ForgotPassword from './../components/ForgotPassword'
+import ResetPassword from './../components/ResetPassword';
 
-class Main extends Component {
+class Entry extends Component {
   render() {
     const { classes } = this.props
     
@@ -40,4 +40,4 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(Main)
+export default withStyles(styles)(Entry)

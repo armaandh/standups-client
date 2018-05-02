@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Member from './Member'
+import Member from './../components/Member'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
