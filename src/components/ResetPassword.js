@@ -53,6 +53,21 @@ class ResetPassword extends Component{
                     <Typography variant='headline'>Reset Your Password</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
+                            id="email" // code
+                            label="Email"
+                            defaultValue=""
+                            className={classes.textField}
+                            margin="normal"
+                            onChange={this.handleChange('email')}
+                            InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <AccountCircle />
+                                  </InputAdornment>
+                                ),
+                              }}
+                        />
+                        <TextField
                             id="code" // code
                             label="Code"
                             defaultValue=""
