@@ -23,6 +23,7 @@ class ResetPassword extends Component{
 
     state = {
         code: '',
+        email: '',
         new_password: ''
     }
 
@@ -33,11 +34,11 @@ class ResetPassword extends Component{
     }
 
     submitResetPassword(){
-        const { code, new_password } = this.state
-        console.log(`Code: ${this.state.code} P: ${this.state.new_password} `)
+        const { email, code, new_password } = this.state
+        console.log(`Code: ${this.state.code} P: ${this.state.new_password}`)
 
         // Collect confirmation code and new password, then
-        Auth.forgotPasswordSubmit(code, new_password)
+        Auth.forgotPasswordSubmit(email, code, new_password)
             .then(data => 
               this.props.history.push('/login'))
             .catch(err => console.log(err));
