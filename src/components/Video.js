@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import { withStyles } from 'material-ui/styles'
 import Paper from 'material-ui/Paper'
 // import { endpointUrl } from '../utils/api'
@@ -38,6 +37,5 @@ const styles = theme => ({
         padding: '16px',
     },
 });
-  
 
 export default withStyles(styles)(Video)

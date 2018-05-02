@@ -27,7 +27,6 @@ import Amplify from 'aws-amplify'
 import { configuration } from './utils/amazonConfig'
 Amplify.configure(configuration)
 
-
 class App extends Component {
   // constructor(props){
   //   super(props)
@@ -82,12 +81,9 @@ class App extends Component {
         </header>
         <main>
           <Fragment>
-        {/* <Authenticator theme={Instagram} hideDefault={true}> */}
             <Route path="/home" component={Home} />
             <Route exact path="/" component={Main} />
-            {/* <Route path="/welcome" component={Welcome} /> */}
             <Route path="/team/:id" component={TeamView} />
-        {/* </Authenticator> */}
         </Fragment>
         </main>
       </div>

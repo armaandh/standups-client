@@ -4,7 +4,6 @@ import Video from './Video'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 
-
 class VideoList extends Component{
     render(){
         const { videos, classes } = this.props
@@ -20,7 +19,6 @@ class VideoList extends Component{
         )
     }
 }
-
 
 const styles = theme => ({
     root:{

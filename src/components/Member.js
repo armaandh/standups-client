@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { withStyles } from 'material-ui'
 import Avatar from 'material-ui/Avatar'
 import Chip from 'material-ui/Chip'

@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
-
 import { withStyles } from 'material-ui/styles';
+import { Link } from 'react-router-dom'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-
 import { InputAdornment } from 'material-ui/Input';
 import Lock from '@material-ui/icons/Lock';
 
 import { Auth } from 'aws-amplify'
-
-import { Link } from 'react-router-dom'
 
 class ForgotPassword extends Component{
     constructor(props){
@@ -39,7 +36,6 @@ class ForgotPassword extends Component{
             .then(data => 
               this.props.history.push('/resetpassword'))
             .catch(err => console.log(err));
-        
     }
 
     render() {
@@ -71,9 +67,9 @@ class ForgotPassword extends Component{
                     </form>
                     
                     <div className={classes.link}>
-                    <Link to="/login" >
-                      Back to Sign in
-                    </Link>
+                        <Link to="/login" >
+                        Back to Sign in
+                        </Link>
                     </div>
                     
                 </Paper>
@@ -110,5 +106,4 @@ const styles = theme => ({
   },
 });
   
-
 export default withStyles(styles)(ForgotPassword)

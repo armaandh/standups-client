@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
-
 import { withStyles } from 'material-ui/styles';
+import { Link } from 'react-router-dom'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-
 import { InputAdornment } from 'material-ui/Input';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import { Auth } from 'aws-amplify'
-
-import { Link } from 'react-router-dom'
 
 class ResetPassword extends Component{
     constructor(props){
@@ -102,14 +99,14 @@ class ResetPassword extends Component{
                             Submit
                         </Button>
                     </form>
-                      <div className={classes.link}>
+                    <div className={classes.link}>
                         <Link to="/login" className={classes.linkmargin}>
                             Back to Sign in
                         </Link>
                         <Link to="/forgotpassword">
                             Resend Code
                         </Link>
-                      </div> 
+                    </div> 
                 </Paper>
             </Grid>
         )
@@ -145,6 +142,5 @@ const styles = theme => ({
         marginRight: '60px'
     }
 });
-  
 
 export default withStyles(styles)(ResetPassword)

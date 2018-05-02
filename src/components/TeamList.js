@@ -141,7 +141,6 @@ const styles = theme => ({
     mobileStepper:{
         background: 'white'
     }
-});
-  
+}); 
 
 export default withMobileDialog()(withStyles(styles)(TeamList))

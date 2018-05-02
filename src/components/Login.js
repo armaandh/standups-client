@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
-
 import { withStyles } from 'material-ui/styles';
+import { Link } from 'react-router-dom'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-
 import { InputAdornment } from 'material-ui/Input';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import { Auth } from 'aws-amplify'
-
-import { Link } from 'react-router-dom'
 
 class Login extends Component{
     constructor(props){
@@ -41,7 +38,6 @@ class Login extends Component{
         console.log(`Email: ${this.state.email} P: ${this.state.password} `)
 
         Auth.signIn(email, password)
-            // .then(user => console.log(user))
             .then(user => {
                 this.setState({
                     isLoggedIn: true
@@ -139,5 +135,4 @@ const styles = theme => ({
     }
 });
   
-
 export default withStyles(styles)(Login)

@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
 import { withStyles } from 'material-ui/styles'
 import Paper from 'material-ui/Paper'
-
 import Typography from 'material-ui/Typography';
 
 const Team = (props) => {
@@ -28,6 +26,5 @@ const styles = theme => ({
         color: '#616161'
     }
 });
-  
 
 export default withStyles(styles)(Team)

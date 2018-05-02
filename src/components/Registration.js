@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-
 import { withStyles } from 'material-ui/styles'
+import { Link } from 'react-router-dom'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-
-import { Auth } from 'aws-amplify';
-
-import { Link } from 'react-router-dom'
 import { InputAdornment } from 'material-ui/Input';
 import LockOutline from '@material-ui/icons/LockOutline';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
+
+import { Auth } from 'aws-amplify';
 
 class Registration extends Component{
     constructor(props){
@@ -113,21 +111,21 @@ class Registration extends Component{
                         <Button color="primary" className={classes.button} onClick={this.submitRegistration}>
                             Sign up
                         </Button>
-     
                     </form>
-                        <div className={classes.link}>
-                            <Link to="/forgotpassword" className={classes.linkmargin}>
-                                Forgot Password?
-                            </Link>
-                            <Link to="/login" >
-                                Sign in
-                            </Link>
-                        </div>      
+                    <div className={classes.link}>
+                        <Link to="/forgotpassword" className={classes.linkmargin}>
+                            Forgot Password?
+                        </Link>
+                        <Link to="/login" >
+                            Sign in
+                        </Link>
+                    </div>      
                 </Paper>
             </Grid>
         )
     }
 }
+
 const styles = theme => ({
     root:{
         display: 'flex',
@@ -156,8 +154,6 @@ const styles = theme => ({
     linkmargin: {
         marginRight: '60px'
     }
-
 });
   
-
 export default withStyles(styles)(Registration)

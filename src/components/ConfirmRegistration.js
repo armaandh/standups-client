@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-
 import { withStyles } from 'material-ui/styles'
+import { Link } from 'react-router-dom'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
@@ -8,8 +8,6 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 
 import { Auth } from 'aws-amplify';
-
-import { Link } from 'react-router-dom'
 
 class ConfirmRegistration extends Component{
     constructor(props){
@@ -84,6 +82,7 @@ class ConfirmRegistration extends Component{
         )
     }
 }
+
 const styles = theme => ({
     root:{
         display: 'flex',
@@ -107,6 +106,5 @@ const styles = theme => ({
         width: 240,
     },
 });
-  
 
 export default withStyles(styles)(ConfirmRegistration)

@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
-
+import { Link } from 'react-router-dom'
 import Button from 'material-ui/Button';
 import classNames from 'classnames';
 import Card, { CardContent } from 'material-ui/Card';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
 import Input from '@material-ui/icons/Input';
 import Grid from 'material-ui/Grid'
-
-import { Link } from 'react-router-dom'
 
 class Welcome extends Component {
   render() {
@@ -19,42 +17,40 @@ class Welcome extends Component {
         <Grid container spacing={0} className={classes.root}>
           <Card>
             <CardContent>
-            <div><img src={require('../images/252px-Hootsuite_logo.svg.png')} alt="hootsuite_logo"/><br/><br/></div>
+            <div>
+              <img src={require('../images/252px-Hootsuite_logo.svg.png')} alt="hootsuite_logo"/><br/><br/>
+            </div>
             <Link to="/login" className={classes.btn}>
-            <Button
-                variant="raised"
-                color="primary"
-                disableRipple
-                className={classNames(classes.margin, classes.bootstrapRoot2)}
-            >
-            <Input className={classes.leftIcon}/>
-                Sign In
-            </Button>
+              <Button
+                  variant="raised"
+                  color="primary"
+                  disableRipple
+                  className={classNames(classes.margin, classes.bootstrapRoot2)}
+              >
+              <Input className={classes.leftIcon}/>
+                  Sign In
+              </Button>
             </Link>
             <br/>
             <Link to="/registration" className={classes.btn}>
-            <Button
-                variant="raised"
-                color="primary"
-                disableRipple
-                className={classNames(classes.margin, classes.bootstrapRoot)}
-            >
-            <AssignmentInd className={classes.leftIcon}/>
-                Sign Up
-            </Button>
+              <Button
+                  variant="raised"
+                  color="primary"
+                  disableRipple
+                  className={classNames(classes.margin, classes.bootstrapRoot)}
+              >
+              <AssignmentInd className={classes.leftIcon}/>
+                  Sign Up
+              </Button>
             </Link>
-
             <div className={classes.link}>
-            <Link to="/forgotpassword">
-            Forgot Password?
-            </Link>
+              <Link to="/forgotpassword">
+              Forgot Password?
+              </Link>
             </div>
-            
-
             </CardContent>
           </Card>   
         </Grid>
-  
       </div>
     )
   }

@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
-
-// import Button from 'material-ui/Button';
-// import classNames from 'classnames';
-// import Card, { CardContent } from 'material-ui/Card';
-// import AssignmentInd from '@material-ui/icons/AssignmentInd';
-// import Input from '@material-ui/icons/Input';
 import Grid from 'material-ui/Grid'
-
 import { Route, Switch } from 'react-router-dom'
+
 import Login from './Login'
 import Registration from './Registration'
 import Welcome from './Welcome'
