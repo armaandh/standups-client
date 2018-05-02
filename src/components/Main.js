@@ -28,38 +28,6 @@ class Main extends Component {
           <Route path="/forgotpassword" component={ForgotPassword} />
           <Route path="/resetpassword" component={ResetPassword} />
           <Route path="/" component={Welcome} />
-        {/* <Route path="/" component={(props) => {
-          return (
-            <Card className={classes.card}>
-          <CardContent>
-          <div><img src={require('../images/252px-Hootsuite_logo.svg.png')} /><br/><br/></div>
-          <Link to="/login" className={classes.btn}>
-          <Button
-              variant="raised"
-              color="primary"
-              disableRipple
-              className={classNames(classes.margin, classes.bootstrapRoot2)}
-          >
-          <Input className={classes.leftIcon}/>
-              Sign In
-          </Button>
-          </Link>
-          <br/>
-          <Link to="/registration" className={classes.btn}>
-          <Button
-              variant="raised"
-              color="primary"
-              disableRipple
-              className={classNames(classes.margin, classes.bootstrapRoot)}
-          >
-          <AssignmentInd className={classes.leftIcon}/>
-              Sign Up
-          </Button>
-          </Link>
-          </CardContent>
-        </Card>
-          )
-        }}/> */}
         </Switch>
         </Grid>
       </div>
