@@ -138,7 +138,7 @@ const styles = theme => ({
         flexDirection: 'column'
     },
     registrationContainer:{
-        padding: '16px',
+        padding: '36px',
     },
     button: {
         margin: theme.spacing.unit,
@@ -146,13 +146,15 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 240,
+        width: 260,
     },
     link: {
-      color: '#448AFF', 
+      color: '#448AFF',
+      marginTop: '10px', 
     },
     linkmargin: {
-        marginRight: '60px'
+        marginLeft: '10px',
+        marginRight: '70px'
     }
 });
   

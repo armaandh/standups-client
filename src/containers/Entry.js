@@ -1,28 +1,32 @@
 import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
-import { Route, Switch } from 'react-router-dom'
 
 import Login from './../components/Login'
 import Registration from './../components/Registration'
-import Welcome from './../components/Welcome'
 import ForgotPassword from './../components/ForgotPassword'
 import ResetPassword from './../components/ResetPassword';
+
+import Hootsuite_logo from './../images/252px-Hootsuite_logo.svg.png'
 
 class Entry extends Component {
   render() {
     const { classes } = this.props
     
     return(
-      <div>
+      <div className={classes.bgc}>
         <Grid container spacing={0} className={classes.root}>
-        <Switch>
-          <Route path="/login" component={Login}/>
-          <Route path="/registration" component={Registration} />
-          <Route path="/forgotpassword" component={ForgotPassword} />
-          <Route path="/resetpassword" component={ResetPassword} />
-          <Route path="/" component={Welcome} />
-        </Switch>
+          <div>
+            <img src={Hootsuite_logo} alt="hootsuite_logo"/><br/><br/>
+          </div>
+          <Switch>
+            <Route path="/login" component={Login}/>
+            <Route path="/registration" component={Registration} />
+            <Route path="/forgotpassword" component={ForgotPassword} />
+            <Route path="/resetpassword" component={ResetPassword} />
+            <Route path="/" component={Login} />
+          </Switch>
         </Grid>
       </div>
     )
@@ -38,6 +42,9 @@ const styles = theme => ({
     alignItems: 'center',
     flexGrow: 1,
   },
+  bgc: {
+    backgroundColor: '#FFD54F'
+  }
 });
 
 export default withStyles(styles)(Entry)

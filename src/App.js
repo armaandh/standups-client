@@ -1,16 +1,15 @@
 import React, { Component, Fragment } from 'react';
+import { Link, Route } from 'react-router-dom'
 import './App.css';
 import Home from './components/Home'
 import TeamView from './containers/TeamView'
 import Entry from './containers/Entry'
 import Hootsuite_logo from './images/Hootsuite_logo.svg.png'
-import { Link, Route } from 'react-router-dom'
 
 import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Button from 'material-ui/Button'
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { createMuiTheme } from 'material-ui/styles';
 import HomeIcon from '@material-ui/icons/Home'
@@ -18,7 +17,6 @@ import amber from 'material-ui/colors/amber';
 
 import { withAuthenticator } from 'aws-amplify-react';
 import { Auth } from 'aws-amplify';
-
 import Amplify from 'aws-amplify'
 import { configuration } from './utils/amazonConfig'
 Amplify.configure(configuration)
@@ -39,7 +37,6 @@ class App extends Component {
   }
 
   render() {
-
     const { classes } = this.props
 
     return (
@@ -90,7 +87,7 @@ const styles = {
   },
   font:{
       color: '#795548'
-  }
+  },
 };
 
 const theme1 = createMuiTheme({
