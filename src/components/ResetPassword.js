@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom'
+import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
@@ -8,6 +8,8 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { InputAdornment } from 'material-ui/Input';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import LockOutline from '@material-ui/icons/LockOutline';
+import Lock from '@material-ui/icons/Lock';
 
 import { Auth } from 'aws-amplify'
 
@@ -46,7 +48,7 @@ class ResetPassword extends Component{
 
         return (
             <Grid container spacing={0} className={classes.root}>
-                <Paper elevation={2} className={classes.loginContainer}>
+                <Paper elevation={2} className={classes.resetpasswordContainer}>
                     <Typography variant='headline'>Reset Your Password</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
@@ -74,7 +76,7 @@ class ResetPassword extends Component{
                             InputProps={{
                                 startAdornment: (
                                   <InputAdornment position="start">
-                                    <AccountCircle />
+                                    <Lock />
                                   </InputAdornment>
                                 ),
                               }}
@@ -90,7 +92,7 @@ class ResetPassword extends Component{
                             InputProps={{
                                 startAdornment: (
                                   <InputAdornment position="start">
-                                    <AccountCircle />
+                                    <LockOutline />
                                   </InputAdornment>
                                 ),
                               }}
@@ -124,8 +126,8 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column'
     },
-    loginContainer:{
-        padding: '16px',
+    resetpasswordContainer:{
+        padding: '36px',
     },
     button: {
         margin: theme.spacing.unit,
@@ -139,6 +141,7 @@ const styles = theme => ({
       color: '#448AFF', 
     },
     linkmargin: {
+        marginLeft: '10px',
         marginRight: '60px'
     }
 });

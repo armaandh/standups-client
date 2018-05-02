@@ -9,6 +9,7 @@ import ForgotPassword from './../components/ForgotPassword'
 import ResetPassword from './../components/ResetPassword';
 
 import Hootsuite_logo from './../images/252px-Hootsuite_logo.svg.png'
+import ConfirmRegistration from '../components/ConfirmRegistration';
 
 class Entry extends Component {
   render() {
@@ -25,6 +26,7 @@ class Entry extends Component {
             <Route path="/registration" component={Registration} />
             <Route path="/forgotpassword" component={ForgotPassword} />
             <Route path="/resetpassword" component={ResetPassword} />
+            <Route path="/confirmregistration" component={ConfirmRegistration} />
             <Route path="/" component={Login} />
           </Switch>
         </Grid>

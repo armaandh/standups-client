@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles'
 import { Link } from 'react-router-dom'
+import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
+import { InputAdornment } from 'material-ui/Input';
+import AssignmentInd from '@material-ui/icons/AssignmentInd';
+import Lock from '@material-ui/icons/Lock';
 
 import { Auth } from 'aws-amplify';
 
@@ -30,19 +33,12 @@ class ConfirmRegistration extends Component{
     confirmRegistration() {
         const { email, code } = this.state
         console.log(`Email: ${this.state.email} Code: ${this.state.code}`)
-        /* Auth.signUp({
-            username: email,
-            password: password,
-            attributes: {
-            },
-            validationData: []  //optional
-        })
-        .then(data => console.log(data))
-        .catch(err => console.log(err)); */
     
         //console.log(code)
         Auth.confirmSignUp(email, code)
-            .then(data => console.log(data))
+            .then(data => {
+                this.props.history.push("/login");
+            })
             .catch(err => console.log(err));
     }
 
@@ -52,7 +48,7 @@ class ConfirmRegistration extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.registrationContainer}>
-                    <Typography variant='headline'>Sign Up Account</Typography>
+                    <Typography variant='headline'>Confirm Sign Up</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             id="email"
@@ -61,22 +57,34 @@ class ConfirmRegistration extends Component{
                             className={classes.textField}
                             margin="normal"
                             onChange={this.handleChange('email')}
+                            InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <AssignmentInd />
+                                  </InputAdornment>
+                                ),
+                              }}
                         />
                         <TextField
-                            id="password"
+                            id="code"
                             label="Code"
                             className={classes.textField}
-                            autoComplete="current-password"
                             margin="normal"
-                            onChange={this.handleChange('password')}
+                            onChange={this.handleChange('code')}
+                            InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <Lock />
+                                  </InputAdornment>
+                                ),
+                              }}
                         />
-                        <Button color="primary" className={classes.button} onClick={this.submitRegistration}>
-                            Sign up
+                        <Button color="primary" className={classes.button} onClick={this.confirmRegistration}>
+                            Confirm
                         </Button>
      
                     </form>
-
-                        <Button>Confirm</Button>
+                        <Link to="#" className={classes.linkmargin}>Resend Code</Link>
                 </Paper>
             </Grid>
         )
@@ -105,6 +113,10 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 240,
     },
+    linkmargin: {
+        marginLeft: '10px',
+        color: '#448AFF',
+    }
 });
 
 export default withStyles(styles)(ConfirmRegistration)

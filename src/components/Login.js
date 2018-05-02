@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom'
+
+import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
@@ -120,7 +121,24 @@ const styles = theme => ({
         padding: '36px',
     },
     button: {
-        margin: theme.spacing.unit,
+        // margin: theme.spacing.unit,
+        color: 'white',
+        margin: '20px auto',
+        width: '40%',
+        backgroundColor: '#43A047',
+        borderColor: '#43A047',
+        '&:hover': {
+        backgroundColor: '#388E3C',
+        borderColor: '#388E3C',
+        },
+        '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#388E3C',
+        borderColor: '#388E3C',
+        },
+        '&:focus': {
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+        },
     },
     textField: {
         marginLeft: theme.spacing.unit,

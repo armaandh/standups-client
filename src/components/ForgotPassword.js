@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom'
+import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
@@ -43,7 +43,7 @@ class ForgotPassword extends Component{
 
         return (
             <Grid container spacing={0} className={classes.root}>
-                <Paper elevation={2} className={classes.loginContainer}>
+                <Paper elevation={2} className={classes.forgotpasswordContainer}>
                     <Typography variant='headline'>Forgot Password?</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
@@ -67,7 +67,7 @@ class ForgotPassword extends Component{
                     </form>
                     
                     <div className={classes.link}>
-                        <Link to="/login" >
+                        <Link to="/login" className={classes.linkmargin}>
                         Back to Sign in
                         </Link>
                     </div>
@@ -89,8 +89,8 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column'
     },
-    loginContainer:{
-        padding: '16px',
+    forgotpasswordContainer:{
+        padding: '36px',
     },
     button: {
         margin: theme.spacing.unit,
@@ -102,8 +102,11 @@ const styles = theme => ({
     },
     link: {
       color: '#448AFF',
-      marginTop: '30px'  
-  },
+      marginTop: '10px'  
+    },
+    linkmargin: {
+        marginLeft: '10px',
+    }
 });
   
 export default withStyles(styles)(ForgotPassword)
