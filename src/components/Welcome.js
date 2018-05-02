@@ -7,6 +7,7 @@ import Card, { CardContent } from 'material-ui/Card';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
 import Input from '@material-ui/icons/Input';
 import Grid from 'material-ui/Grid'
+import Hootsuite_logo from './../images/252px-Hootsuite_logo.svg.png'
 
 class Welcome extends Component {
   render() {
@@ -18,7 +19,7 @@ class Welcome extends Component {
           <Card>
             <CardContent>
             <div>
-              <img src={require('../images/252px-Hootsuite_logo.svg.png')} alt="hootsuite_logo"/><br/><br/>
+              <img src={Hootsuite_logo} alt="hootsuite_logo"/><br/><br/>
             </div>
             <Link to="/login" className={classes.btn}>
               <Button
