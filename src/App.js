@@ -1,13 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
-// import Login from './components/Login'
-// import Registration from './components/Registration'
 import Home from './components/Home'
 import TeamView from './components/TeamView'
 import Main from './components/Main'
-// import AppWithAuth from './AppWithAuth'
-// import Welcome from './components/Welcome'
-
+import Hootsuite_logo from './images/Hootsuite_logo.svg.png'
 import { Link, Route } from 'react-router-dom'
 
 import { withStyles } from 'material-ui/styles'
@@ -73,7 +69,7 @@ class App extends Component {
                 <Link to="#" onClick={this.signOut}>
                   <Button color="inherit">Logout</Button>
                 </Link>
-                <img src={require('./images/Hootsuite_logo.svg.png')} alt="hootsuite_logo"/>
+                <img src={Hootsuite_logo} alt="hootsuite_logo"/>
               </Toolbar>
             </AppBar>
           </MuiThemeProvider>
@@ -84,7 +80,7 @@ class App extends Component {
             <Route path="/home" component={Home} />
             <Route exact path="/" component={Main} />
             <Route path="/team/:id" component={TeamView} />
-        </Fragment>
+          </Fragment>
         </main>
       </div>
     );
@@ -114,7 +110,6 @@ const theme1 = createMuiTheme({
     primary: {
       light: amber[300],
       main: '#FFD54F',
-      
     },
   }
 });
