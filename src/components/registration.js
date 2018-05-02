@@ -36,20 +36,22 @@ class Registration extends Component{
     submitRegistration() {
         const { email, password, confirmPassword } = this.state
         console.log(`Email: ${this.state.email} P1: ${this.state.password} P2: ${this.state.confirmPassword}`)
-        /* Auth.signUp({
+        
+        Auth.signUp({
             username: email,
             password: password,
+            confirmPassword: confirmPassword,
             attributes: {
             },
             validationData: []  //optional
         })
         .then(data => console.log(data))
-        .catch(err => console.log(err)); */
+        .catch(err => console.log(err));
     
         //console.log(code)
-        Auth.confirmSignUp('edgar.zapeka@gmail.com', '990722')
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
+        // Auth.confirmSignUp('edgar.zapeka@gmail.com', '990722')
+        //     .then(data => console.log(data))
+        //     .catch(err => console.log(err));
     }
 
     render() {

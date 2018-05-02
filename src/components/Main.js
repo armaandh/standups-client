@@ -13,6 +13,7 @@ import Login from './Login'
 import Registration from './Registration'
 import Welcome from './Welcome'
 import ForgotPassword from './ForgotPassword'
+import ResetPassword from './ResetPassword';
 
 class Main extends Component {
   render() {
@@ -25,6 +26,7 @@ class Main extends Component {
           <Route path="/login" component={Login}/>
           <Route path="/registration" component={Registration} />
           <Route path="/forgotpassword" component={ForgotPassword} />
+          <Route path="/resetpassword" component={ResetPassword} />
           <Route path="/" component={Welcome} />
         {/* <Route path="/" component={(props) => {
           return (

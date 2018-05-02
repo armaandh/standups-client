@@ -36,8 +36,10 @@ class ForgotPassword extends Component{
         console.log(`Email: ${this.state.email}`)
 
         Auth.forgotPassword(email)
-            .then(data => console.log(data))
+            .then(data => 
+              this.props.history.push('/resetpassword'))
             .catch(err => console.log(err));
+        
     }
 
     render() {
@@ -63,7 +65,7 @@ class ForgotPassword extends Component{
                                 ),
                               }}
                         />
-                        <Button color="primary" className={classes.button} onClick={this.submitLogin}>
+                        <Button color="primary" className={classes.button} onClick={this.submitForgotPassword}>
                             Send Code
                         </Button>
                     </form>

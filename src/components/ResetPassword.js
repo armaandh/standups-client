@@ -18,12 +18,12 @@ class ResetPassword extends Component{
     constructor(props){
         super(props)
 
-        this.submitLogin = this.submitLogin.bind(this)
+        this.submitResetPassword = this.submitResetPassword.bind(this)
     }
 
     state = {
-        email: '',
-        password: ''
+        code: '',
+        new_password: ''
     }
 
     handleChange = name => event => {
@@ -32,12 +32,14 @@ class ResetPassword extends Component{
         });
     }
 
-    submitLogin(){
-        const { email, password } = this.state
-        console.log(`Email: ${this.state.email} P: ${this.state.password} `)
+    submitResetPassword(){
+        const { code, new_password } = this.state
+        console.log(`Code: ${this.state.code} P: ${this.state.new_password} `)
 
-        Auth.signIn(email, password)
-            .then(user => console.log(user))
+        // Collect confirmation code and new password, then
+        Auth.forgotPasswordSubmit(code, new_password)
+            .then(data => 
+              this.props.history.push('/login'))
             .catch(err => console.log(err));
     }
 
@@ -47,15 +49,15 @@ class ResetPassword extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.loginContainer}>
-                    <Typography variant='headline'>Forgot Password?</Typography>
+                    <Typography variant='headline'>Reset Your Password</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
-                            id="email" // code
+                            id="code" // code
                             label="Code"
                             defaultValue=""
                             className={classes.textField}
                             margin="normal"
-                            onChange={this.handleChange('email')}
+                            onChange={this.handleChange('code')}
                             InputProps={{
                                 startAdornment: (
                                   <InputAdornment position="start">
@@ -65,13 +67,13 @@ class ResetPassword extends Component{
                               }}
                         />
                         <TextField
-                            id="password"
+                            id="new_password"
                             label="New Password"
                             className={classes.textField}
                             type="password"
                             autoComplete="current-password"
                             margin="normal"
-                            onChange={this.handleChange('password')}
+                            onChange={this.handleChange('new_password')}
                             InputProps={{
                                 startAdornment: (
                                   <InputAdornment position="start">
@@ -80,15 +82,18 @@ class ResetPassword extends Component{
                                 ),
                               }}
                         />
-                        <Button color="primary" className={classes.button} onClick={this.submitLogin}>
+                        <Button color="primary" className={classes.button} onClick={this.submitResetPassword}>
                             Submit
                         </Button>
                     </form>
-
-                    <Button>Forgot Password?</Button>
-                    <Link to="/login" >
-                    <Button>Back to Sign in</Button>
-                    </Link>
+                      <div className={classes.link}>
+                        <Link to="/login" className={classes.linkmargin}>
+                            Back to Sign in
+                        </Link>
+                        <Link to="/forgotpassword">
+                            Resend Code
+                        </Link>
+                      </div> 
                 </Paper>
             </Grid>
         )
@@ -115,8 +120,14 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 240,
+        width: 260,
     },
+    link: {
+      color: '#448AFF', 
+    },
+    linkmargin: {
+        marginRight: '60px'
+    }
 });
   
 
