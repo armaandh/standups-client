@@ -9,6 +9,11 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { InputAdornment } from 'material-ui/Input';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+  } from 'material-ui/Dialog';
 
 import { validateEmail, validatePassword } from './../utils/functions';
 
@@ -19,15 +24,12 @@ class Login extends Component{
         super(props)
 
         this.state = {
-            isLoggedIn: false,
+            email: '',
+            password: '',
+            invalidUser: false,
         }
 
         this.submitLogin = this.submitLogin.bind(this)
-    }
-
-    state = {
-        email: '',
-        password: ''
     }
 
     handleChange = name => event => {
@@ -36,78 +38,161 @@ class Login extends Component{
         });
     }
 
+    handleClose = () => {
+        this.setState({ 
+            invalidUser: false,
+         });
+    };
+
     submitLogin(){
         const { email, password } = this.state
         console.log(`Email: ${this.state.email} P: ${this.state.password} `)
 
         Auth.signIn(email, password)
             .then(user => {
-                this.setState({
-                    isLoggedIn: true
-                });
                 this.props.history.push("/home");
             })
-            .catch(err => console.log(err));
+            .catch(err => 
+                this.setState({
+                    invalidUser: true,
+                }),
+            );
     }
 
     render() {
-        const { email, password } = this.state 
+        const { email, password, invalidUser } = this.state 
         const { classes } = this.props
         const isEmailValid = validateEmail(email)
         const isPasswordValid = validatePassword(password)
 
-        return (
-            <Grid container spacing={0} className={classes.root}>
-                <Paper elevation={2} className={classes.loginContainer}>
-                    <Typography variant='headline'>Sign In Account</Typography>
-                    <form className={classes.form} noValidate autoComplete="off">
-                        <TextField
-                            id="email"
-                            label="Email"
-                            defaultValue=""
-                            className={classes.textField}
-                            margin="normal"
-                            onChange={this.handleChange('email')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <AccountCircle />
-                                  </InputAdornment>
-                                ),
-                              }}
-                        />
-                        <TextField
-                            id="password"
-                            label="Password"
-                            className={classes.textField}
-                            type="password"
-                            autoComplete="current-password"
-                            margin="normal"
-                            onChange={this.handleChange('password')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <AccountCircle />
-                                  </InputAdornment>
-                                ),
-                              }}
-                        />
-                        <Button color="primary" disabled={!(isEmailValid && isPasswordValid)} className={classes.button} onClick={this.submitLogin}>
-                            Sign in
-                        </Button>
-                    </form>
+        if(!invalidUser){
+            return (
+                <Grid container spacing={0} className={classes.root}>
+                    <Paper elevation={2} className={classes.loginContainer}>
+                        <Typography variant='headline'>Sign In Account</Typography>
+                        <form className={classes.form} noValidate autoComplete="off">
+                            <TextField
+                                id="email"
+                                label="Email"
+                                defaultValue=""
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={this.handleChange('email')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <AccountCircle />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <TextField
+                                id="password"
+                                label="Password"
+                                className={classes.textField}
+                                type="password"
+                                autoComplete="current-password"
+                                margin="normal"
+                                onChange={this.handleChange('password')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <AccountCircle />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <Button color="primary" disabled={!(isEmailValid && isPasswordValid)} className={classes.button} onClick={this.submitLogin}>
+                                Sign in
+                            </Button>
+                        </form>
+    
+                        <div className={classes.link}>
+                            <Link to="/forgotpassword" className={classes.linkmargin}>
+                            Forgot Password?
+                            </Link>
+                            <Link to="/registration" >
+                            Sign up
+                            </Link>
+                        </div>
+                    </Paper>
+                </Grid>
+            )
+        }else{
+            return (
+                <Grid container spacing={0} className={classes.root}>
+                    <Paper elevation={2} className={classes.loginContainer}>
+                        <Typography variant='headline'>Sign In Account</Typography>
+                        <form className={classes.form} noValidate autoComplete="off">
+                            <TextField
+                                id="email"
+                                label="Email"
+                                defaultValue=""
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={this.handleChange('email')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <AccountCircle />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <TextField
+                                id="password"
+                                label="Password"
+                                className={classes.textField}
+                                type="password"
+                                autoComplete="current-password"
+                                margin="normal"
+                                onChange={this.handleChange('password')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <AccountCircle />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <Button color="primary" disabled={!(isEmailValid && isPasswordValid)} className={classes.button} onClick={this.submitLogin}>
+                                Sign in
+                            </Button>
+                        </form>
+    
+                        <div className={classes.link}>
+                            <Link to="/forgotpassword" className={classes.linkmargin}>
+                            Forgot Password?
+                            </Link>
+                            <Link to="/registration" >
+                            Sign up
+                            </Link>
+                        </div>
+                    </Paper>
 
-                    <div className={classes.link}>
-                        <Link to="/forgotpassword" className={classes.linkmargin}>
-                        Forgot Password?
-                        </Link>
-                        <Link to="/registration" >
-                        Sign up
-                        </Link>
-                    </div>
-                </Paper>
-            </Grid>
-        )
+                    <Dialog
+                    open={this.state.invalidUser}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    >
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                        Invalid login credentials.
+                        Please try again.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                        Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                </Grid>
+            )
+            
+        }
+        
     }
 }
 

@@ -13,3 +13,8 @@ export const validatePassword = password => {
   var re = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
   return re.test(password);
 }
+
+export const validateCode = code => {
+  var re = /^[0-9]{4,8}$/;
+  return re.test(code);
+}

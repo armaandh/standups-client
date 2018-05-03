@@ -14,7 +14,7 @@ import Dialog, {
     DialogContentText,
   } from 'material-ui/Dialog';
 
-import { validateEmail, validatePassword } from './../utils/functions';
+import { validateEmail } from './../utils/functions';
 
 import { Auth } from 'aws-amplify'
 
@@ -27,18 +27,18 @@ class ForgotPassword extends Component{
 
     state = {
         email: '',
-        userExists: true
+        invalidUser: false,
     }
-
-    handleClose = () => {
-        this.setState({ userExists: true });
-    };
 
     handleChange = name => event => {
         this.setState({
           [name]: event.target.value,
         });
     }
+
+    handleClose = () => {
+        this.setState({ invalidUser: false });
+    };
 
     submitForgotPassword(){
         const { email } = this.state
@@ -49,17 +49,17 @@ class ForgotPassword extends Component{
               this.props.history.push('/resetpassword'))
             .catch(err => 
                 this.setState({
-                    userExists: false
-                    })
+                    invalidUser: true,
+                })
             );
     }
 
     render() {
-        const { email, userExists } = this.state 
+        const { email, invalidUser } = this.state 
         const { classes } = this.props
         const isEmailValid = validateEmail(email)
 
-        if(userExists){
+        if(!invalidUser){
             return (
                 <Grid container spacing={0} className={classes.root}>
                     <Paper elevation={2} className={classes.forgotpasswordContainer}>
@@ -90,7 +90,6 @@ class ForgotPassword extends Component{
                             Back to Sign in
                             </Link>
                         </div>
-                        
                     </Paper>
                 </Grid>
             )
@@ -98,7 +97,7 @@ class ForgotPassword extends Component{
             return(
                 <Grid container spacing={0} className={classes.root}>
                 <Dialog
-                    open={!this.state.userExists}
+                    open={this.state.invalidUser}
                     onClose={this.handleClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
