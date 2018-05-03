@@ -30,17 +30,17 @@ class TeamList extends Component{
         });
     }
 
-    handleNext = () => {
-        this.setState(prevState => ({
-          activeStep: prevState.activeStep + 1,
-        }));
-      };
+    // handleNext = () => {
+    //     this.setState(prevState => ({
+    //       activeStep: prevState.activeStep + 1,
+    //     }));
+    //   };
     
-    handleBack = () => {
-    this.setState(prevState => ({
-        activeStep: prevState.activeStep - 1,
-    }));
-    };
+    // handleBack = () => {
+    // this.setState(prevState => ({
+    //     activeStep: prevState.activeStep - 1,
+    // }));
+    // };
 
     render(){
         const { classes, subTeams, fullScreen, refetchTeamData } = this.props

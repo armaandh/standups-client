@@ -11,9 +11,23 @@ import ResetPassword from './../components/ResetPassword';
 import Hootsuite_logo from './../images/252px-Hootsuite_logo.svg.png'
 import ConfirmRegistration from '../components/ConfirmRegistration';
 
+import { Auth } from 'aws-amplify'
+
 class Entry extends Component {
+  constructor(props){
+    super(props)
+
+    this.submitLogin = this.submitLogin.bind(this)
+  }
+
+  submitLogin(email, password){
+    return Auth.signIn(email, password)
+        .then(user => ({user: user}))
+        .catch(err => ({error: err}))
+  }
+
   render() {
-    const { classes } = this.props
+    const { classes, history } = this.props
     
     return(
       <div className={classes.bgc}>
@@ -22,7 +36,8 @@ class Entry extends Component {
             <img src={Hootsuite_logo} alt="hootsuite_logo"/><br/><br/>
           </div>
           <Switch>
-            <Route path="/login" component={Login}/>
+            {/* <Route path="/login" component={Login}/> */}
+            <Login submitLogin={this.submitLogin} history= {history}/>
             <Route path="/registration" component={Registration} />
             <Route path="/forgotpassword" component={ForgotPassword} />
             <Route path="/resetpassword" component={ResetPassword} />
