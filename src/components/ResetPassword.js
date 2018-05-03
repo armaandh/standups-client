@@ -16,7 +16,7 @@ import Dialog, {
     DialogContentText,
   } from 'material-ui/Dialog';
 
-  import { validateEmail, validatePassword, validateCode } from './../utils/functions';
+import { validateEmail, validatePassword, validateCode } from './../utils/functions';
 
 import { Auth } from 'aws-amplify'
 
@@ -57,7 +57,8 @@ class ResetPassword extends Component{
             .catch(err => 
                 this.setState({
                     invalidUser: true
-            }));
+                })
+            );
     }
 
     render() {
@@ -201,22 +202,22 @@ class ResetPassword extends Component{
                         </div> 
                     </Paper>
                     <Dialog
-                    open={this.state.invalidUser}
-                    onClose={this.handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    >
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                        Invalid credentials. Please try again.
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                        Close
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                        open={this.state.invalidUser}
+                        onClose={this.handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                        >
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                            Invalid credentials. Please try again.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">
+                            Close
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </Grid>
             )
         }  

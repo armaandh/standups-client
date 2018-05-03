@@ -9,6 +9,13 @@ import Button from 'material-ui/Button'
 import { InputAdornment } from 'material-ui/Input';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
 import Lock from '@material-ui/icons/Lock';
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+  } from 'material-ui/Dialog';
+
+import { validateEmail, validateCode } from './../utils/functions';
 
 import { Auth } from 'aws-amplify';
 
@@ -21,7 +28,8 @@ class ConfirmRegistration extends Component{
 
     state = {
         email: '',
-        code: ''
+        code: '',
+        invalidConfirmation: false,
     }
 
     handleChange = name => event => {
@@ -29,6 +37,12 @@ class ConfirmRegistration extends Component{
           [name]: event.target.value,
         });
     }
+
+    handleClose = () => {
+        this.setState({ 
+            invalidConfirmation: false,
+         });
+    };
 
     confirmRegistration() {
         const { email, code } = this.state
@@ -39,55 +53,125 @@ class ConfirmRegistration extends Component{
             .then(data => {
                 this.props.history.push("/login");
             })
-            .catch(err => console.log(err));
+            .catch(err => 
+                this.setState({
+                    invalidConfirmation: true
+                })
+            );
     }
 
     render() {
+        const { email, code, invalidConfirmation } = this.state 
         const { classes } = this.props
+        const isEmailValid = validateEmail(email)
+        const isCodeValid = validateCode(code)
 
-        return (
-            <Grid container spacing={0} className={classes.root}>
-                <Paper elevation={2} className={classes.registrationContainer}>
-                    <Typography variant='headline'>Confirm Sign Up</Typography>
-                    <form className={classes.form} noValidate autoComplete="off">
-                        <TextField
-                            id="email"
-                            label="Email"
-                            defaultValue=""
-                            className={classes.textField}
-                            margin="normal"
-                            onChange={this.handleChange('email')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <AssignmentInd />
-                                  </InputAdornment>
-                                ),
-                              }}
-                        />
-                        <TextField
-                            id="code"
-                            label="Code"
-                            className={classes.textField}
-                            margin="normal"
-                            onChange={this.handleChange('code')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <Lock />
-                                  </InputAdornment>
-                                ),
-                              }}
-                        />
-                        <Button color="primary" className={classes.button} onClick={this.confirmRegistration}>
-                            Confirm
-                        </Button>
-     
-                    </form>
-                        <Link to="#" className={classes.linkmargin}>Resend Code</Link>
-                </Paper>
-            </Grid>
-        )
+        if(!invalidConfirmation){
+            return (
+                <Grid container spacing={0} className={classes.root}>
+                    <Paper elevation={2} className={classes.registrationContainer}>
+                        <Typography variant='headline'>Confirm Sign Up</Typography>
+                        <form className={classes.form} noValidate autoComplete="off">
+                            <TextField
+                                id="email"
+                                label="Email"
+                                defaultValue=""
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={this.handleChange('email')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <AssignmentInd />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <TextField
+                                id="code"
+                                label="Code"
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={this.handleChange('code')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <Lock />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <Button color="primary" disabled={!(isEmailValid && isCodeValid)} className={classes.button} onClick={this.confirmRegistration}>
+                                Confirm
+                            </Button>
+         
+                        </form>
+                            <Link to="/forgotpassword" className={classes.linkmargin}>Resend Code</Link>
+                    </Paper>
+                </Grid>
+            )
+        }else{
+            return (
+                <Grid container spacing={0} className={classes.root}>
+                    <Paper elevation={2} className={classes.registrationContainer}>
+                        <Typography variant='headline'>Confirm Sign Up</Typography>
+                        <form className={classes.form} noValidate autoComplete="off">
+                            <TextField
+                                id="email"
+                                label="Email"
+                                defaultValue=""
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={this.handleChange('email')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <AssignmentInd />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <TextField
+                                id="code"
+                                label="Code"
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={this.handleChange('code')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <Lock />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <Button color="primary" disabled={!(isEmailValid && isCodeValid)} className={classes.button} onClick={this.confirmRegistration}>
+                                Confirm
+                            </Button>
+         
+                        </form>
+                            <Link to="/forgotpassword" className={classes.linkmargin}>Resend Code</Link>
+                    </Paper>
+                    <Dialog
+                        open={this.state.invalidConfirmation}
+                        onClose={this.handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                        >
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                            Invalid confirmation credentials. Please try again.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">
+                            Close
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </Grid>
+            )
+        }
     }
 }
 

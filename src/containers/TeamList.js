@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Team from './../components/Team'
+import classNames from 'classnames';
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -14,9 +15,7 @@ import Dialog, {
 import TextField from 'material-ui/TextField'
 
 import GroupAdd from '@material-ui/icons/GroupAdd'
-import MobileStepper from 'material-ui/MobileStepper';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+// import MobileStepper from 'material-ui/MobileStepper';
 
 class TeamList extends Component{
     state={
@@ -44,12 +43,12 @@ class TeamList extends Component{
     };
 
     render(){
-        const { classes, subTeams, team, fullScreen, theme, refetchTeamData } = this.props
+        const { classes, subTeams, fullScreen, refetchTeamData } = this.props
 
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Grid item xs={12} className={classes.actionBlock}>
-                    <Button color="primary" className={classes.button} className={classes.font} onClick={() => this.setState({ addTeamDialogOpen: true })}>
+                    <Button color="primary" className={classNames(classes.button, classes.font)} onClick={() => this.setState({ addTeamDialogOpen: true })}>
                         <GroupAdd /> . add team
                     </Button>
                     <div><br/></div>
@@ -88,7 +87,7 @@ class TeamList extends Component{
                 </Dialog>
 
                 <div><br/></div>
-                 <MobileStepper
+                 {/* <MobileStepper
                     variant="text"
                     steps={6}
                     position="static"
@@ -97,16 +96,14 @@ class TeamList extends Component{
                     nextButton={
                         <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === 5}>
                         Next
-                        {/* {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />} */}
                         </Button>
                     }
                     backButton={
                         <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
-                        {/* {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />} */}
                         Back
                         </Button>
                     }
-                    />
+                    /> */}
             </Grid>
         )
     }

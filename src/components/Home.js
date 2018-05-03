@@ -38,9 +38,7 @@ class Home extends Component{
             return (
                 <div>
                 <Grid container spacing={0} className={classes.root}>
-                    {/* <Grid item xs={6} sm={4} zeroMinWidth> */}
                     <TeamList team={null} subTeams={teams}/>
-                    {/* </Grid> */}
                 </Grid>
                 </div> 
             )
@@ -51,6 +49,8 @@ class Home extends Component{
                         in={!isDataFetched}
                         style={{
                             transitionDelay: !isDataFetched ? '800ms' : '0ms',
+                            height: '100%',
+                            marginTop: '250px'
                         }}
                         unmountOnExit
                     >
