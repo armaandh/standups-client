@@ -8,6 +8,13 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { InputAdornment } from 'material-ui/Input';
 import Lock from '@material-ui/icons/Lock';
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+  } from 'material-ui/Dialog';
+
+import { validateEmail, validatePassword } from './../utils/functions';
 
 import { Auth } from 'aws-amplify'
 
@@ -20,7 +27,12 @@ class ForgotPassword extends Component{
 
     state = {
         email: '',
+        userExists: true
     }
+
+    handleClose = () => {
+        this.setState({ userExists: true });
+    };
 
     handleChange = name => event => {
         this.setState({
@@ -35,46 +47,76 @@ class ForgotPassword extends Component{
         Auth.forgotPassword(email)
             .then(data => 
               this.props.history.push('/resetpassword'))
-            .catch(err => console.log(err));
+            .catch(err => 
+                this.setState({
+                    userExists: false
+                    })
+            );
     }
 
     render() {
+        const { email, userExists } = this.state 
         const { classes } = this.props
+        const isEmailValid = validateEmail(email)
 
-        return (
-            <Grid container spacing={0} className={classes.root}>
-                <Paper elevation={2} className={classes.forgotpasswordContainer}>
-                    <Typography variant='headline'>Forgot Password?</Typography>
-                    <form className={classes.form} noValidate autoComplete="off">
-                        <TextField
-                            id="email"
-                            label="Email"
-                            defaultValue=""
-                            className={classes.textField}
-                            margin="normal"
-                            onChange={this.handleChange('email')}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <Lock />
-                                  </InputAdornment>
-                                ),
-                              }}
-                        />
-                        <Button color="primary" className={classes.button} onClick={this.submitForgotPassword}>
-                            Send Code
+        if(userExists){
+            return (
+                <Grid container spacing={0} className={classes.root}>
+                    <Paper elevation={2} className={classes.forgotpasswordContainer}>
+                        <Typography variant='headline'>Forgot Password?</Typography>
+                        <form className={classes.form} noValidate autoComplete="off">
+                            <TextField
+                                id="email"
+                                label="Email"
+                                defaultValue=""
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={this.handleChange('email')}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <Lock />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
+                            <Button color="primary" disabled={!isEmailValid} className={classes.button} onClick={this.submitForgotPassword}>
+                                Send Code
+                            </Button>
+                        </form>
+                        
+                        <div className={classes.link}>
+                            <Link to="/login" className={classes.linkmargin}>
+                            Back to Sign in
+                            </Link>
+                        </div>
+                        
+                    </Paper>
+                </Grid>
+            )
+        }else{
+            return(
+                <Grid container spacing={0} className={classes.root}>
+                <Dialog
+                    open={!this.state.userExists}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    >
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                        User does not exist in the system.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                        Close
                         </Button>
-                    </form>
-                    
-                    <div className={classes.link}>
-                        <Link to="/login" className={classes.linkmargin}>
-                        Back to Sign in
-                        </Link>
-                    </div>
-                    
-                </Paper>
-            </Grid>
-        )
+                    </DialogActions>
+                </Dialog>
+                </Grid>
+            )
+        }
     }
 }
 

@@ -10,6 +10,8 @@ import Button from 'material-ui/Button'
 import { InputAdornment } from 'material-ui/Input';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
+import { validateEmail, validatePassword } from './../utils/functions';
+
 import { Auth } from 'aws-amplify'
 
 class Login extends Component{
@@ -49,7 +51,10 @@ class Login extends Component{
     }
 
     render() {
+        const { email, password } = this.state 
         const { classes } = this.props
+        const isEmailValid = validateEmail(email)
+        const isPasswordValid = validatePassword(password)
 
         return (
             <Grid container spacing={0} className={classes.root}>
@@ -87,7 +92,7 @@ class Login extends Component{
                                 ),
                               }}
                         />
-                        <Button color="primary" className={classes.button} onClick={this.submitLogin}>
+                        <Button color="primary" disabled={!(isEmailValid && isPasswordValid)} className={classes.button} onClick={this.submitLogin}>
                             Sign in
                         </Button>
                     </form>

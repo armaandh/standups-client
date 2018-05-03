@@ -146,7 +146,6 @@ class Registration extends Component{
                     </Paper>
                 </Grid>
             )
-
         }else{
             return(
                 <Grid container spacing={0} className={classes.root}>
