@@ -55,11 +55,10 @@ class ForgotPassword extends Component{
     }
 
     render() {
-        const { email, invalidUser } = this.state 
+        const { email } = this.state 
         const { classes } = this.props
         const isEmailValid = validateEmail(email)
 
-        if(!invalidUser){
             return (
                 <Grid container spacing={0} className={classes.root}>
                     <Paper elevation={2} className={classes.forgotpasswordContainer}>
@@ -91,12 +90,7 @@ class ForgotPassword extends Component{
                             </Link>
                         </div>
                     </Paper>
-                </Grid>
-            )
-        }else{
-            return(
-                <Grid container spacing={0} className={classes.root}>
-                <Dialog
+                    <Dialog
                     open={this.state.invalidUser}
                     onClose={this.handleClose}
                     aria-labelledby="alert-dialog-title"
@@ -115,7 +109,6 @@ class ForgotPassword extends Component{
                 </Dialog>
                 </Grid>
             )
-        }
     }
 }
 

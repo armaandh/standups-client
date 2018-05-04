@@ -40,7 +40,11 @@ class Registration extends Component{
     }
 
     handleClose = () => {
-        this.setState({ userExists: false });
+        this.setState({ 
+            userExists: false,
+            email: '',
+            password: ''
+        });
     };
 
     // handlePasswordComparison = () => {
@@ -69,86 +73,79 @@ class Registration extends Component{
     }
 
     render() {
-        const { email, password, userExists } = this.state 
+        const { email, password, confirmPassword } = this.state 
         const { classes } = this.props
         const isEmailValid = validateEmail(email)
         const isPasswordValid = validatePassword(password)
-        console.log(isEmailValid && isPasswordValid)
+        const isConfirmPasswordValid = validatePassword(confirmPassword)
 
-        if(!userExists){
-            return (
-                <Grid container spacing={0} className={classes.root}>
-                    <Paper elevation={2} className={classes.registrationContainer}>
-                        <Typography variant='headline'>Sign Up Account</Typography>
-                        <form className={classes.form} noValidate autoComplete="off">
-                            <TextField
-                                id="email"
-                                label="Email"
-                                defaultValue=""
-                                className={classes.textField}
-                                margin="normal"
-                                onChange={this.handleChange('email')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <AssignmentInd />
-                                      </InputAdornment>
-                                    ),
-                                  }}     
-                            />
-                            <TextField                          
-                                id="password"
-                                label="Password"
-                                className={classes.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                helperText="Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 Special Character"
-                                margin="normal"
-                                onChange={this.handleChange('password')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <LockOutline />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            <TextField
-                                id="confirmPassword"
-                                label="Confirm Password"
-                                className={classes.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                margin="normal"
-                                onChange={this.handleChange('confirmPassword')}
-                                // onKeyUp={this.handlePasswordComparison}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <LockOutline />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            
-                            <Button color="primary" disabled={!(isEmailValid && isPasswordValid)} className={classes.button} onClick={this.submitRegistration}>
-                                Sign up
-                            </Button>
-                        </form>
-                        <div className={classes.link}>
-                            <Link to="/forgotpassword" className={classes.linkmargin}>
-                                Forgot Password?
-                            </Link>
-                            <Link to="/login" >
-                                Sign in
-                            </Link>
-                        </div>      
-                    </Paper>
-                </Grid>
-            )
-        }else{
-            return(
-                <Grid container spacing={0} className={classes.root}>
+        return (
+            <Grid container spacing={0} className={classes.root}>
+                <Paper elevation={2} className={classes.registrationContainer}>
+                    <Typography variant='headline'>Sign Up Account</Typography>
+                    <form className={classes.form} noValidate autoComplete="off">
+                        <TextField
+                            id="email"
+                            label="Email"
+                            defaultValue=""
+                            className={classes.textField}
+                            margin="normal"
+                            onChange={this.handleChange('email')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <AssignmentInd />
+                                    </InputAdornment>
+                                ),
+                                }}     
+                        />
+                        <TextField                          
+                            id="password"
+                            label="Password"
+                            className={classes.textField}
+                            type="password"
+                            autoComplete="current-password"
+                            helperText="Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 Special Character"
+                            margin="normal"
+                            onChange={this.handleChange('password')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <LockOutline />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        <TextField
+                            id="confirmPassword"
+                            label="Confirm Password"
+                            className={classes.textField}
+                            type="password"
+                            autoComplete="current-password"
+                            margin="normal"
+                            onChange={this.handleChange('confirmPassword')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <LockOutline />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        
+                        <Button color="primary" disabled={!(isEmailValid && isPasswordValid && isConfirmPasswordValid)} className={classes.button} onClick={this.submitRegistration}>
+                            Sign up
+                        </Button>
+                    </form>
+                    <div className={classes.link}>
+                        <Link to="/forgotpassword" className={classes.linkmargin}>
+                            Forgot Password?
+                        </Link>
+                        <Link to="/login" >
+                            Sign in
+                        </Link>
+                    </div>      
+                </Paper>
                 <Dialog
                     open={this.state.userExists}
                     onClose={this.handleClose}
@@ -166,9 +163,8 @@ class Registration extends Component{
                         </Button>
                     </DialogActions>
                 </Dialog>
-                </Grid>
-            )
-        }
+            </Grid>
+        )
     }
 }
 

@@ -15,6 +15,7 @@ import Dialog, {
     DialogContent,
     DialogContentText,
   } from 'material-ui/Dialog';
+import Tooltip from 'material-ui/Tooltip';
 
 import { validateEmail, validatePassword, validateCode } from './../utils/functions';
 
@@ -43,6 +44,8 @@ class ResetPassword extends Component{
     handleClose = () => {
         this.setState({ 
             invalidUser: false,
+            code: '',
+            new_password: ''
          });
     };
 
@@ -62,165 +65,105 @@ class ResetPassword extends Component{
     }
 
     render() {
-        const { email, code, new_password, invalidUser } = this.state 
+        const { email, code, new_password } = this.state 
         const { classes } = this.props
         const isEmailValid = validateEmail(email)
         const isPasswordValid = validatePassword(new_password)
         const isCodeValid = validateCode(code)
+        const text = 
+                    <div style={{whiteSpace: 'pre-line', fontSize: '0.8rem'}}>
+                    {'Password must contain at least 8 characters \n including 1 number, 1 uppercase and \n lowercase letter, and 1 special character'}
+                    </div>;
 
-        if(!invalidUser){
-            return (
-                <Grid container spacing={0} className={classes.root}>
-                    <Paper elevation={2} className={classes.resetpasswordContainer}>
-                        <Typography variant='headline'>Reset Your Password</Typography>
-                        <form className={classes.form} noValidate autoComplete="off">
-                            <TextField
-                                id="email" // code
-                                label="Email"
-                                defaultValue=""
-                                className={classes.textField}
-                                margin="normal"
-                                onChange={this.handleChange('email')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <AccountCircle />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            <TextField
-                                id="code" // code
-                                label="Code"
-                                defaultValue=""
-                                className={classes.textField}
-                                margin="normal"
-                                onChange={this.handleChange('code')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <Lock />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            <TextField
-                                id="new_password"
-                                label="New Password"
-                                className={classes.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                margin="normal"
-                                onChange={this.handleChange('new_password')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <LockOutline />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            <Button color="primary" disabled={!(isEmailValid && isPasswordValid && isCodeValid)} className={classes.button} onClick={this.submitResetPassword}>
-                                Submit
-                            </Button>
-                        </form>
-                        <div className={classes.link}>
-                            <Link to="/login" className={classes.linkmargin}>
-                                Back to Sign in
-                            </Link>
-                            <Link to="/forgotpassword">
-                                Resend Code
-                            </Link>
-                        </div> 
-                    </Paper>
-                </Grid>
-            )
-
-        }else{
-            return (
-                <Grid container spacing={0} className={classes.root}>
-                    <Paper elevation={2} className={classes.resetpasswordContainer}>
-                        <Typography variant='headline'>Reset Your Password</Typography>
-                        <form className={classes.form} noValidate autoComplete="off">
-                            <TextField
-                                id="email" // code
-                                label="Email"
-                                defaultValue=""
-                                className={classes.textField}
-                                margin="normal"
-                                onChange={this.handleChange('email')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <AccountCircle />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            <TextField
-                                id="code" // code
-                                label="Code"
-                                defaultValue=""
-                                className={classes.textField}
-                                margin="normal"
-                                onChange={this.handleChange('code')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <Lock />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            <TextField
-                                id="new_password"
-                                label="New Password"
-                                className={classes.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                margin="normal"
-                                onChange={this.handleChange('new_password')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <LockOutline />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            <Button color="primary" disabled={!(isEmailValid && isPasswordValid && isCodeValid)} className={classes.button} onClick={this.submitResetPassword}>
-                                Submit
-                            </Button>
-                        </form>
-                        <div className={classes.link}>
-                            <Link to="/login" className={classes.linkmargin}>
-                                Back to Sign in
-                            </Link>
-                            <Link to="/forgotpassword">
-                                Resend Code
-                            </Link>
-                        </div> 
-                    </Paper>
-                    <Dialog
-                        open={this.state.invalidUser}
-                        onClose={this.handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                        >
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                            Invalid credentials. Please try again.
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.handleClose} color="primary">
-                            Close
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                </Grid>
-            )
-        }  
+        return (
+            <Grid container spacing={0} className={classes.root}>
+                <Paper elevation={2} className={classes.resetpasswordContainer}>
+                    <Typography variant='headline'>Reset Your Password</Typography>
+                    <form className={classes.form} noValidate autoComplete="off">
+                        <TextField
+                            id="email" // code
+                            label="Email"
+                            defaultValue=""
+                            className={classes.textField}
+                            margin="normal"
+                            labelFontSize="1.2rem"
+                            onChange={this.handleChange('email')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <AccountCircle />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        <TextField
+                            id="code" // code
+                            label="Code"
+                            value={code}
+                            className={classes.textField}
+                            margin="normal"
+                            onChange={this.handleChange('code')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <Lock />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        <Tooltip 
+                            id="tooltip-icon" 
+                            title={text}>
+                        <TextField
+                            id="new_password"
+                            label="New Password"
+                            className={classes.textField}
+                            type="password"
+                            value={new_password}
+                            autoComplete="current-password"
+                            margin="normal"
+                            onChange={this.handleChange('new_password')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <LockOutline />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        </Tooltip>
+                        <Button color="primary" disabled={!(isEmailValid && isPasswordValid && isCodeValid)} className={classes.button} onClick={this.submitResetPassword}>
+                            Submit
+                        </Button>
+                    </form>
+                    <div className={classes.link}>
+                        <Link to="/login" className={classes.linkmargin}>
+                            Back to Sign in
+                        </Link>
+                        <Link to="/forgotpassword">
+                            Resend Code
+                        </Link>
+                    </div> 
+                </Paper>
+                <Dialog
+                    open={this.state.invalidUser}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    >
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                        Invalid credentials. Please try again.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                        Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </Grid>
+        )
     }
 }
 
@@ -233,10 +176,12 @@ const styles = theme => ({
     },
     form: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        fontSize: '1.2rem',
     },
     resetpasswordContainer:{
         padding: '36px',
+        fontSize: '1.2rem',
     },
     button: {
         margin: theme.spacing.unit,
@@ -252,6 +197,9 @@ const styles = theme => ({
     linkmargin: {
         marginLeft: '10px',
         marginRight: '60px'
+    },
+    font: {
+        fontSize: '1.2rem',
     }
 });
 

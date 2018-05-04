@@ -17,6 +17,10 @@ import Dialog, {
 
 import { validateEmail, validatePassword } from './../utils/functions';
 
+import { Auth } from 'aws-amplify'
+
+//import createHistory from 'history/createBrowserHistory'
+
 class Login extends Component{
     constructor(props){
         super(props)
@@ -45,15 +49,28 @@ class Login extends Component{
     };
 
     submitLogin = () => {
-        this.props.submitLogin(this.state.email, this.state.password).then(data => {
-            if (!data.error){
-                console.log('****** ', this.props.history)
-            }else{
+        const { email, password } = this.state
+        console.log(`Email: ${this.state.email} P: ${this.state.password} `)
+
+        Auth.signIn(email, password)
+             .then(user => {
+                this.props.history.push("/home");
+            })
+            .catch(err => 
                 this.setState({
                     invalidUser: true,
-                })   
-            }  
-        })
+                }),
+            )
+        // const history = createHistory();
+        // this.props.submitLogin(this.state.email, this.state.password).then(data => {
+        //     if (!data.error){
+        //         history.push("/home");
+        //     }else{
+        //         this.setState({
+        //             invalidUser: true,
+        //         })   
+        //     }  
+        // })
     }
 
     render(){
@@ -132,9 +149,9 @@ class Login extends Component{
             </DialogActions>
         </Dialog>
         </Grid>
-    )
+        )
+    }
 }
- }
 
 const styles = theme => ({
     root:{
@@ -151,7 +168,6 @@ const styles = theme => ({
         padding: '36px',
     },
     button: {
-        // margin: theme.spacing.unit,
         color: 'white',
         margin: '20px auto',
         width: '40%',
