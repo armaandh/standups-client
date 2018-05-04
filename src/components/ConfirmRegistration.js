@@ -106,7 +106,12 @@ class ConfirmRegistration extends Component{
                         </Button>
         
                     </form>
+                    <div className={classes.link}>
                         <Link to="/forgotpassword" className={classes.linkmargin}>Resend Code</Link>
+                        <Link to="/login">
+                            Back to Sign in
+                        </Link>
+                    </div>
                 </Paper>
                 <Dialog
                     open={this.state.invalidConfirmation}
@@ -142,7 +147,7 @@ const styles = theme => ({
         flexDirection: 'column'
     },
     registrationContainer:{
-        padding: '16px',
+        padding: '36px',
     },
     button: {
         margin: theme.spacing.unit,
@@ -150,11 +155,15 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 240,
+        width: 260,
+    },
+    link: {
+        color: '#448AFF',
+        marginTop: '10px'  
     },
     linkmargin: {
         marginLeft: '10px',
-        color: '#448AFF',
+        marginRight: '55px'
     }
 });
 
