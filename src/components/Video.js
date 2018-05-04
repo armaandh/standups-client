@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Paper from 'material-ui/Paper'
-// import { endpointUrl } from '../utils/api'
 import { Storage } from 'aws-amplify';
 
 class Video extends Component{
@@ -10,7 +9,6 @@ class Video extends Component{
 
         Storage.get(props.video)
             .then(result => {
-                console.log(result)
                 this.setState({videoURL: result})
             })
             .catch(err => console.log(err));

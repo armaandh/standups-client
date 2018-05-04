@@ -1,4 +1,4 @@
-let mediaSource = new MediaSource()
+let mediaSource
 let mediaRecorder
 let recordedBlobs
 let sourceBuffer
@@ -25,11 +25,6 @@ const handleSourseOpen = (event) => {
     sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"')
     console.log('Source buffer: ', sourceBuffer)
 }
-
-//recordedVideo.addEventListener('error', (ev) => {
-    //console.error('MediaRecording.recordedMedia.error()')
-    //alert('Your browser can not play\n\n' + recordedVideo.src + '\n\n media clip. event: ' + JSON.stringify(ev))
-//}, true)
 
 const handleDataAvailable = (event) => {
     if (event.data && event.data.size > 0){
@@ -62,17 +57,16 @@ export const startRecording = () => {
 
     try{
         mediaRecorder = new MediaRecorder(window.stream, options)
+        console.log('Created Media Recorder', mediaRecorder, 'with options', options)   
+        mediaRecorder.onstop = handleStop
+        mediaRecorder.ondataavailable = handleDataAvailable
+        mediaRecorder.start(10)
+        console.log('Media Recorder started', mediaRecorder)
     } catch (e){
         console.error('Exception while creating MediaRecorder: ' + e)
-        alert('Exception while creating MediaRecorder: ' + e + '. mimeType: ' + options.mimeType)
-        return null
+        //alert('Exception while creating MediaRecorder: ' + e + '. mimeType: ' + options.mimeType)
+        return false
     }
-
-    console.log('Created Media Recorder', mediaRecorder, 'with options', options)    
-    mediaRecorder.onstop = handleStop
-    mediaRecorder.ondataavailable = handleDataAvailable
-    mediaRecorder.start(10)
-    console.log('Media Recorder started', mediaRecorder)
 }
 
 export const stopRecording = () => {
@@ -110,4 +104,8 @@ export const initVideoRecording = () => {
             .then((stream) => handleSuccess(stream, resolve))
             .catch((error) => handleError(error, reject))
     })
+}
+
+export const isMediaRecordingSupported = () => {
+    return window.MediaRecorder !== undefined
 }
