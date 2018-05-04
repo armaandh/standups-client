@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import MembersList from './MembersList'
 import TeamList from './TeamList'
 import VideoList from './VideoList'
@@ -29,6 +29,7 @@ import Slide from 'material-ui/transitions/Slide'
 import AppBar from 'material-ui/AppBar'
 import Dialog from 'material-ui/Dialog'
 import Toolbar from 'material-ui/Toolbar'
+import Input from 'material-ui/Input'
 
 import Stop from '@material-ui/icons/Stop'
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
@@ -42,6 +43,7 @@ class TeamView extends Component{
         addStanupDialogOpen: false,
         isVideoRecoring: false,
         isVideoStreamEnabled: false,
+        isVideoRecordingEnabled: false,
         recorderedVideo: null,
         videoStream: null,
     }
@@ -88,16 +90,15 @@ class TeamView extends Component{
     }
 
     openVideoRecordingDialog = () => {
-            this.setState({
-                addStanupDialogOpen: true,
-            })
+        this.setState({
+            addStanupDialogOpen: true,
+        })
     }
 
     submitVideo = () => {
         const { recorderedVideo } = this.state
         if (recorderedVideo !== null){
-            console.log('***** ', getVideoBlob(), { contentType: "video/webm" })
-            Storage.put(Date.now().toString(), getVideoBlob())
+            Storage.put(Date.now().toString(), recorderedVideo)
                 .then (result => {
                     this.setState({isVideosFetched: false})
                     console.log(result)
@@ -112,23 +113,29 @@ class TeamView extends Component{
     handleRecording = () => {
         if  (this.state.isVideoRecoring){
             stopRecording()
-            this.setState({videoStream: null})
+            console.log(getVideoBlob())
+            //this.setState({videoStream: null})
             this.setState({
-                recorderedVideo: getVideoRecordURL(), 
+                recorderedVideo: getVideoBlob(), 
                 videoStream: null, 
                 isVideoRecoring: !this.state.isVideoRecoring, 
                 isVideoStreamEnabled: false
             })
         }else{
-            initVideoRecording().then(() => {
-                startRecording()
-                this.setState({
-                    isVideoRecoring: !this.state.isVideoRecoring, 
-                    videoStream: getVideoStreamURL(),
-                    isVideoStreamEnabled: true,
-                    recorderedVideo: null
+            initVideoRecording()
+                .then((data) => {
+                    //console.log('***** data from initVideoRecording', data)
+                    //console.log('Media Recorder started: ', startRecording())
+                    startRecording()
+                    this.setState({
+                        isVideoRecoring: !this.state.isVideoRecoring, 
+                        videoStream: getVideoStreamURL(),
+                        isVideoRecordingEnabled: startRecording(),
+                        isVideoStreamEnabled: true,
+                        recorderedVideo: null
+                    })
                 })
-            })    
+                .catch(error => alert('Error: ', error))    
         }
     }
 
@@ -147,12 +154,20 @@ class TeamView extends Component{
         this.setState({ isTeamFetched: false })
     }
  
-    playRecorderedVideo = () => {}
+    handleFileUploading = (e) => {
+        console.log(e.target.files[0])
+        this.setState({
+            recorderedVideo: e.target.files[0]
+        })
+    }
 
     render(){
-        const { videos, team, isTeamFetched, isVideoRecoring, isVideoStreamEnabled, videoStream, recorderedVideo } = this.state 
+        const { videos, team, isTeamFetched, isVideoRecoring, isVideoStreamEnabled, videoStream, recorderedVideo, isVideoRecordingEnabled } = this.state 
         const { classes } = this.props
 
+        if (recorderedVideo !== null){
+            alert('URL: ' + URL.createObjectURL(recorderedVideo))
+        }
         if (isTeamFetched){
             return (
                 <Grid container spacing={0} className={classes.root}>
@@ -193,25 +208,40 @@ class TeamView extends Component{
                             </Toolbar>
                         </AppBar>
                         <div className={classes.addVideoContent}>
-                            <div className={classes.streamVideo}>
-                                {isVideoStreamEnabled && 
-                                    <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
-                                }
-                                {recorderedVideo !== null &&
-                                    <video src={recorderedVideo} muted controls className={classes.streamVideo}></video>
-                                }
-                            </div>
-                            <div>
-                                {isVideoRecoring ? (
-                                    <IconButton color="secondary" className={classes.button} aria-label="Stop Recording" onClick={this.handleRecording}>
-                                        <Stop />
-                                    </IconButton>
-                                ) : (
-                                    <IconButton color="primary" className={classes.button} aria-label="Start Recording" onClick={this.handleRecording}>
-                                        <FiberManualRecord />
-                                    </IconButton>
-                                )}
-                            </div>
+                            {isVideoRecordingEnabled ? 
+                                (
+                                    <Fragment>
+                                        <div className={classes.streamVideo}>
+                                        {isVideoStreamEnabled && 
+                                            <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
+                                        }
+                                        {recorderedVideo !== null &&
+                                            <video src={URL.createObjectURL(recorderedVideo)}  muted controls className={classes.streamVideo} type="video/webm"/>
+                                                
+                                        }
+                                        </div>
+                                        <div>
+                                        {isVideoRecoring ? (
+                                            <IconButton color="secondary" className={classes.button} aria-label="Stop Recording" onClick={this.handleRecording}>
+                                                <Stop />
+                                            </IconButton>
+                                        ) : (
+                                            <IconButton color="primary" className={classes.button} aria-label="Start Recording" onClick={this.handleRecording}>
+                                                <FiberManualRecord />
+                                            </IconButton>
+                                        )}
+                                        </div>
+                                    </Fragment>
+                                ) :
+                                (
+                                    <Fragment>
+                                        {recorderedVideo !== null &&
+                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls className={classes.streamVideo}></video>
+                                        }
+                                        <Input type="file" inputProps={{'accept': 'video/*', 'capture':'user' }} onChange={this.handleFileUploading}/>
+                                    </Fragment>
+                                )
+                            }
                         </div>
                     </Dialog>
                 </Grid>
