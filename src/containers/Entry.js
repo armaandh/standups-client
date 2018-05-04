@@ -36,7 +36,7 @@ class Entry extends Component {
     const { classes, history } = this.props
     
     return(
-      <div className={classes.bgc}>
+      <div>
         <Grid container spacing={0} className={classes.root}>
           <div>
             <img src={Hootsuite_logo} alt="hootsuite_logo"/><br/><br/>
@@ -68,9 +68,6 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
-  },
-  bgc: {
-    backgroundColor: '#FFD54F'
   }
 });
 
