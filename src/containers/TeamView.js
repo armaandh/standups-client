@@ -10,7 +10,8 @@ import {
     initVideoRecording , 
     getVideoRecordURL, 
     getVideoStreamURL,
-    getVideoBlob
+    getVideoBlob,
+    isMediaRecordingSupported
 } from '../utils/videoRecording'
 
 import { saveToAWS, getAllVideos, getTeam } from '../utils/api'
@@ -41,14 +42,15 @@ class TeamView extends Component{
         team: {},
         videos: [],
         addStanupDialogOpen: false,
-        isVideoRecoring: false,
+        isVideoRecording: false,
         isVideoStreamEnabled: false,
-        isVideoRecordingEnabled: false,
+        isVideoRecordingEnabled: true,
         recorderedVideo: null,
         videoStream: null,
     }
 
     componentDidMount(){
+        this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()})
         const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
         if (!this.state.isTeamFetched){
             myPromise(2000).then(() => { 
@@ -111,29 +113,25 @@ class TeamView extends Component{
     }
 
     handleRecording = () => {
-        if  (this.state.isVideoRecoring){
+        if  (this.state.isVideoRecording){
             stopRecording()
-            console.log(getVideoBlob())
-            //this.setState({videoStream: null})
             this.setState({
                 recorderedVideo: getVideoBlob(), 
                 videoStream: null, 
-                isVideoRecoring: !this.state.isVideoRecoring, 
+                isVideoRecording: !this.state.isVideoRecording, 
                 isVideoStreamEnabled: false
             })
         }else{
             initVideoRecording()
                 .then((data) => {
-                    //console.log('***** data from initVideoRecording', data)
-                    //console.log('Media Recorder started: ', startRecording())
                     startRecording()
                     this.setState({
-                        isVideoRecoring: !this.state.isVideoRecoring, 
+                        isVideoRecording: !this.state.isVideoRecording, 
                         videoStream: getVideoStreamURL(),
-                        isVideoRecordingEnabled: startRecording(),
                         isVideoStreamEnabled: true,
-                        recorderedVideo: null
-                    })
+                        recorderedVideo: null,
+                        isVideoRecordingEnabled: true
+                    })  
                 })
                 .catch(error => alert('Error: ', error))    
         }
@@ -143,7 +141,7 @@ class TeamView extends Component{
         stopRecording()
         this.setState({
             addStanupDialogOpen: false, 
-            isVideoRecoring: false,
+            isVideoRecording: false,
             isVideoStreamEnabled: false,
             recorderedVideo: null,
             videoStream: null,
@@ -162,12 +160,9 @@ class TeamView extends Component{
     }
 
     render(){
-        const { videos, team, isTeamFetched, isVideoRecoring, isVideoStreamEnabled, videoStream, recorderedVideo, isVideoRecordingEnabled } = this.state 
+        const { videos, team, isTeamFetched, isVideoRecording, isVideoStreamEnabled, videoStream, recorderedVideo, isVideoRecordingEnabled } = this.state 
         const { classes } = this.props
 
-        if (recorderedVideo !== null){
-            alert('URL: ' + URL.createObjectURL(recorderedVideo))
-        }
         if (isTeamFetched){
             return (
                 <Grid container spacing={0} className={classes.root}>
@@ -216,12 +211,12 @@ class TeamView extends Component{
                                             <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
                                         }
                                         {recorderedVideo !== null &&
-                                            <video src={URL.createObjectURL(recorderedVideo)}  muted controls className={classes.streamVideo} type="video/webm"/>
+                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls className={classes.streamVideo}></video>
                                                 
                                         }
                                         </div>
                                         <div>
-                                        {isVideoRecoring ? (
+                                        {isVideoRecording ? (
                                             <IconButton color="secondary" className={classes.button} aria-label="Stop Recording" onClick={this.handleRecording}>
                                                 <Stop />
                                             </IconButton>

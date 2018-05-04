@@ -62,10 +62,9 @@ export const startRecording = () => {
         mediaRecorder.ondataavailable = handleDataAvailable
         mediaRecorder.start(10)
         console.log('Media Recorder started', mediaRecorder)
-        return true
     } catch (e){
         console.error('Exception while creating MediaRecorder: ' + e)
-        alert('Exception while creating MediaRecorder: ' + e + '. mimeType: ' + options.mimeType)
+        //alert('Exception while creating MediaRecorder: ' + e + '. mimeType: ' + options.mimeType)
         return false
     }
 }
@@ -105,4 +104,8 @@ export const initVideoRecording = () => {
             .then((stream) => handleSuccess(stream, resolve))
             .catch((error) => handleError(error, reject))
     })
+}
+
+export const isMediaRecordingSupported = () => {
+    return window.MediaRecorder !== undefined
 }
