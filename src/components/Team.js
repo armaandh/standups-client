@@ -24,7 +24,7 @@ const styles = theme => ({
     },
     font:{
         color: '#616161'
-    }
+    },
 });
 
 export default withStyles(styles)(Team)
