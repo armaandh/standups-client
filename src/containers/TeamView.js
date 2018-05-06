@@ -44,7 +44,7 @@ class TeamView extends Component{
         addStanupDialogOpen: false,
         isVideoRecording: false,
         isVideoStreamEnabled: false,
-        isVideoRecordingEnabled: true,
+        isVideoRecordingEnabled: false,
         recorderedVideo: null,
         videoStream: null,
     }
@@ -211,7 +211,7 @@ class TeamView extends Component{
                                             <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
                                         }
                                         {recorderedVideo !== null &&
-                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls className={classes.streamVideo}></video>
+                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls="true" className={classes.streamVideo}></video>
                                                 
                                         }
                                         </div>
@@ -230,10 +230,14 @@ class TeamView extends Component{
                                 ) :
                                 (
                                     <Fragment>
-                                        {recorderedVideo !== null &&
-                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls className={classes.streamVideo}></video>
+                                        {recorderedVideo !== null && 
+                                            
+                                                <video height="250" width="250" controls>
+                                                    <source src={window.URL.createObjectURL(recorderedVideo)} type="video/mp4" />
+                                                    Your browser does not support the video tag.
+                                                </video>    
                                         }
-                                        <Input type="file" inputProps={{'accept': 'video/*', 'capture':'user' }} onChange={this.handleFileUploading}/>
+                                        <Input type="file" inputProps={{'accept': 'video/mp4', 'capture':'user' }} onChange={this.handleFileUploading}/>
                                     </Fragment>
                                 )
                             }

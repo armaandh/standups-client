@@ -21,7 +21,10 @@ class Video extends Component{
     render(){
         return (
             <Paper elevation={2} className={this.props.classes.videoCard}>
-                <video src={this.state.videoURL} controls height={300} width={300}/>
+                <video height="250" width="250" controls>
+                    <source src={this.state.videoURL} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
             </Paper>
         )
     }

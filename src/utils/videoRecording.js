@@ -56,6 +56,7 @@ export const startRecording = () => {
     }
 
     try{
+        //options = { mimeType: 'video/webm;codecs=h264' }
         mediaRecorder = new MediaRecorder(window.stream, options)
         console.log('Created Media Recorder', mediaRecorder, 'with options', options)   
         mediaRecorder.onstop = handleStop
@@ -95,7 +96,8 @@ export const getVideoRecordURL = () => {
 }
 
 export const getVideoBlob = () => {
-    return new Blob(recordedBlobs, { type: 'video/webm' })
+    //return new Blob(recordedBlobs, { type: 'video/webm' })
+    return new Blob(recordedBlobs, {type: 'video/mp4'})
 }
 
 export const initVideoRecording = () => {
