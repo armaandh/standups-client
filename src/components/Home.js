@@ -36,7 +36,7 @@ class Home extends Component{
 
         if (isDataFetched){
             return (
-                <div>
+                <div className={classes.bgc}>
                 <Grid container spacing={0} className={classes.root}>
                     <TeamList team={null} subTeams={teams}/>
                 </Grid>
@@ -63,13 +63,17 @@ class Home extends Component{
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         height: '100%',
         padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,
+        
+    },
+    bgc: {
+        backgroundColor: 'white'
     }
 });
 

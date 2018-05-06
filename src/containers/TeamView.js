@@ -31,6 +31,7 @@ import AppBar from 'material-ui/AppBar'
 import Dialog from 'material-ui/Dialog'
 import Toolbar from 'material-ui/Toolbar'
 import Input from 'material-ui/Input'
+import Snackbar from 'material-ui/Snackbar';
 
 import Stop from '@material-ui/icons/Stop'
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
@@ -47,10 +48,12 @@ class TeamView extends Component{
         isVideoRecordingEnabled: false,
         recorderedVideo: null,
         videoStream: null,
+        open: false,
     }
 
     componentDidMount(){
         this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()})
+        //this.setState({isVideoRecordingEnabled: false})
         const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
         if (!this.state.isTeamFetched){
             myPromise(2000).then(() => { 
@@ -102,7 +105,7 @@ class TeamView extends Component{
         if (recorderedVideo !== null){
             Storage.put(Date.now().toString(), recorderedVideo)
                 .then (result => {
-                    this.setState({isVideosFetched: false})
+                    this.setState({isVideosFetched: false, open: true})
                     console.log(result)
                 })
                 .catch(err => console.log(err))
@@ -159,12 +162,21 @@ class TeamView extends Component{
         })
     }
 
+    handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({ open: false });
+      };
+
     render(){
         const { videos, team, isTeamFetched, isVideoRecording, isVideoStreamEnabled, videoStream, recorderedVideo, isVideoRecordingEnabled } = this.state 
         const { classes } = this.props
 
         if (isTeamFetched){
             return (
+                <div className={classes.bgc}>
                 <Grid container spacing={0} className={classes.root}>
                     <Grid item xs={12} className={classes.teamHeader}>
                         <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
@@ -243,7 +255,33 @@ class TeamView extends Component{
                             }
                         </div>
                     </Dialog>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        open={this.state.open}
+                        autoHideDuration={4000}
+                        onClose={this.handleClose}
+                        SnackbarContentProps={{
+                            'aria-describedby': 'message-id',
+                        }}
+                        message={<span id="message-id">Video is successfully saved.</span>}
+                        action={[
+                            
+                            <IconButton
+                            key="close"
+                            aria-label="Close"
+                            color="inherit"
+                            className={classes.close}
+                            onClick={this.handleClose}
+                            >
+                            <CloseIcon />
+                            </IconButton>,
+                        ]}
+                        />
                 </Grid>
+                </div>
             )
         }else{
             return (
@@ -252,12 +290,14 @@ class TeamView extends Component{
                         in={!isTeamFetched}
                         style={{
                             transitionDelay: !isTeamFetched ? '800ms' : '0ms',
+                            height: '100%',
+                            marginTop: '250px'
                         }}
                         unmountOnExit
                     >
                         <CircularProgress />
                     </Fade>
-            </Grid>
+            </Grid>           
             )
         }
     }
@@ -293,6 +333,8 @@ const styles = theme => ({
     },
     appBar: {
         position: 'relative',
+        backgroundColor: '#FFD54F',
+        color: '#795548'
       },
       flex: {
         flex: 1,
@@ -309,6 +351,9 @@ const styles = theme => ({
         width: "300px",
         height: "300px",
         backgroundColor: 'gray'
+    },
+    bgc: {
+        backgroundColor: 'white'
     }
 });
 

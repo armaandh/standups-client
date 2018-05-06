@@ -31,12 +31,26 @@ class Registration extends Component{
         password: '',
         confirmPassword: '',
         userExists: false,
+        passwordsMatchErrorMessage: '',
+        passwordFormatMessage: 'Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 Special Character'
     }
 
     handleChange = name => event => {
         this.setState({
-          [name]: event.target.value,
+            [name]: event.target.value,
         });
+        const { password } = this.state
+        if (name === 'password'){
+            !validatePassword(event.target.value) 
+                ? this.setState({ passwordFormatMessage: 'Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 Special Character'})
+                : this.setState((nextState, props) => ({...nextState, passwordFormatMessage: ''}))
+        }
+        if(name === 'confirmPassword' && validatePassword(password)){
+            password !== event.target.value 
+                ? this.setState({ passwordsMatchErrorMessage: "Passwords do not match. "})
+                : this.setState((nextState, props) => ({...nextState, passwordsMatchErrorMessage: ''})) 
+                
+        }
     }
 
     handleClose = () => {
@@ -46,12 +60,6 @@ class Registration extends Component{
             password: ''
         });
     };
-
-    // handlePasswordComparison = () => {
-    //     if(this.state.password.value !== this.state.confirmPassword.value){
-    //         console.log('passwords do not match');
-    //     }
-    // };
 
     submitRegistration() {
         const { email, password, confirmPassword } = this.state
@@ -73,7 +81,7 @@ class Registration extends Component{
     }
 
     render() {
-        const { email, password, confirmPassword } = this.state 
+        const { email, password, confirmPassword, passwordsMatchErrorMessage, passwordFormatMessage } = this.state 
         const { classes } = this.props
         const isEmailValid = validateEmail(email)
         const isPasswordValid = validatePassword(password)
@@ -97,7 +105,7 @@ class Registration extends Component{
                                     <AssignmentInd />
                                     </InputAdornment>
                                 ),
-                                }}     
+                            }}     
                         />
                         <TextField                          
                             id="password"
@@ -105,7 +113,7 @@ class Registration extends Component{
                             className={classes.textField}
                             type="password"
                             autoComplete="current-password"
-                            helperText="Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 Special Character"
+                            helperText={passwordFormatMessage}
                             margin="normal"
                             onChange={this.handleChange('password')}
                             InputProps={{
@@ -114,7 +122,7 @@ class Registration extends Component{
                                     <LockOutline />
                                     </InputAdornment>
                                 ),
-                                }}
+                            }}
                         />
                         <TextField
                             id="confirmPassword"
@@ -130,8 +138,11 @@ class Registration extends Component{
                                     <LockOutline />
                                     </InputAdornment>
                                 ),
-                                }}
+                            }}
                         />
+                        {passwordsMatchErrorMessage !== '' &&
+                            <p className={classes.error}>{passwordsMatchErrorMessage}</p>
+                        }
                         
                         <Button color="primary" disabled={!(isEmailValid && isPasswordValid && isConfirmPasswordValid)} className={classes.button} onClick={this.submitRegistration}>
                             Sign up
@@ -213,6 +224,11 @@ const styles = theme => ({
     linkmargin: {
         marginLeft: '10px',
         marginRight: '70px'
+    },
+    error: {
+        color: 'red',
+        fontSize: '12px',
+        marginTop: '5px'
     }
 });
   
