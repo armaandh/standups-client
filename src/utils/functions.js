@@ -12,3 +12,8 @@ export const validateCode = code => {
     let regex = /^[0-9]{4,8}$/;
   return regex.test(code);
 }
+
+export const getInitialsFromName = name => {
+  let splittedName = name.split(' ')
+  return splittedName.length >= 2 ? splittedName[0].charAt(0).toUpperCase() + splittedName[1].charAt(0).toUpperCase() : splittedName[0].slice(0, 1).toUpperCase()
+}
