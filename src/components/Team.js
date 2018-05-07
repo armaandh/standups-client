@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles'
 import Paper from 'material-ui/Paper'
-import Typography from 'material-ui/Typography'
+import Typography from 'material-ui/Typography';
 
 const Team = (props) => {
     return (
@@ -19,8 +19,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px',
-       
+        padding: '16px', 
     },
     font:{
         color: '#616161'

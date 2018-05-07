@@ -318,11 +318,11 @@ class TeamView extends Component{
                         style={{
                             transitionDelay: !isTeamFetched ? '800ms' : '0ms',
                             height: '100%',
-                            marginTop: '250px'
+                            marginTop: '700px'
                         }}
                         unmountOnExit
                     >
-                        <CircularProgress />
+                        <CircularProgress className={classes.progress}/>
                     </Fade>
             </Grid>           
             )
@@ -352,6 +352,10 @@ const styles = theme => ({
     },
     button: {
         margin: theme.spacing.unit,
+        color: '#4f3e27',
+        '&:hover': {
+            backgroundColor: '#ffecd3'
+        },
     },
     recordVideoButton:{
         position: 'fixed',
@@ -381,6 +385,9 @@ const styles = theme => ({
     },
     bgc: {
         backgroundColor: 'white'
+    },
+    progress: {
+        color: '#fcac3c'
     }
 });
 

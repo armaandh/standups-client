@@ -50,11 +50,11 @@ class Home extends Component{
                         style={{
                             transitionDelay: !isDataFetched ? '800ms' : '0ms',
                             height: '100%',
-                            marginTop: '250px'
+                            marginTop: '700px'
                         }}
                         unmountOnExit
                     >
-                        <CircularProgress />
+                        <CircularProgress className={classes.progress}/>
                     </Fade>
                 </Grid>
             )
@@ -69,11 +69,13 @@ const styles = theme => ({
         padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
-        flexGrow: 1,
-        
+        flexGrow: 1,  
     },
     bgc: {
         backgroundColor: 'white'
+    },
+    progress: {
+        color: '#fcac3c'
     }
 });
 

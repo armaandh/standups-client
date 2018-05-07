@@ -90,6 +90,9 @@ const styles = theme => ({
     },
     button: {
         margin: theme.spacing.unit,
+        '&:hover': {
+            backgroundColor: '#ffecd3'
+        },
     },
     actionBlock: {
         display: 'flex',
@@ -102,7 +105,7 @@ const styles = theme => ({
         width: 200,
     },
     font:{
-        color: '#1976D2',
+        color: '#fcac3c',
         fontSize: '1.4rem'
     },
     mobileStepper:{

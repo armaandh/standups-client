@@ -5,6 +5,7 @@ import Home from './components/Home'
 import TeamView from './containers/TeamView'
 import Entry from './containers/Entry'
 import Hootsuite_logo from './images/Hootsuite_logo.svg.png'
+import GitHub_logo from './images/GitHub-Mark-Light-32px.png'
 
 import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
@@ -66,13 +67,15 @@ class App extends Component {
         <footer>
           <div>
             <ul>
-              <li>&copy; 2018 Hootsuite Industry Project<span style={{color: '#e25555'}}>&hearts;</span></li>
+              <li>&copy; 2018 Hootsuite Industry Project</li>
+              <li><img src={GitHub_logo} alt="GitHub_logo" href="https://github.com/armaandh/standups-client" className={classes.logo}/></li>
               <li>Liam</li>
               <li>Armaan</li>
               <li>Edgar</li>
               <li>Cha</li>
-              <li>|</li>
-              <li>BCIT SSD</li>
+              <li style={{fontSize: '1.4rem'}}>|</li>
+              <li>Made with <span style={{color: '#e25555'}}>&hearts;</span></li>
+              <li style={{color: '#e25555'}}></li>
             </ul>
           </div>
         </footer>
@@ -95,7 +98,10 @@ const styles = {
     marginRight: 20,
   },
   font: {
-      color: '#795548'
+    color: '#795548'
+  }, 
+  logo: {
+    width: '80%'
   }
 };
 
