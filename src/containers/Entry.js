@@ -58,7 +58,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
-    backgroundColor: '#FFD54F',
+    // backgroundColor: '#FFD54F',
   }
 });
 

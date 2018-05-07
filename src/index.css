@@ -5,5 +5,7 @@ a {
 html, 
 body {
     height: 100%;
-    background-color: #6b6058;
+    background-color: #FFD54F;
+    overflow-x: hidden;
+    max-width: 100%;
 }

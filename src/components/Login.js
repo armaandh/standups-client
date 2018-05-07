@@ -7,7 +7,8 @@ import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import { InputAdornment } from 'material-ui/Input'
+import IconButton from 'material-ui/IconButton';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Dialog, {
     DialogActions,
@@ -15,6 +16,8 @@ import Dialog, {
     DialogContentText,
   } from 'material-ui/Dialog'
 import LockOutline from '@material-ui/icons/LockOutline'
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import { validateEmail, validatePassword } from './../utils/functions';
 import { Auth } from 'aws-amplify'
@@ -30,6 +33,7 @@ class Login extends Component{
         email: '',
         password: '',
         invalidUser: false,
+        showPassword: false,
     }
 
     handleChange = name => event => {
@@ -44,6 +48,14 @@ class Login extends Component{
             email: '',
             password: ''
          });
+    };
+
+    handleMouseDownPassword = event => {
+        event.preventDefault();
+      };
+
+    handleClickShowPassword = () => {
+        this.setState({ showPassword: !this.state.showPassword });
     };
 
     submitLogin = () => {
@@ -78,14 +90,15 @@ class Login extends Component{
         const isPasswordValid = validatePassword(password)
     
         return (
-            <Grid container spacing={0} className={classes.root}>
+            <div className={classes.root}>
+             {/* <Grid container spacing={0} className={classes.root}> */}
                 <Paper elevation={2} className={classes.loginContainer}>
                     <Typography variant='headline' className={classes.headline}>Sign In</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             id="email"
                             label="Email"
-                            value={email}
+                            value={email.toLowerCase()}
                             className={classes.textField}
                             margin="normal"
                             onChange={this.handleChange('email')}
@@ -102,7 +115,7 @@ class Login extends Component{
                             label="Password"
                             className={classes.textField}
                             value={password || ''}
-                            type="password"
+                            type={this.state.showPassword ? 'text' : 'password'}
                             autoComplete="current-password"
                             margin="normal"
                             onChange={this.handleChange('password')}
@@ -112,7 +125,18 @@ class Login extends Component{
                                     <LockOutline />
                                     </InputAdornment>
                                 ),
-                                }}
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="Toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                        onMouseDown={this.handleMouseDownPassword}
+                                    >
+                                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
                         />
                         <Button color="primary" disabled={!(isEmailValid && isPasswordValid)} className={classes.button} onClick={this.submitLogin}>
                             Sign in
@@ -146,7 +170,9 @@ class Login extends Component{
                     </Button>
                 </DialogActions>
             </Dialog>
-            </Grid>
+           
+            {/* </Grid> */}
+            </div>
         )
     }
 }
