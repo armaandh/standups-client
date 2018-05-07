@@ -6,9 +6,9 @@ import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import { InputAdornment } from 'material-ui/Input';
-import LockOutline from '@material-ui/icons/LockOutline';
-import AssignmentInd from '@material-ui/icons/AssignmentInd';
+import { InputAdornment } from 'material-ui/Input'
+import LockOutline from '@material-ui/icons/LockOutline'
+import AssignmentInd from '@material-ui/icons/AssignmentInd'
 import Dialog, {
     DialogActions,
     DialogContent,
@@ -90,7 +90,7 @@ class Registration extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.registrationContainer}>
-                    <Typography variant='headline'>Sign Up Account</Typography>
+                    <Typography variant='headline' className={classes.headline}>Sign Up</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             id="email"
@@ -229,6 +229,10 @@ const styles = theme => ({
         color: 'red',
         fontSize: '12px',
         marginTop: '5px'
+    },
+    headline:{
+        textAlign: 'center',
+        fontSize: '2em'
     }
 });
   

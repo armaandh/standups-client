@@ -1,6 +1,5 @@
 import AWS from 'aws-sdk'
 import * as AWSconfig from './amazonConfig'
-// const host = ""
 
 export const endpointUrl = AWSconfig.endpointUrl
 var bucketName = AWSconfig.bucketName

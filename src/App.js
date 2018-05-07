@@ -16,15 +16,11 @@ import HomeIcon from '@material-ui/icons/Home'
 import amber from 'material-ui/colors/amber';
 
 import { withAuthenticator } from 'aws-amplify-react';
-import { Auth } from 'aws-amplify';
-import Amplify from 'aws-amplify'
+import Amplify, { Auth } from 'aws-amplify'
 import { configuration } from './utils/amazonConfig'
 Amplify.configure(configuration)
 
 class App extends Component {
-  // constructor(props){
-  //   super(props)
-  // }
 
   signOut = () => {
     Auth.signOut()
@@ -63,7 +59,7 @@ class App extends Component {
         <main>
           <Fragment>
             <Route path="/home" component={Home} />
-            <Route exact path="/" component={Entry} />
+            <Route exact path="/" component={Home} />
             <Route path="/team/:id" component={TeamView} />
           </Fragment>
         </main>

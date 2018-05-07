@@ -13,11 +13,11 @@ import Dialog, {
     DialogActions,
     DialogContent,
     DialogContentText,
-  } from 'material-ui/Dialog';
+  } from 'material-ui/Dialog'
 
 import { validateEmail, validateCode } from './../utils/functions';
 
-import { Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify'
 
 class ConfirmRegistration extends Component{
     constructor(props){

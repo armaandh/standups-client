@@ -64,7 +64,6 @@ export const startRecording = () => {
         console.log('Media Recorder started', mediaRecorder)
     } catch (e){
         console.error('Exception while creating MediaRecorder: ' + e)
-        //alert('Exception while creating MediaRecorder: ' + e + '. mimeType: ' + options.mimeType)
         return false
     }
 }
@@ -96,6 +95,7 @@ export const getVideoRecordURL = () => {
 
 export const getVideoBlob = () => {
     return new Blob(recordedBlobs, { type: 'video/webm' })
+    //return new Blob(recordedBlobs, {type: 'video/mp4'})
 }
 
 export const initVideoRecording = () => {

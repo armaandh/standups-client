@@ -7,19 +7,17 @@ import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import { InputAdornment } from 'material-ui/Input';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import { InputAdornment } from 'material-ui/Input'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 import Dialog, {
     DialogActions,
     DialogContent,
     DialogContentText,
-  } from 'material-ui/Dialog';
+  } from 'material-ui/Dialog'
+import LockOutline from '@material-ui/icons/LockOutline'
 
 import { validateEmail, validatePassword } from './../utils/functions';
-
 import { Auth } from 'aws-amplify'
-
-//import createHistory from 'history/createBrowserHistory'
 
 class Login extends Component{
     constructor(props){
@@ -80,75 +78,75 @@ class Login extends Component{
         const isPasswordValid = validatePassword(password)
     
         return (
-        <Grid container spacing={0} className={classes.root}>
-            <Paper elevation={2} className={classes.loginContainer}>
-                <Typography variant='headline'>Sign In Account</Typography>
-                <form className={classes.form} noValidate autoComplete="off">
-                    <TextField
-                        id="email"
-                        label="Email"
-                        value={email}
-                        className={classes.textField}
-                        margin="normal"
-                        onChange={this.handleChange('email')}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                <AccountCircle />
-                                </InputAdornment>
-                            ),
-                            }}
-                    />
-                    <TextField
-                        id="password"
-                        label="Password"
-                        className={classes.textField}
-                        value={password || ''}
-                        type="password"
-                        autoComplete="current-password"
-                        margin="normal"
-                        onChange={this.handleChange('password')}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                <AccountCircle />
-                                </InputAdornment>
-                            ),
-                            }}
-                    />
-                    <Button color="primary" disabled={!(isEmailValid && isPasswordValid)} className={classes.button} onClick={this.submitLogin}>
-                        Sign in
-                    </Button>
-                </form>
+            <Grid container spacing={0} className={classes.root}>
+                <Paper elevation={2} className={classes.loginContainer}>
+                    <Typography variant='headline' className={classes.headline}>Sign In</Typography>
+                    <form className={classes.form} noValidate autoComplete="off">
+                        <TextField
+                            id="email"
+                            label="Email"
+                            value={email}
+                            className={classes.textField}
+                            margin="normal"
+                            onChange={this.handleChange('email')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <AccountCircle />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        <TextField
+                            id="password"
+                            label="Password"
+                            className={classes.textField}
+                            value={password || ''}
+                            type="password"
+                            autoComplete="current-password"
+                            margin="normal"
+                            onChange={this.handleChange('password')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <LockOutline />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        <Button color="primary" disabled={!(isEmailValid && isPasswordValid)} className={classes.button} onClick={this.submitLogin}>
+                            Sign in
+                        </Button>
+                    </form>
 
-                <div className={classes.link}>
-                    <Link to="/forgotpassword" className={classes.linkmargin}>
-                    Forgot Password?
-                    </Link>
-                    <Link to="/registration" >
-                    Sign up
-                    </Link>
-                </div>
-            </Paper>
-            <Dialog
-            open={this.state.invalidUser}
-            onClose={this.handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            >
-            <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                Invalid login credentials.
-                Please try again.
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
-                Close
-                </Button>
-            </DialogActions>
-        </Dialog>
-        </Grid>
+                    <div className={classes.link}>
+                        <Link to="/forgotpassword" className={classes.linkmargin}>
+                        Forgot Password?
+                        </Link>
+                        <Link to="/registration" >
+                        Sign up
+                        </Link>
+                    </div>
+                </Paper>
+                <Dialog
+                open={this.state.invalidUser}
+                onClose={this.handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                >
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    Invalid login credentials.
+                    Please try again.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">
+                    Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            </Grid>
         )
     }
 }
@@ -198,6 +196,10 @@ const styles = theme => ({
     linkmargin: {
         marginLeft: '10px',
         marginRight: '70px'
+    },
+    headline:{
+        textAlign: 'center',
+        fontSize: '2em'
     }
 });
   

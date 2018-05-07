@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react'
 import MembersList from './MembersList'
 import TeamList from './TeamList'
 import VideoList from './VideoList'
-import { Storage } from 'aws-amplify';
+import Amplify, { Storage, API, Auth } from 'aws-amplify'
+import { API_GATEWAY_NAME } from './../utils/amazonConfig'
 
 import { 
     startRecording, 
@@ -14,7 +15,8 @@ import {
     isMediaRecordingSupported
 } from '../utils/videoRecording'
 
-import { saveToAWS, getAllVideos, getTeam } from '../utils/api'
+import { getTeam } from '../utils/api'
+import { formatEmail } from './../utils/functions'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -38,6 +40,7 @@ import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 
 class TeamView extends Component{
     state = {
+        accessToken: null,
         isTeamFetched: false,
         isVideosFetched: false,
         team: {},
@@ -45,32 +48,27 @@ class TeamView extends Component{
         addStanupDialogOpen: false,
         isVideoRecording: false,
         isVideoStreamEnabled: false,
-        isVideoRecordingEnabled: true,
+        isVideoRecordingEnabled: false,
         recorderedVideo: null,
         videoStream: null,
         open: false,
     }
 
     componentDidMount(){
-        this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()})
         //this.setState({isVideoRecordingEnabled: false})
+
+        //Auth.currentSession()
+        //.then(session => this.setState({accessToken: session.accessToken.jwtToken}))
+        //.catch(error => console.log('*** Session ERROR: ', error))
+
         const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
         if (!this.state.isTeamFetched){
-            myPromise(2000).then(() => { 
+            myPromise(1000).then(() => { 
                 this.setState({
                     team: getTeam(this.props.match.params.id),
                     isTeamFetched: true
                 })
-            })
-        }
-        if (!this.state.isVideosFetched){
-            Storage.list('')
-                .then((data) => 
-                {
-                    console.log('*********** ', data)
-                    this.setState({videos: data, isVideosFetched: true})
-                })
-                .catch((error) => console.log('Fetch all videos ERROR: ', error));   
+            }).then(() => this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()}))
         }
     }
 
@@ -84,11 +82,18 @@ class TeamView extends Component{
                 })
             })
         }
-        if (!this.state.isVideosFetched){
-            Storage.list('')
+        if (!this.state.isVideosFetched && this.state.team !== undefined && this.state.isTeamFetched){
+            console.log('List: ', this.state.team.name)
+            this.setState({isVideosFetched: true})
+            Storage.configure({
+                bucket: 'transcoded-hootsuite-videos', //Your bucket ARN;
+                region: 'us-east-1',//Specify the region your bucket was created in;
+                identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c' //Specify your identityPoolId for Auth and Unauth access to your bucket;
+            }); 
+            Storage.list(`${this.state.team.name}/`)
                 .then((data) => 
                 { 
-                    this.setState({videos: data, isVideosFetched: true})
+                    this.setState({videos: data})
                 })
                 .catch((error) => console.log('Fetch all videos ERROR: ', error));   
         }
@@ -103,13 +108,23 @@ class TeamView extends Component{
     submitVideo = () => {
         const { recorderedVideo } = this.state
         if (recorderedVideo !== null){
-            Storage.put(Date.now().toString(), recorderedVideo)
-                .then (result => {
-                    this.setState({isVideosFetched: false, open: true})
-                    console.log(result)
-                })
-                .catch(err => console.log(err))
-                .then(() => this.handleAddVideoDialogClose());
+            Auth.currentUserInfo()
+                .then(userDetails => {
+                    //console.log('Session: ', userDetails.attributes.email)
+                    Storage.configure({
+                        bucket: 'ed-photoss', //Your bucket ARN;
+                        region: 'us-east-1',//Specify the region your bucket was created in;
+                        identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c' //Specify your identityPoolId for Auth and Unauth access to your bucket;
+                    });                    
+                    Storage.put(`${this.state.team.name}/${formatEmail(userDetails.attributes.email)}/${Date.now().toString()}`, recorderedVideo)
+                        .then (result => {
+                            this.setState({isVideosFetched: false, open: true})
+                            console.log(result)
+                        })
+                        .catch(err => console.log(err))
+                        .then(() => this.handleAddVideoDialogClose());
+                        })
+                .catch(error => console.log('Coudn\' get user\'s details ', error))
         }else{
             this.handleAddVideoDialogClose()
         }
@@ -152,7 +167,7 @@ class TeamView extends Component{
     }
 
     refetchTeamData = () => {
-        this.setState({ isTeamFetched: false })
+        this.setState({ isTeamFetched: false, isVideosFetched: false  })
     }
  
     handleFileUploading = (e) => {
@@ -173,6 +188,18 @@ class TeamView extends Component{
     render(){
         const { videos, team, isTeamFetched, isVideoRecording, isVideoStreamEnabled, videoStream, recorderedVideo, isVideoRecordingEnabled } = this.state 
         const { classes } = this.props
+
+/*         if(this.state.accessToken !== null){
+            const options = {
+                headers: {
+                  Authorization: this.state.accessToken,
+                  'Access-Control-Allow-Origin': '*'
+                }
+            }
+            API.get(API_GATEWAY_NAME, 'dev/teams', options)
+            .then(response => console.log('****** Response', response))
+            .catch(error => console.log('****** ', error))
+        } */
 
         if (isTeamFetched){
             return (
@@ -223,7 +250,7 @@ class TeamView extends Component{
                                             <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
                                         }
                                         {recorderedVideo !== null &&
-                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls className={classes.streamVideo}></video>
+                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls="true" className={classes.streamVideo}></video>
                                                 
                                         }
                                         </div>
@@ -242,10 +269,14 @@ class TeamView extends Component{
                                 ) :
                                 (
                                     <Fragment>
-                                        {recorderedVideo !== null &&
-                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls className={classes.streamVideo}></video>
+                                        {recorderedVideo !== null && 
+                                            
+                                                <video height="250" width="250" controls>
+                                                    <source src={window.URL.createObjectURL(recorderedVideo)} type="video/mp4" />
+                                                    Your browser does not support the video tag.
+                                                </video>    
                                         }
-                                        <Input type="file" inputProps={{'accept': 'video/*', 'capture':'user' }} onChange={this.handleFileUploading}/>
+                                        <Input type="file" inputProps={{'accept': 'video/mp4', 'capture':'user' }} onChange={this.handleFileUploading}/>
                                     </Fragment>
                                 )
                             }
@@ -332,7 +363,7 @@ const styles = theme => ({
         backgroundColor: '#FFD54F',
         color: '#795548'
       },
-      flex: {
+    flex: {
         flex: 1,
     },
     addVideoContent:{
