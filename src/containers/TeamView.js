@@ -16,6 +16,7 @@ import {
 } from '../utils/videoRecording'
 
 import { getTeam } from '../utils/api'
+import { formatEmail } from './../utils/functions'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -104,10 +105,6 @@ class TeamView extends Component{
         })
     }
 
-    formatEmail = email => {
-        return email.split('@')[0]
-    }
-
     submitVideo = () => {
         const { recorderedVideo } = this.state
         if (recorderedVideo !== null){
@@ -119,7 +116,7 @@ class TeamView extends Component{
                         region: 'us-east-1',//Specify the region your bucket was created in;
                         identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c' //Specify your identityPoolId for Auth and Unauth access to your bucket;
                     });                    
-                    Storage.put(`${this.state.team.name}/${this.formatEmail(userDetails.attributes.email)}/${Date.now().toString()}`, recorderedVideo)
+                    Storage.put(`${this.state.team.name}/${formatEmail(userDetails.attributes.email)}/${Date.now().toString()}`, recorderedVideo)
                         .then (result => {
                             this.setState({isVideosFetched: false, open: true})
                             console.log(result)

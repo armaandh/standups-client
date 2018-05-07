@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Paper from 'material-ui/Paper'
-import { Storage } from 'aws-amplify';
+import { Storage } from 'aws-amplify'
+import Typography from 'material-ui/Typography'
+import { dateFormatForUploadedVideo } from './../utils/functions'
 
 class Video extends Component{
     constructor(props){
@@ -10,7 +12,7 @@ class Video extends Component{
 
     state = {
         videoName: '',
-        authorEmai: '',
+        authorEmail: '',
         teamName: '',
         videoURL: ''
     }
@@ -19,7 +21,7 @@ class Video extends Component{
         let videoMetaData = this.props.video.split('/')
         this.setState({
             teamName: videoMetaData[0],
-            authorEmai: videoMetaData[1],
+            authorEmail: videoMetaData[1],
             videoName: videoMetaData[2]
         })
         Storage.get(this.props.video)
@@ -30,12 +32,17 @@ class Video extends Component{
     }
 
     render(){
+        const { authorEmail, videoName } = this.state
+        console.log('Video Name:', videoName)
+
         return (
             <Paper elevation={2} className={this.props.classes.videoCard}>
+                <Typography>by ${authorEmail}</Typography>
                 <video height="250" width="250" controls>
                     <source src={this.state.videoURL} type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
+                <Typography>{dateFormatForUploadedVideo(videoName)}</Typography>
             </Paper>
         )
     }
@@ -47,6 +54,7 @@ const styles = theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '16px',
+        flexDirection: 'column'
     },
 });
 
