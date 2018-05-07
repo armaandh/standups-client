@@ -1,6 +1,10 @@
 .App {
   text-align: center;
   height: 100%;
+  /* // */
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -30,4 +34,17 @@
 
 main{
   height: 100%;
+}
+
+footer ul {
+  list-style: none;
+  font-family: Open Sans,sans-serif;
+  display: flex;
+  flex: 1;
+  justify-content: center
+}
+
+footer li {
+  margin-right: 40px;
+  
 }

@@ -67,6 +67,17 @@ class App extends Component {
             <Route path="/team/:id" component={TeamView} />
           </Fragment>
         </main>
+        <footer>
+          <div>
+            <ul>
+              <li>&copy; 2018 Hootsuite Industry Project</li>
+              <li>Liam</li>
+              <li>Armaan</li>
+              <li>Edgar</li>
+              <li>Cha</li>
+            </ul>
+          </div>
+        </footer>
       </div>
     );
   }
@@ -85,9 +96,9 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-  font:{
+  font: {
       color: '#795548'
-  },
+  }
 };
 
 const theme1 = createMuiTheme({
