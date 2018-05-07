@@ -84,6 +84,11 @@ class TeamView extends Component{
         if (!this.state.isVideosFetched && this.state.team !== undefined && this.state.isTeamFetched){
             console.log('List: ', this.state.team.name)
             this.setState({isVideosFetched: true})
+            Storage.configure({
+                bucket: 'transcoded-hootsuite-videos', //Your bucket ARN;
+                region: 'us-east-1',//Specify the region your bucket was created in;
+                identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c' //Specify your identityPoolId for Auth and Unauth access to your bucket;
+            }); 
             Storage.list(`${this.state.team.name}/`)
                 .then((data) => 
                 { 
@@ -99,13 +104,22 @@ class TeamView extends Component{
         })
     }
 
+    formatEmail = email => {
+        return email.split('@')[0]
+    }
+
     submitVideo = () => {
         const { recorderedVideo } = this.state
         if (recorderedVideo !== null){
             Auth.currentUserInfo()
                 .then(userDetails => {
                     //console.log('Session: ', userDetails.attributes.email)
-                    Storage.put(`${this.state.team.name}/${userDetails.attributes.email}/${Date.now().toString()}`, recorderedVideo)
+                    Storage.configure({
+                        bucket: 'ed-photoss', //Your bucket ARN;
+                        region: 'us-east-1',//Specify the region your bucket was created in;
+                        identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c' //Specify your identityPoolId for Auth and Unauth access to your bucket;
+                    });                    
+                    Storage.put(`${this.state.team.name}/${this.formatEmail(userDetails.attributes.email)}/${Date.now().toString()}`, recorderedVideo)
                         .then (result => {
                             this.setState({isVideosFetched: false, open: true})
                             console.log(result)
