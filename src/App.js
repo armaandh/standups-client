@@ -68,7 +68,7 @@ class App extends Component {
           <div>
             <ul>
               <li>&copy; 2018 Hootsuite Industry Project</li>
-              <li><img src={GitHub_logo} alt="GitHub_logo" href="https://github.com/armaandh/standups-client" className={classes.logo}/></li>
+              <li><a href="https://github.com/armaandh/standups-client"><img src={GitHub_logo} alt="GitHub_logo" className={classes.logo}/></a></li>
               <li>Liam</li>
               <li>Armaan</li>
               <li>Edgar</li>
@@ -102,7 +102,7 @@ const styles = {
   }, 
   logo: {
     width: '80%'
-  }
+  },
 };
 
 const theme1 = createMuiTheme({

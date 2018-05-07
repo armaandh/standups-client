@@ -246,6 +246,7 @@ class TeamView extends Component{
                                 (
                                     <Fragment>
                                         <div className={classes.streamVideo}>
+                                        {/* <Typography className={classes.videoNote}>Please click the button to start recording.</Typography> */}
                                         {isVideoStreamEnabled && 
                                             <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
                                         }
@@ -381,13 +382,20 @@ const styles = theme => ({
     streamVideo:{
         width: "300px",
         height: "300px",
-        backgroundColor: 'gray'
+        backgroundColor: 'gray',
+        // display: 'flex',
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
     bgc: {
         backgroundColor: 'white'
     },
     progress: {
         color: '#fcac3c'
+    },
+    videoNote: {
+        color: 'white',
+        textAlign: 'center',
     }
 });
 

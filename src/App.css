@@ -41,7 +41,8 @@ footer ul {
   font-family: Open Sans,sans-serif;
   display: flex;
   flex: 1;
-  justify-content: center
+  justify-content: center;
+  padding-top: 15px;
 }
 
 footer li {
