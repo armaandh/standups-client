@@ -6,9 +6,9 @@ import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import { InputAdornment } from 'material-ui/Input';
-import LockOutline from '@material-ui/icons/LockOutline';
-import AssignmentInd from '@material-ui/icons/AssignmentInd';
+import { InputAdornment } from 'material-ui/Input'
+import LockOutline from '@material-ui/icons/LockOutline'
+import AssignmentInd from '@material-ui/icons/AssignmentInd'
 import Dialog, {
     DialogActions,
     DialogContent,

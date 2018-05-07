@@ -6,8 +6,8 @@ import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import { InputAdornment } from 'material-ui/Input';
-import Lock from '@material-ui/icons/Lock';
+import { InputAdornment } from 'material-ui/Input'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 import Dialog, {
     DialogActions,
     DialogContent,
@@ -74,7 +74,7 @@ class ForgotPassword extends Component{
                                 InputProps={{
                                     startAdornment: (
                                       <InputAdornment position="start">
-                                        <Lock />
+                                        <AccountCircle />
                                       </InputAdornment>
                                     ),
                                   }}
