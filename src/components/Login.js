@@ -80,7 +80,7 @@ class Login extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.loginContainer}>
-                    <Typography variant='headline'>Sign In Account</Typography>
+                    <Typography variant='headline' className={classes.headline}>Sign In</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             id="email"
@@ -196,6 +196,10 @@ const styles = theme => ({
     linkmargin: {
         marginLeft: '10px',
         marginRight: '70px'
+    },
+    headline:{
+        textAlign: 'center',
+        fontSize: '2em'
     }
 });
   

@@ -54,30 +54,20 @@ class TeamView extends Component{
     }
 
     componentDidMount(){
-        this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()})
         //this.setState({isVideoRecordingEnabled: false})
 
-        Auth.currentSession()
-        .then(session => this.setState({accessToken: session.accessToken.jwtToken}))
-        .catch(error => console.log('*** Session ERROR: ', error))
+        //Auth.currentSession()
+        //.then(session => this.setState({accessToken: session.accessToken.jwtToken}))
+        //.catch(error => console.log('*** Session ERROR: ', error))
 
         const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
         if (!this.state.isTeamFetched){
-            myPromise(2000).then(() => { 
+            myPromise(1000).then(() => { 
                 this.setState({
                     team: getTeam(this.props.match.params.id),
                     isTeamFetched: true
                 })
-            })
-        }
-        if (!this.state.isVideosFetched){
-            Storage.list('')
-                .then((data) => 
-                {
-                    console.log('*********** ', data)
-                    this.setState({videos: data, isVideosFetched: true})
-                })
-                .catch((error) => console.log('Fetch all videos ERROR: ', error));   
+            }).then(() => this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()}))
         }
     }
 
@@ -91,11 +81,13 @@ class TeamView extends Component{
                 })
             })
         }
-        if (!this.state.isVideosFetched){
-            Storage.list('')
+        if (!this.state.isVideosFetched && this.state.team !== undefined && this.state.isTeamFetched){
+            console.log('List: ', this.state.team.name)
+            this.setState({isVideosFetched: true})
+            Storage.list(`${this.state.team.name}/`)
                 .then((data) => 
                 { 
-                    this.setState({videos: data, isVideosFetched: true})
+                    this.setState({videos: data})
                 })
                 .catch((error) => console.log('Fetch all videos ERROR: ', error));   
         }
@@ -110,13 +102,18 @@ class TeamView extends Component{
     submitVideo = () => {
         const { recorderedVideo } = this.state
         if (recorderedVideo !== null){
-            Storage.put(Date.now().toString(), recorderedVideo)
-                .then (result => {
-                    this.setState({isVideosFetched: false, open: true})
-                    console.log(result)
-                })
-                .catch(err => console.log(err))
-                .then(() => this.handleAddVideoDialogClose());
+            Auth.currentUserInfo()
+                .then(userDetails => {
+                    //console.log('Session: ', userDetails.attributes.email)
+                    Storage.put(`${this.state.team.name}/${userDetails.attributes.email}/${Date.now().toString()}`, recorderedVideo)
+                        .then (result => {
+                            this.setState({isVideosFetched: false, open: true})
+                            console.log(result)
+                        })
+                        .catch(err => console.log(err))
+                        .then(() => this.handleAddVideoDialogClose());
+                        })
+                .catch(error => console.log('Coudn\' get user\'s details ', error))
         }else{
             this.handleAddVideoDialogClose()
         }
@@ -159,7 +156,7 @@ class TeamView extends Component{
     }
 
     refetchTeamData = () => {
-        this.setState({ isTeamFetched: false })
+        this.setState({ isTeamFetched: false, isVideosFetched: false  })
     }
  
     handleFileUploading = (e) => {

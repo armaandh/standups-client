@@ -6,16 +6,27 @@ import { Storage } from 'aws-amplify';
 class Video extends Component{
     constructor(props){
         super(props)
-
-        Storage.get(props.video)
-            .then(result => {
-                this.setState({videoURL: result})
-            })
-            .catch(err => console.log(err));
     }
 
     state = {
+        videoName: '',
+        authorEmai: '',
+        teamName: '',
         videoURL: ''
+    }
+
+    componentDidMount(){
+        let videoMetaData = this.props.video.split('/')
+        this.setState({
+            teamName: videoMetaData[0],
+            authorEmai: videoMetaData[1],
+            videoName: videoMetaData[2]
+        })
+        Storage.get(this.props.video)
+            .then(result => {
+                this.setState({videoURL: result})
+            })
+            .catch(err => console.log(err))
     }
 
     render(){
