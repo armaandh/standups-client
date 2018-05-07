@@ -36,18 +36,14 @@ class Entry extends Component {
           <div>
             <img src={Hootsuite_logo} alt="hootsuite_logo"/><br/><br/>
           </div>
-          {/* <BrowserRouter> */}
           <Switch>
             <Route path="/login" component={Login}/>
-            {/* <Login submitLogin={this.submitLogin} history= {history}/>
-             */}
             <Route path="/registration" component={Registration} />
             <Route path="/forgotpassword" component={ForgotPassword} />
             <Route path="/resetpassword" component={ResetPassword} />
             <Route path="/confirmregistration" component={ConfirmRegistration} />
             <Route path="/" component={Login} />
           </Switch>
-          {/* </BrowserRouter> */}
         </Grid>
       </div>
     )

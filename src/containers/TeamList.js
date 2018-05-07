@@ -6,16 +6,13 @@ import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    withMobileDialog,
-  } from 'material-ui/Dialog'
+import Dialog, { withMobileDialog} from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
-
+import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
+import CloseIcon from '@material-ui/icons/Close'
+import IconButton from 'material-ui/IconButton'
 import GroupAdd from '@material-ui/icons/GroupAdd'
-// import MobileStepper from 'material-ui/MobileStepper';
 
 class TeamList extends Component{
     state={
@@ -30,20 +27,8 @@ class TeamList extends Component{
         });
     }
 
-    // handleNext = () => {
-    //     this.setState(prevState => ({
-    //       activeStep: prevState.activeStep + 1,
-    //     }));
-    //   };
-    
-    // handleBack = () => {
-    // this.setState(prevState => ({
-    //     activeStep: prevState.activeStep - 1,
-    // }));
-    // };
-
     render(){
-        const { classes, subTeams, fullScreen, refetchTeamData } = this.props
+        const { classes, subTeams, refetchTeamData } = this.props
 
         return (
             <Grid container spacing={0} className={classes.root}>
@@ -60,50 +45,36 @@ class TeamList extends Component{
                 }
                 {subTeams.map(t => <Team team={t} key={t.id} refetchTeamData={refetchTeamData}/>)}
                 <Dialog
-                    fullScreen={fullScreen}
-                    open={this.state.addTeamDialogOpen}
-                    onClose={() => this.setState({ addTeamDialogOpen: false })}
-                    aria-labelledby="responsive-dialog-title"
-                    >
-                    <DialogTitle id="responsive-dialog-title">{"Add New Team"}</DialogTitle>
-                    <DialogContent>
-                    <TextField
-                        id="team-name"
-                        label="Team Name"
-                        className={classes.textField}
-                        type="text"
-                        margin="normal"
-                        onChange={this.handleChange('teamNameField')}
-                    />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => this.setState({ addTeamDialogOpen: false })} color="primary">
-                            Add
-                        </Button>
-                        <Button onClick={() => this.setState({ addTeamDialogOpen: false })} color="secondary" autoFocus>
-                            Cancel
-                        </Button>
-                    </DialogActions>
+                        fullScreen
+                        open={this.state.addTeamDialogOpen}
+                        onClose={() => this.setState({ addTeamDialogOpen: false })}
+                        aria-labelledby="responsive-dialog-title"
+                        >
+                        <AppBar className={classes.appBar}>
+                            <Toolbar>
+                            <IconButton color="inherit" onClick={() => this.setState({ addTeamDialogOpen: false })} aria-label="Close">
+                                <CloseIcon />
+                            </IconButton>
+                            <Typography variant="title" color="inherit" className={classes.flex}>
+                                Add New Team
+                            </Typography>
+                            <Button color="inherit" onClick={() => this.setState({ addTeamDialogOpen: false })}>
+                                save
+                            </Button>
+                            </Toolbar>
+                        </AppBar>
+                        <div className={classes.addTeamContent}>
+                        <TextField
+                            id="team-name"
+                            label="Team Name"
+                            className={classes.textField}
+                            type="text"
+                            margin="normal"
+                            onChange={this.handleChange('teamNameField')}
+                        />
+                        </div>
                 </Dialog>
-
                 <div><br/></div>
-                 {/* <MobileStepper
-                    variant="text"
-                    steps={6}
-                    position="static"
-                    activeStep={this.state.activeStep}
-                    className={classes.mobileStepper}
-                    nextButton={
-                        <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === 5}>
-                        Next
-                        </Button>
-                    }
-                    backButton={
-                        <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
-                        Back
-                        </Button>
-                    }
-                    /> */}
             </Grid>
         )
     }
@@ -115,7 +86,6 @@ const styles = theme => ({
         padding: '10px',
         flexDirection: 'column',
         alignSelf: 'flex-start',
-        // width: '40%',
         margin: 'auto',
     },
     button: {
@@ -137,7 +107,23 @@ const styles = theme => ({
     },
     mobileStepper:{
         background: 'white'
-    }
+    },
+    addTeamContent:{
+        display: 'flex',
+        flex: '1 1 auto',
+        margin: '0 auto',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    appBar: {
+        position: 'relative',
+        backgroundColor: '#FFD54F',
+        color: '#795548'
+      },
+    flex: {
+        flex: 1,
+    },
 }); 
 
 export default withMobileDialog()(withStyles(styles)(TeamList))

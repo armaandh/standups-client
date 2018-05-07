@@ -5,12 +5,12 @@ import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    withMobileDialog,
-  } from 'material-ui/Dialog'
+import Dialog, { withMobileDialog } from 'material-ui/Dialog'
+import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
+import CloseIcon from '@material-ui/icons/Close'
+import IconButton from 'material-ui/IconButton'
+import Typography from 'material-ui/Typography'
 
 class MembersList extends Component{
     state = {
@@ -25,7 +25,7 @@ class MembersList extends Component{
     }
 
     render(){
-        const { members, classes, fullScreen } = this.props
+        const { members, classes } = this.props
 
         return(
             <Grid container className={classes.membersList}>
@@ -38,30 +38,34 @@ class MembersList extends Component{
                     {members.map(m => <Member member={m} key={m.id} />)}
                 </Grid>
                 <Dialog
-                    fullScreen={fullScreen}
-                    open={this.state.addMemberDialogOpen}
-                    onClose={() => this.setState({ addMemberDialogOpen: false })}
-                    aria-labelledby="responsive-dialog-title"
-                    >
-                    <DialogTitle id="responsive-dialog-title">{"Add Member"}</DialogTitle>
-                    <DialogContent>
-                    <TextField
-                        id="team-name"
-                        label="Member's name"
-                        className={classes.textField}
-                        type="text"
-                        margin="normal"
-                        onChange={this.handleChange('memberNameField')}
-                    />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => this.setState({ addMemberDialogOpen: false })} color="primary">
-                            Add
-                        </Button>
-                        <Button onClick={() => this.setState({ addMemberDialogOpen: false })} color="secondary" autoFocus>
-                            Cancel
-                        </Button>
-                    </DialogActions>
+                        fullScreen
+                        open={this.state.addMemberDialogOpen}
+                        onClose={() => this.setState({ addMemberDialogOpen: false })}
+                        aria-labelledby="responsive-dialog-title"
+                        >
+                        <AppBar className={classes.appBar}>
+                            <Toolbar>
+                            <IconButton color="inherit" onClick={() => this.setState({ addMemberDialogOpen: false })} aria-label="Close">
+                                <CloseIcon />
+                            </IconButton>
+                            <Typography variant="title" color="inherit" className={classes.flex}>
+                                Add New Member
+                            </Typography>
+                            <Button color="inherit" onClick={() => this.setState({ addMemberDialogOpen: false })}>
+                                save
+                            </Button>
+                            </Toolbar>
+                        </AppBar>
+                            <div className={classes.addMemberContent}>
+                                <TextField
+                                    id="team-name"
+                                    label="Member's name"
+                                    className={classes.textField}
+                                    type="text"
+                                    margin="normal"
+                                    onChange={this.handleChange('memberNameField')}
+                                />
+                            </div>
                 </Dialog>
             </Grid>
         )
@@ -73,7 +77,28 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignSelf: 'flex-start'
-    }
+    },
+    addMemberContent:{
+        display: 'flex',
+        flex: '1 1 auto',
+        margin: '0 auto',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+    appBar: {
+        position: 'relative',
+        backgroundColor: '#FFD54F',
+        color: '#795548'
+      },
+    flex: {
+        flex: 1,
+    },
 });
 
 export default withMobileDialog()(withStyles(styles)(MembersList))

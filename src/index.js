@@ -4,7 +4,7 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom'
 import AppWithAuth from './AppWithAuth';
-window.LOG_LEVEL = 'DEBUG';
+//window.LOG_LEVEL = 'DEBUG';
 
 ReactDOM.render(
     <BrowserRouter>

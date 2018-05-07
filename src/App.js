@@ -22,9 +22,6 @@ import { configuration } from './utils/amazonConfig'
 Amplify.configure(configuration)
 
 class App extends Component {
-  // constructor(props){
-  //   super(props)
-  // }
 
   signOut = () => {
     Auth.signOut()
@@ -63,7 +60,7 @@ class App extends Component {
         <main>
           <Fragment>
             <Route path="/home" component={Home} />
-            <Route exact path="/" component={Entry} />
+            <Route exact path="/" component={Home} />
             <Route path="/team/:id" component={TeamView} />
           </Fragment>
         </main>

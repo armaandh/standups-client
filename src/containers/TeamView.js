@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react'
 import MembersList from './MembersList'
 import TeamList from './TeamList'
 import VideoList from './VideoList'
-import { Storage } from 'aws-amplify';
+import Amplify, { Storage, API, Auth } from 'aws-amplify'
+import { API_GATEWAY_NAME } from './../utils/amazonConfig'
 
 import { 
     startRecording, 
@@ -14,7 +15,7 @@ import {
     isMediaRecordingSupported
 } from '../utils/videoRecording'
 
-import { saveToAWS, getAllVideos, getTeam } from '../utils/api'
+import { getTeam } from '../utils/api'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -38,6 +39,7 @@ import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 
 class TeamView extends Component{
     state = {
+        accessToken: null,
         isTeamFetched: false,
         isVideosFetched: false,
         team: {},
@@ -54,6 +56,11 @@ class TeamView extends Component{
     componentDidMount(){
         this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()})
         //this.setState({isVideoRecordingEnabled: false})
+
+        Auth.currentSession()
+        .then(session => this.setState({accessToken: session.accessToken.jwtToken}))
+        .catch(error => console.log('*** Session ERROR: ', error))
+
         const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
         if (!this.state.isTeamFetched){
             myPromise(2000).then(() => { 
@@ -173,6 +180,18 @@ class TeamView extends Component{
     render(){
         const { videos, team, isTeamFetched, isVideoRecording, isVideoStreamEnabled, videoStream, recorderedVideo, isVideoRecordingEnabled } = this.state 
         const { classes } = this.props
+
+/*         if(this.state.accessToken !== null){
+            const options = {
+                headers: {
+                  Authorization: this.state.accessToken,
+                  'Access-Control-Allow-Origin': '*'
+                }
+            }
+            API.get(API_GATEWAY_NAME, 'dev/teams', options)
+            .then(response => console.log('****** Response', response))
+            .catch(error => console.log('****** ', error))
+        } */
 
         if (isTeamFetched){
             return (
@@ -336,7 +355,7 @@ const styles = theme => ({
         backgroundColor: '#FFD54F',
         color: '#795548'
       },
-      flex: {
+    flex: {
         flex: 1,
     },
     addVideoContent:{
