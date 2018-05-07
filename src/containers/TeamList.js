@@ -86,7 +86,7 @@ const styles = theme => ({
         padding: '10px',
         flexDirection: 'column',
         alignSelf: 'flex-start',
-        margin: 'auto',
+        // margin: 'auto',
     },
     button: {
         margin: theme.spacing.unit,

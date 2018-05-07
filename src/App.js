@@ -66,11 +66,13 @@ class App extends Component {
         <footer>
           <div>
             <ul>
-              <li>&copy; 2018 Hootsuite Industry Project</li>
+              <li>&copy; 2018 Hootsuite Industry Project<span style={{color: '#e25555'}}>&hearts;</span></li>
               <li>Liam</li>
               <li>Armaan</li>
               <li>Edgar</li>
               <li>Cha</li>
+              <li>|</li>
+              <li>BCIT SSD</li>
             </ul>
           </div>
         </footer>

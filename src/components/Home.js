@@ -65,7 +65,7 @@ class Home extends Component{
 const styles = theme => ({
     root: {
         display: 'flex',
-        height: '100%',
+        height: '100vh',
         padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
