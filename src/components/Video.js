@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper'
 import { Storage } from 'aws-amplify'
 import Typography from 'material-ui/Typography'
 import { dateFormatForUploadedVideo } from './../utils/functions'
+import { Link } from 'react-router-dom'
 
 class Video extends Component{
     constructor(props){
@@ -33,11 +34,12 @@ class Video extends Component{
 
     render(){
         const { authorEmail, videoName } = this.state
-        console.log('Video Name:', videoName)
 
         return (
             <Paper elevation={2} className={this.props.classes.videoCard}>
-                <Typography>by ${authorEmail}</Typography>
+                <Link to={`/usercontent/${authorEmail}`}>
+                    <Typography>by {authorEmail}</Typography>
+                </Link>
                 <video height="250" width="250" controls>
                     <source src={this.state.videoURL} type="video/mp4" />
                     Your browser does not support the video tag.

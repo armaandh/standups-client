@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Video from './../components/Video'
 
 import { withStyles } from 'material-ui/styles'
@@ -7,15 +7,15 @@ import Grid from 'material-ui/Grid'
 class VideoList extends Component{
     render(){
         const { videos, classes } = this.props
-        console.log(videos)
+        console.log('VidosikiL', videos)
 
         return (
-            <div>
+            <Fragment>
                 <Grid container spacing={0} className={classes.root}>
                     {videos.map(v => <Video video={v.key} key={v.key}/>)}
                 </Grid>
                 <hr/>
-            </div>
+            </Fragment>
         )
     }
 }

@@ -203,8 +203,7 @@ class TeamView extends Component{
 
         if (isTeamFetched){
             return (
-                <div className={classes.bgc}>
-                <Grid container spacing={0} className={classes.root}>
+                <div >
                     <Grid item xs={12} className={classes.teamHeader}>
                         <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
                             <ArrowBack />
@@ -213,6 +212,7 @@ class TeamView extends Component{
                             {team.name}
                         </Typography>
                     </Grid>
+                <Grid container spacing={0} className={classes.root}>
                     <TeamList team={team} subTeams={team.subteams} refetchTeamData={this.refetchTeamData}/>
                     <VideoList videos={videos}/>
                     <MembersList members={team.members} />
@@ -342,6 +342,7 @@ const styles = theme => ({
         padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'white'
     },
     teamHeader:{
         display: 'flex',
@@ -383,12 +384,6 @@ const styles = theme => ({
         width: "300px",
         height: "300px",
         backgroundColor: 'gray',
-        // display: 'flex',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-    },
-    bgc: {
-        backgroundColor: 'white'
     },
     progress: {
         color: '#fcac3c'

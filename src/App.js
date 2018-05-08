@@ -19,6 +19,7 @@ import amber from 'material-ui/colors/amber';
 import { withAuthenticator } from 'aws-amplify-react';
 import Amplify, { Auth } from 'aws-amplify'
 import { configuration } from './utils/amazonConfig'
+import UserContent from './containers/UserContent'
 Amplify.configure(configuration)
 
 class App extends Component {
@@ -38,9 +39,9 @@ class App extends Component {
 
     return (
       <div className="App">
-      <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
         <header>
           <div className={classes.root}>
           <MuiThemeProvider theme={theme1}>
@@ -65,6 +66,7 @@ class App extends Component {
             <Route path="/home" component={Home} />
             <Route exact path="/" component={Home} />
             <Route path="/team/:id" component={TeamView} />
+            <Route exact path="/usercontent/:username" component={UserContent} />
           </Fragment>
         </main>
         <footer>

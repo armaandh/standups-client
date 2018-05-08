@@ -20,7 +20,6 @@ export const getInitialsFromName = name => {
 
 export const dateFormatForUploadedVideo = (value) => {
   let date = new Date(parseInt(value.replace(/\s+/g, '')))
-  console.log('My Date : ', date)
   let hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
   let am_pm = date.getHours() >= 12 ? "PM" : "AM";
   hours = hours < 10 ? "0" + hours : hours;
