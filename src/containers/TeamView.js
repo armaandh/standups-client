@@ -4,7 +4,7 @@ import TeamList from './TeamList'
 import VideoList from './VideoList'
 import Amplify, { Storage, API, Auth } from 'aws-amplify'
 import { API_GATEWAY_NAME } from './../utils/amazonConfig'
-
+import classNames from 'classnames'
 import { 
     startRecording, 
     stopRecording, 
@@ -181,7 +181,6 @@ class TeamView extends Component{
         if (reason === 'clickaway') {
           return;
         }
-    
         this.setState({ open: false });
       };
 
@@ -205,14 +204,20 @@ class TeamView extends Component{
             return (
                 <div >
                     <Grid item xs={12} className={classes.teamHeader}>
-                        <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
-                            <ArrowBack />
+                        <IconButton className={classNames(classes.button, classes.arrow)} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
+                            <ArrowBack /> Back
                         </IconButton>
-                        <Typography className={classes.teamTitle} variant="headline"> 
+                        {/* <Typography className={classes.teamTitle} variant="headline"> 
                             {team.name}
-                        </Typography>
+                        </Typography> */}
                     </Grid>
+<<<<<<< HEAD
                 <Grid container spacing={0} className={classes.root}>
+=======
+                    <Typography className={classes.teamTitle} variant="headline"> 
+                        Team: {team.name}
+                    </Typography>
+>>>>>>> 571e3a9c0090c046291abdd7e5794ee84f6f6eff
                     <TeamList team={team} subTeams={team.subteams} refetchTeamData={this.refetchTeamData}/>
                     <VideoList videos={videos}/>
                     <MembersList members={team.members} />
@@ -294,7 +299,7 @@ class TeamView extends Component{
                         SnackbarContentProps={{
                             'aria-describedby': 'message-id',
                         }}
-                        message={<span id="message-id">Video is successfully saved.</span>}
+                        message={<span id="message-id">Video has been saved.</span>}
                         action={[
                             
                             <IconButton
@@ -319,7 +324,10 @@ class TeamView extends Component{
                         style={{
                             transitionDelay: !isTeamFetched ? '800ms' : '0ms',
                             height: '100%',
-                            marginTop: '700px'
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            marginRight: '-50%',
                         }}
                         unmountOnExit
                     >
@@ -391,6 +399,9 @@ const styles = theme => ({
     videoNote: {
         color: 'white',
         textAlign: 'center',
+    },
+    arrow: {
+        color: '#795548'
     }
 });
 

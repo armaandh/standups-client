@@ -30,7 +30,7 @@ class MembersList extends Component{
         return(
             <Grid container className={classes.membersList}>
                 <Grid item xs={12}>
-                    <Button color="primary" className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
+                    <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
                         add member
                     </Button>
                 </Grid>
@@ -99,6 +99,16 @@ const styles = theme => ({
     flex: {
         flex: 1,
     },
+    button: {
+        margin: theme.spacing.unit,
+        borderRadius: 4,
+        backgroundColor: '#fcac3c',
+        color: 'white',
+        fontSize: '1rem',
+        '&:hover': {
+            backgroundColor: '#ffc472'
+        },
+    }
 });
 
 export default withMobileDialog()(withStyles(styles)(MembersList))

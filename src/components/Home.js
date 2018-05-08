@@ -3,6 +3,7 @@ import { getAllTeams } from './../utils/api'
 import TeamList from './../containers/TeamList'
 
 import { withStyles } from 'material-ui/styles'
+import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import { CircularProgress } from 'material-ui/Progress'
 import Fade from 'material-ui/transitions/Fade'
@@ -38,6 +39,12 @@ class Home extends Component{
             return (
                 <div className={classes.bgc}>
                 <Grid container spacing={0} className={classes.root}>
+                <Typography variant="headline">A new and bold way to record standup meetings.</Typography>
+                <Typography>
+                    This Standup app makes it easy to record standup meeting videos.
+                    It consolidates standup meetings from all hierarchical levels - making 
+                    it simpler to grow and move the business forward.
+                </Typography>
                     <TeamList team={null} subTeams={teams}/>
                 </Grid>
                 </div> 
@@ -50,7 +57,10 @@ class Home extends Component{
                         style={{
                             transitionDelay: !isDataFetched ? '800ms' : '0ms',
                             height: '100%',
-                            marginTop: '700px'
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            marginRight: '-50%',
                         }}
                         unmountOnExit
                     >

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Team from './../components/Team'
-import classNames from 'classnames';
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -12,13 +11,17 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from 'material-ui/IconButton'
-import GroupAdd from '@material-ui/icons/GroupAdd'
+//import GroupAdd from '@material-ui/icons/GroupAdd'
+import Snackbar from 'material-ui/Snackbar';
 
 class TeamList extends Component{
     state={
         addTeamDialogOpen: false,
         teamNameField: '',
         activeStep: 0,
+        open: false,
+        addMemberDialogOpen: false,
+        openMember: false,
     }
 
     handleChange = name => event => {
@@ -27,16 +30,26 @@ class TeamList extends Component{
         });
     }
 
+    handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        this.setState({ open: false, openMember: false });
+    };
+
     render(){
         const { classes, subTeams, refetchTeamData } = this.props
 
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Grid item xs={12} className={classes.actionBlock}>
-                    <Button color="primary" className={classNames(classes.button, classes.font)} onClick={() => this.setState({ addTeamDialogOpen: true })}>
-                        <GroupAdd /> . add team
+                    <Button className={classes.button} onClick={() => this.setState({ addTeamDialogOpen: true })}>
+                        add team
                     </Button>
                     <div><br/></div>
+                    <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
+                        add member
+                    </Button>
                 </Grid>
                 {subTeams.lenght === 0 && 
                     <Typography variant="subheading">
@@ -58,7 +71,7 @@ class TeamList extends Component{
                             <Typography variant="title" color="inherit" className={classes.flex}>
                                 Add New Team
                             </Typography>
-                            <Button color="inherit" onClick={() => this.setState({ addTeamDialogOpen: false })}>
+                            <Button color="inherit" onClick={() => this.setState({ addTeamDialogOpen: false, open: true })}>
                                 save
                             </Button>
                             </Toolbar>
@@ -74,7 +87,86 @@ class TeamList extends Component{
                         />
                         </div>
                 </Dialog>
-                <div><br/></div>
+                <Dialog
+                        fullScreen
+                        open={this.state.addMemberDialogOpen}
+                        onClose={() => this.setState({ addMemberDialogOpen: false })}
+                        aria-labelledby="responsive-dialog-title"
+                        >
+                        <AppBar className={classes.appBar}>
+                            <Toolbar>
+                            <IconButton color="inherit" onClick={() => this.setState({ addMemberDialogOpen: false })} aria-label="Close">
+                                <CloseIcon />
+                            </IconButton>
+                            <Typography variant="title" color="inherit" className={classes.flex}>
+                                Add New Member
+                            </Typography>
+                            <Button color="inherit" onClick={() => this.setState({ addMemberDialogOpen: false, openMember: true })}>
+                                save
+                            </Button>
+                            </Toolbar>
+                        </AppBar>
+                            <div className={classes.addMemberContent}>
+                                <TextField
+                                    id="team-name"
+                                    label="Member's name"
+                                    className={classes.textField}
+                                    type="text"
+                                    margin="normal"
+                                    onChange={this.handleChange('memberNameField')}
+                                />
+                            </div>
+                </Dialog>
+                <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        open={this.state.open}
+                        autoHideDuration={3000}
+                        onClose={this.handleClose}
+                        SnackbarContentProps={{
+                            'aria-describedby': 'message-id',
+                        }}
+                        message={<span id="message-id">New team is added.</span>}
+                        action={[
+                            
+                            <IconButton
+                            key="close"
+                            aria-label="Close"
+                            color="inherit"
+                            className={classes.close}
+                            onClick={this.handleClose}
+                            >
+                            <CloseIcon />
+                            </IconButton>,
+                        ]}
+                />
+                <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        open={this.state.openMember}
+                        autoHideDuration={3000}
+                        onClose={this.handleClose}
+                        SnackbarContentProps={{
+                            'aria-describedby': 'message-id',
+                        }}
+                        message={<span id="message-id">New member is added.</span>}
+                        action={[
+                            
+                            <IconButton
+                            key="close"
+                            aria-label="Close"
+                            color="inherit"
+                            className={classes.close}
+                            onClick={this.handleClose}
+                            >
+                            <CloseIcon />
+                            </IconButton>,
+                        ]}
+                />
             </Grid>
         )
     }
@@ -90,8 +182,12 @@ const styles = theme => ({
     },
     button: {
         margin: theme.spacing.unit,
+        borderRadius: 4,
+        backgroundColor: '#fcac3c',
+        color: 'white',
+        fontSize: '1rem',
         '&:hover': {
-            backgroundColor: '#ffecd3'
+            backgroundColor: '#ffc472'
         },
     },
     actionBlock: {
@@ -103,10 +199,6 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
-    },
-    font:{
-        color: '#fcac3c',
-        fontSize: '1.4rem'
     },
     mobileStepper:{
         background: 'white'
@@ -126,6 +218,14 @@ const styles = theme => ({
       },
     flex: {
         flex: 1,
+    },
+    addMemberContent:{
+        display: 'flex',
+        flex: '1 1 auto',
+        margin: '0 auto',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 }); 
 

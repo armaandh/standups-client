@@ -8,7 +8,7 @@ import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
+import { InputAdornment } from 'material-ui/Input';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Dialog, {
     DialogActions,
@@ -91,7 +91,7 @@ class Login extends Component{
     
         return (
             <div className={classes.root}>
-             {/* <Grid container spacing={0} className={classes.root}> */}
+             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.loginContainer}>
                     <Typography variant='headline' className={classes.headline}>Sign In</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
@@ -169,9 +169,8 @@ class Login extends Component{
                     Close
                     </Button>
                 </DialogActions>
-            </Dialog>
-           
-            {/* </Grid> */}
+            </Dialog>       
+            </Grid>
             </div>
         )
     }
