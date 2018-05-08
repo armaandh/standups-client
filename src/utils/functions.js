@@ -32,3 +32,13 @@ export const dateFormatForUploadedVideo = (value) => {
 export const formatEmail = email => {
   return email.split('@')[0]
 }
+
+export const compareDateByCalendarDay = (firstDate, secondDate) => {
+  let d1 = new Date(firstDate)
+  let d2 = new Date(secondDate)
+  console.log('Compare result, ', d1.getUTCFullYear() === d2.getUTCFullYear() && d1.getUTCMonth() === d2.getUTCMonth() && d1.getUTCDay() === d2.getUTCDay())
+  console.log(`Year ${d1.getUTCFullYear()} with ${d2.getUTCFullYear()}`)
+  console.log(`Month: ${d1.getUTCMonth()} with ${d2.getUTCMonth()}`)
+  console.log(`Day ${d1.getUTCDay()} with ${d2.getUTCDay()}`)
+  return d1.getUTCFullYear() === d2.getUTCFullYear() && d1.getUTCMonth() === d2.getUTCMonth() && d1.getUTCDay() === d2.getUTCDay()
+}
