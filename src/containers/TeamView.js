@@ -211,13 +211,7 @@ class TeamView extends Component{
                             {team.name}
                         </Typography> */}
                     </Grid>
-<<<<<<< HEAD
                 <Grid container spacing={0} className={classes.root}>
-=======
-                    <Typography className={classes.teamTitle} variant="headline"> 
-                        Team: {team.name}
-                    </Typography>
->>>>>>> 571e3a9c0090c046291abdd7e5794ee84f6f6eff
                     <TeamList team={team} subTeams={team.subteams} refetchTeamData={this.refetchTeamData}/>
                     <VideoList videos={videos}/>
                     <MembersList members={team.members} />
