@@ -4,7 +4,7 @@ import TeamList from './TeamList'
 import VideoList from './VideoList'
 import Amplify, { Storage, API, Auth } from 'aws-amplify'
 import { API_GATEWAY_NAME } from './../utils/amazonConfig'
-
+import classNames from 'classnames'
 import { 
     startRecording, 
     stopRecording, 
@@ -205,13 +205,16 @@ class TeamView extends Component{
                 <div className={classes.bgc}>
                 <Grid container spacing={0} className={classes.root}>
                     <Grid item xs={12} className={classes.teamHeader}>
-                        <IconButton className={classes.button} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
-                            <ArrowBack />
+                        <IconButton className={classNames(classes.button, classes.arrow)} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
+                            <ArrowBack /> Back
                         </IconButton>
-                        <Typography className={classes.teamTitle} variant="headline"> 
+                        {/* <Typography className={classes.teamTitle} variant="headline"> 
                             {team.name}
-                        </Typography>
+                        </Typography> */}
                     </Grid>
+                    <Typography className={classes.teamTitle} variant="headline"> 
+                        Team: {team.name}
+                    </Typography>
                     <TeamList team={team} subTeams={team.subteams} refetchTeamData={this.refetchTeamData}/>
                     <VideoList videos={videos}/>
                     <MembersList members={team.members} />
@@ -398,6 +401,9 @@ const styles = theme => ({
     videoNote: {
         color: 'white',
         textAlign: 'center',
+    },
+    arrow: {
+        color: '#795548'
     }
 });
 
