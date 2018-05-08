@@ -15,7 +15,7 @@ const DateHedlineSeparator = props => {
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         width: '100%',
         padding: '16px',

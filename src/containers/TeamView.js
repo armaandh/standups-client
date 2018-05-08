@@ -202,10 +202,10 @@ class TeamView extends Component{
 
         if (isTeamFetched){
             return (
-                <div >
+                <div>
                     <Grid item xs={12} className={classes.teamHeader}>
                         <IconButton className={classNames(classes.button, classes.arrow)} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
-                            <ArrowBack /> Back
+                            <ArrowBack />
                         </IconButton>
                         {/* <Typography className={classes.teamTitle} variant="headline"> 
                             {team.name}
@@ -338,7 +338,7 @@ const Transition = (props) => {
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         height: '100%',
         padding: '16px',
@@ -346,12 +346,12 @@ const styles = theme => ({
         alignItems: 'center',
         backgroundColor: 'white'
     },
-    teamHeader:{
+    teamHeader: {
         display: 'flex',
         flexDirection: 'row',
         alignSelf: 'flex-start'
     },
-    teamTitle:{
+    teamTitle: {
         alignSelf: 'center',
     },
     button: {
@@ -364,7 +364,8 @@ const styles = theme => ({
     recordVideoButton:{
         position: 'fixed',
         right: '20px',
-        bottom: '20px'
+        bottom: '20px',
+        backgroundColor: '#fcac3c'
     },
     appBar: {
         position: 'relative',

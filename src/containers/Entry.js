@@ -61,6 +61,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
+    flexDirection: 'column'
   }
 });
 

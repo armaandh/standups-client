@@ -56,7 +56,7 @@ class UserContent extends Component{
                         </Typography>
                     </Grid>
                 <Paper elevation={2} className={classes.userCard}>
-                    <Typography variant="subtitle">User Content</Typography>
+                    <Typography variant="title">User's videos</Typography>
                     {isVideosFetched 
                         ? (<VideoList videos={videos}/>)
                         : ( 
@@ -80,28 +80,27 @@ class UserContent extends Component{
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         height: '100%',
-        padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    userCard:{
-        height: '100vh',
-        width: '100%',
-        display: 'flex',
+    userCard: {
         justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        padding: '16px',
+        flex: '1' 
     },
     progress: {
         color: '#fcac3c',
     },
-    teamHeader:{
+    teamHeader: {
         display: 'flex',
         flexDirection: 'row',
+        alignSelf: 'flex-start'
     },
-    teamTitle:{
+    teamTitle: {
         alignSelf: 'center',
     },
     button: {

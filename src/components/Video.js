@@ -56,7 +56,8 @@ const styles = theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '16px',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        margin: '20px'
     },
 });
 

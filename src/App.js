@@ -36,7 +36,7 @@ class App extends Component {
     return (
       <div className="App">
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=no"/>
         <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
         <header>
           <div className={classes.root}>
@@ -65,10 +65,9 @@ class App extends Component {
         <footer>
           <div>
             <ul>
-              <li>&copy; 2018</li>
-              <li>Hootsuite Project</li>
+              <li>&copy; 2018 Hootsuite Project</li>
               <li><a href="https://github.com/armaandh/standups-client"><img src={GitHub_logo} alt="GitHub_logo" className={classes.logo}/></a></li>
-              <li>With <span style={{color: '#e25555'}}>&hearts;</span></li>
+              <li>Made with <span style={{color: '#e25555'}}>&hearts;</span></li>
             </ul>
           </div>
         </footer>

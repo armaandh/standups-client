@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Team from './../components/Team'
+import classNames from 'classnames'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -11,7 +12,6 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from 'material-ui/IconButton'
-//import GroupAdd from '@material-ui/icons/GroupAdd'
 import Snackbar from 'material-ui/Snackbar';
 
 class TeamList extends Component{
@@ -47,7 +47,7 @@ class TeamList extends Component{
                         add team
                     </Button>
                     <div><br/></div>
-                    <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
+                    <Button className={classNames(classes.button, classes.bottomBtn)} onClick={() => this.setState({ addMemberDialogOpen: true })}>
                         add member
                     </Button>
                 </Grid>
@@ -189,6 +189,9 @@ const styles = theme => ({
         '&:hover': {
             backgroundColor: '#ffc472'
         },
+    },
+    bottomBtn: {
+        marginBottom: '20px',
     },
     actionBlock: {
         display: 'flex',
