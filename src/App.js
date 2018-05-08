@@ -63,9 +63,10 @@ class App extends Component {
         <footer>
           <div>
             <ul>
-              <li>&copy; 2018 Hootsuite Industry Project</li>
+              <li>&copy; 2018</li>
+              <li>Hootsuite Project</li>
               <li><a href="https://github.com/armaandh/standups-client"><img src={GitHub_logo} alt="GitHub_logo" className={classes.logo}/></a></li>
-              <li>Made with <span style={{color: '#e25555'}}>&hearts;</span></li>
+              <li>With <span style={{color: '#e25555'}}>&hearts;</span></li>
             </ul>
           </div>
         </footer>

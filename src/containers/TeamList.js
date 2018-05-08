@@ -123,8 +123,8 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
         borderRadius: 4,
-        backgroundColor: '#ffecd3',
-        color: '#fcac3c',
+        backgroundColor: '#fcac3c',
+        color: 'white',
         fontSize: '1rem',
         '&:hover': {
             backgroundColor: '#ffc472'
