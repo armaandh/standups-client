@@ -10,6 +10,7 @@ import ResetPassword from './../components/ResetPassword';
 
 import Hootsuite_logo from './../images/252px-Hootsuite_logo.svg.png'
 import ConfirmRegistration from '../components/ConfirmRegistration';
+import { CardContent } from 'material-ui';
 
 class Entry extends Component {
   // constructor(props){
@@ -32,7 +33,8 @@ class Entry extends Component {
     
     return(
       <div>
-        <Grid container spacing={0} className={classes.root}>
+        <CardContent>
+        <Grid container className={classes.root}>
           <div>
             <img src={Hootsuite_logo} alt="hootsuite_logo"/><br/><br/>
           </div>
@@ -45,6 +47,7 @@ class Entry extends Component {
             <Route path="/" component={Login} />
           </Switch>
         </Grid>
+        </CardContent>
       </div>
     )
   }
@@ -58,7 +61,6 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
-    // backgroundColor: '#FFD54F',
   }
 });
 

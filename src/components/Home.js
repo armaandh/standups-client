@@ -50,7 +50,11 @@ class Home extends Component{
                         style={{
                             transitionDelay: !isDataFetched ? '800ms' : '0ms',
                             height: '100%',
-                            marginTop: '700px'
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            marginRight: '-50%',
+
                         }}
                         unmountOnExit
                     >

@@ -181,7 +181,6 @@ class TeamView extends Component{
         if (reason === 'clickaway') {
           return;
         }
-    
         this.setState({ open: false });
       };
 
@@ -294,7 +293,7 @@ class TeamView extends Component{
                         SnackbarContentProps={{
                             'aria-describedby': 'message-id',
                         }}
-                        message={<span id="message-id">Video is successfully saved.</span>}
+                        message={<span id="message-id">Video has been saved.</span>}
                         action={[
                             
                             <IconButton
@@ -319,7 +318,10 @@ class TeamView extends Component{
                         style={{
                             transitionDelay: !isTeamFetched ? '800ms' : '0ms',
                             height: '100%',
-                            marginTop: '700px'
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            marginRight: '-50%',
                         }}
                         unmountOnExit
                     >

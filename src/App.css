@@ -42,12 +42,12 @@ footer ul {
   list-style: none;
   font-family: Open Sans,sans-serif;
   display: flex;
-  flex: 1;
   justify-content: center;
   padding-top: 15px;
 }
 
 footer li {
   margin-right: 40px;
-  color: #eddac9;
+  flex: 1;
+  color: #514438;
 }
