@@ -7,9 +7,12 @@ import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { InputAdornment } from 'material-ui/Input';
+import IconButton from 'material-ui/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockOutline from '@material-ui/icons/LockOutline';
 import Lock from '@material-ui/icons/Lock';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Dialog, {
     DialogActions,
     DialogContent,
@@ -33,6 +36,7 @@ class ResetPassword extends Component{
         email: '',
         new_password: '',
         invalidUser: false,
+        showPassword: false,
     }
 
     handleChange = name => event => {
@@ -44,9 +48,18 @@ class ResetPassword extends Component{
     handleClose = () => {
         this.setState({ 
             invalidUser: false,
+            email: '',
             code: '',
             new_password: ''
          });
+    };
+
+    handleMouseDownPassword = event => {
+        event.preventDefault();
+      };
+
+    handleClickShowPassword = () => {
+        this.setState({ showPassword: !this.state.showPassword });
     };
 
     submitResetPassword(){
@@ -83,7 +96,7 @@ class ResetPassword extends Component{
                         <TextField
                             id="email" // code
                             label="Email"
-                            defaultValue=""
+                            value={email.toLowerCase()}
                             className={classes.textField}
                             margin="normal"
                             labelFontSize="1.2rem"
@@ -118,7 +131,7 @@ class ResetPassword extends Component{
                             id="new_password"
                             label="New Password"
                             className={classes.textField}
-                            type="password"
+                            type={this.state.showPassword ? 'text' : 'password'}
                             value={new_password}
                             autoComplete="current-password"
                             margin="normal"
@@ -129,7 +142,18 @@ class ResetPassword extends Component{
                                     <LockOutline />
                                     </InputAdornment>
                                 ),
-                                }}
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="Toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                        onMouseDown={this.handleMouseDownPassword}
+                                    >
+                                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
                         />
                         </Tooltip>
                         <Button color="primary" disabled={!(isEmailValid && isPasswordValid && isCodeValid)} className={classes.button} onClick={this.submitResetPassword}>
@@ -138,7 +162,7 @@ class ResetPassword extends Component{
                     </form>
                     <div className={classes.link}>
                         <Link to="/login" className={classes.linkmargin}>
-                            Back to Sign in
+                            Back to Sign In
                         </Link>
                         <Link to="/forgotpassword">
                             Resend Code
@@ -184,7 +208,9 @@ const styles = theme => ({
         fontSize: '1.2rem',
     },
     button: {
-        margin: theme.spacing.unit,
+        // margin: theme.spacing.unit,
+        width: '50%',
+        margin: '8px auto',
     },
     textField: {
         marginLeft: theme.spacing.unit,

@@ -87,8 +87,8 @@ const styles = {
   },
   font: {
     color: '#795548',
-    paddingLeft: '0px',
-    paddingRight: '0px'
+    paddingLeft: '10px',
+    paddingRight: '10px'
   }, 
   logo: {
     width: '1.4rem'

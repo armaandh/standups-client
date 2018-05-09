@@ -37,7 +37,10 @@ class ForgotPassword extends Component{
     }
 
     handleClose = () => {
-        this.setState({ invalidUser: false });
+        this.setState({ 
+            invalidUser: false, 
+            email: '', 
+        });
     };
 
     submitForgotPassword(){
@@ -59,56 +62,56 @@ class ForgotPassword extends Component{
         const { classes } = this.props
         const isEmailValid = validateEmail(email)
 
-            return (
-                <Grid container spacing={0} className={classes.root}>
-                    <Paper elevation={2} className={classes.forgotpasswordContainer}>
-                        <Typography variant='headline'>Forgot Password?</Typography>
-                        <form className={classes.form} noValidate autoComplete="off">
-                            <TextField
-                                id="email"
-                                label="Email"
-                                defaultValue=""
-                                className={classes.textField}
-                                margin="normal"
-                                onChange={this.handleChange('email')}
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <AccountCircle />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                            <Button color="primary" disabled={!isEmailValid} className={classes.button} onClick={this.submitForgotPassword}>
-                                Send Code
-                            </Button>
-                        </form>
-                        
-                        <div className={classes.link}>
-                            <Link to="/login" className={classes.linkmargin}>
-                            Back to Sign in
-                            </Link>
-                        </div>
-                    </Paper>
-                    <Dialog
-                    open={this.state.invalidUser}
-                    onClose={this.handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    >
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                        User does not exist in the system.
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                        Close
+        return (
+            <Grid container spacing={0} className={classes.root}>
+                <Paper elevation={2} className={classes.forgotpasswordContainer}>
+                    <Typography variant='headline'>Forgot Password?</Typography>
+                    <form className={classes.form} noValidate autoComplete="off">
+                        <TextField
+                            id="email"
+                            label="Email"
+                            defaultValue=""
+                            className={classes.textField}
+                            margin="normal"
+                            onChange={this.handleChange('email')}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <AccountCircle />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        <Button color="primary" disabled={!isEmailValid} className={classes.button} onClick={this.submitForgotPassword}>
+                            Send Code
                         </Button>
-                    </DialogActions>
-                </Dialog>
-                </Grid>
-            )
+                    </form>
+                    
+                    <div className={classes.link}>
+                        <Link to="/login" className={classes.linkmargin}>
+                        Back to Sign In
+                        </Link>
+                    </div>
+                </Paper>
+                <Dialog
+                open={this.state.invalidUser}
+                onClose={this.handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                >
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    User does not exist in the system.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">
+                    Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            </Grid>
+        )
     }
 }
 
@@ -127,7 +130,9 @@ const styles = theme => ({
         padding: '36px',
     },
     button: {
-        margin: theme.spacing.unit,
+        // margin: theme.spacing.unit,
+        width: '50%',
+        margin: '10px auto',
     },
     textField: {
         marginLeft: theme.spacing.unit,

@@ -41,6 +41,7 @@ class ConfirmRegistration extends Component{
     handleClose = () => {
         this.setState({ 
             invalidConfirmation: false,
+            email: '',
             code: ''
          });
     };
@@ -74,7 +75,7 @@ class ConfirmRegistration extends Component{
                         <TextField
                             id="email"
                             label="Email"
-                            defaultValue=""
+                            value={email.toLowerCase()}
                             className={classes.textField}
                             margin="normal"
                             onChange={this.handleChange('email')}
@@ -109,7 +110,7 @@ class ConfirmRegistration extends Component{
                     <div className={classes.link}>
                         <Link to="/forgotpassword" className={classes.linkmargin}>Resend Code</Link>
                         <Link to="/login">
-                            Back to Sign in
+                            Back to Sign In
                         </Link>
                     </div>
                 </Paper>
@@ -150,7 +151,9 @@ const styles = theme => ({
         padding: '36px',
     },
     button: {
-        margin: theme.spacing.unit,
+        // margin: theme.spacing.unit,
+        width: '50%',
+        margin: '8px auto',
     },
     textField: {
         marginLeft: theme.spacing.unit,

@@ -57,7 +57,7 @@ const styles = theme => ({
         justifyContent: 'center',
         padding: '16px',
         flexDirection: 'column',
-        margin: '20px'
+        margin: '36px'
     },
 });
 

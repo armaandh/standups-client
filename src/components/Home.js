@@ -37,15 +37,15 @@ class Home extends Component{
 
         if (isDataFetched){
             return (
-                <div className={classes.bgc}>
+                <div className={classes.bgc}>           
+                    <Typography variant="headline" className={classes.title}>A new and bold way to record standup meetings.</Typography>
+                    <Typography className={classes.description}>
+                        This Standup app makes it easy to record standup meeting videos.
+                        It consolidates standup meetings from all hierarchical levels - making 
+                        it simpler to grow and manage at all levels.
+                    </Typography>
                 <Grid container spacing={0} className={classes.root}>
-                <Typography variant="headline">A new and bold way to record standup meetings.</Typography>
-                <Typography>
-                    This Standup app makes it easy to record standup meeting videos.
-                    It consolidates standup meetings from all hierarchical levels - making 
-                    it simpler to grow and move the business forward.
-                </Typography>
-                    <TeamList team={null} subTeams={teams}/>
+                    <TeamList team={null} subTeams={teams}/>                   
                 </Grid>
                 </div> 
             )
@@ -76,16 +76,24 @@ const styles = theme => ({
     root: {
         display: 'flex',
         height: '100vh',
-        padding: '16px',
+        // padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,  
+        padding: '0px'
     },
     bgc: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     progress: {
         color: '#fcac3c'
+    },
+    title: {
+        paddingTop: '30px',
+    },
+    description: {
+        paddingTop: '20px',
+        paddingBottom: '20px'
     }
 });
 

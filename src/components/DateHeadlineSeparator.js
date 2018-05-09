@@ -9,7 +9,7 @@ const DateHedlineSeparator = props => {
 
     return (
         <Grid item xs={12} className={props.classes.root}>
-            <Typography>{date.toLocaleDateString("en-US", options)}</Typography>
+            <Typography variant="title">{date.toLocaleDateString("en-US", options)}</Typography>
         </Grid>
     )
 }
@@ -19,7 +19,7 @@ const styles = theme => ({
         display: 'flex',
         width: '100%',
         padding: '16px',
-        borderBottom: '1px solid black'
+        borderBottom: '1px solid lightgrey'
     },
 })
 

@@ -7,8 +7,11 @@ import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { InputAdornment } from 'material-ui/Input'
+import IconButton from 'material-ui/IconButton';
 import LockOutline from '@material-ui/icons/LockOutline'
 import AssignmentInd from '@material-ui/icons/AssignmentInd'
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Dialog, {
     DialogActions,
     DialogContent,
@@ -32,7 +35,9 @@ class Registration extends Component{
         confirmPassword: '',
         userExists: false,
         passwordsMatchErrorMessage: '',
-        passwordFormatMessage: 'Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 Special Character'
+        passwordFormatMessage: 'Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 special character',
+        showPassword: false,
+        showConfirmPassword: false,
     }
 
     handleChange = name => event => {
@@ -42,7 +47,7 @@ class Registration extends Component{
         const { password } = this.state
         if (name === 'password'){
             !validatePassword(event.target.value) 
-                ? this.setState({ passwordFormatMessage: 'Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 Special Character'})
+                ? this.setState({ passwordFormatMessage: 'Password must contain at least 8 characters including 1 number, 1 uppercase and lowercase letter, and 1 special character'})
                 : this.setState((nextState, props) => ({...nextState, passwordFormatMessage: ''}))
         }
         if(name === 'confirmPassword' && validatePassword(password)){
@@ -59,6 +64,18 @@ class Registration extends Component{
             email: '',
             password: ''
         });
+    };
+
+    handleMouseDownPassword = event => {
+        event.preventDefault();
+      };
+
+    handleClickShowPassword = () => {
+        this.setState({ showPassword: !this.state.showPassword });
+    };
+
+    handleClickShowConfirmPassword = () => {
+        this.setState({ showConfirmPassword: !this.state.showConfirmPassword });
     };
 
     submitRegistration() {
@@ -95,7 +112,7 @@ class Registration extends Component{
                         <TextField
                             id="email"
                             label="Email"
-                            defaultValue=""
+                            value={email.toLowerCase()}
                             className={classes.textField}
                             margin="normal"
                             onChange={this.handleChange('email')}
@@ -111,7 +128,7 @@ class Registration extends Component{
                             id="password"
                             label="Password"
                             className={classes.textField}
-                            type="password"
+                            type={this.state.showPassword ? 'text' : 'password'}
                             autoComplete="current-password"
                             helperText={passwordFormatMessage}
                             margin="normal"
@@ -122,13 +139,24 @@ class Registration extends Component{
                                     <LockOutline />
                                     </InputAdornment>
                                 ),
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="Toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                        onMouseDown={this.handleMouseDownPassword}
+                                    >
+                                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                    </InputAdornment>
+                                )
                             }}
                         />
                         <TextField
                             id="confirmPassword"
                             label="Confirm Password"
                             className={classes.textField}
-                            type="password"
+                            type={this.state.showConfirmPassword ? 'text' : 'password'}
                             autoComplete="current-password"
                             margin="normal"
                             onChange={this.handleChange('confirmPassword')}
@@ -138,22 +166,33 @@ class Registration extends Component{
                                     <LockOutline />
                                     </InputAdornment>
                                 ),
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="Toggle password visibility"
+                                        onClick={this.handleClickShowConfirmPassword}
+                                        onMouseDown={this.handleMouseDownPassword}
+                                    >
+                                        {this.state.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                    </InputAdornment>
+                                )
                             }}
                         />
                         {passwordsMatchErrorMessage !== '' &&
                             <p className={classes.error}>{passwordsMatchErrorMessage}</p>
                         }
                         
-                        <Button color="primary" disabled={!(isEmailValid && isPasswordValid && isConfirmPasswordValid)} className={classes.button} onClick={this.submitRegistration}>
+                        <Button color="primary" disabled={!(isEmailValid && isPasswordValid && isConfirmPasswordValid && (passwordsMatchErrorMessage === ''))} className={classes.button} onClick={this.submitRegistration}>
                             Sign up
                         </Button>
                     </form>
                     <div className={classes.link}>
-                        <Link to="/forgotpassword" className={classes.linkmargin}>
-                            Forgot Password?
+                        <Link to="/confirmregistration" className={classes.linkmargin}>
+                            Confirm Registration
                         </Link>
                         <Link to="/login" >
-                            Sign in
+                            Sign In
                         </Link>
                     </div>      
                 </Paper>
@@ -223,7 +262,7 @@ const styles = theme => ({
     },
     linkmargin: {
         marginLeft: '10px',
-        marginRight: '70px'
+        marginRight: '55px'
     },
     error: {
         color: 'red',

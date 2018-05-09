@@ -1,29 +1,57 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles'
-import Paper from 'material-ui/Paper'
+// import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
+import List, { ListItem, ListItemSecondaryAction } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import IconButton from 'material-ui/IconButton'
 
 const Team = (props) => {
     return (
+        <div className={props.classes.root}>
         <Link to={`/team/${props.team.id}`} onClick={props.refetchTeamData}>
-            <Paper elevation={2} className={props.classes.teamCard}>
-                <Typography variant="display1" className={props.classes.font}>{props.team.name}</Typography>
+            {/* <Paper elevation={1} className={props.classes.teamCard}> */}
+            <div>
+            <List component="nav" className={props.classes.list}>
+                <ListItem button className={props.classes.teamCard}>
+                    <Typography variant="headline" className={props.classes.font}>{props.team.name}</Typography>
+                    <ListItemSecondaryAction>
+                        <IconButton aria-label="Chevron">
+                        <ChevronRight />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <Divider />
+            </List>
+            </div>
+                {/* <Typography variant="display1" className={props.classes.font}>{props.team.name}</Typography>
             </Paper>
+            <Divider /> */}
         </Link>
+        </div>
     )
 }
 
 const styles = theme => ({
-    teamCard:{
+    root: {
+        width: '100%',
+        padding: '0px'
+    },
+    teamCard: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '16px', 
+        // justifyContent: 'center',
+        // padding: '16px',
     },
-    font:{
-        color: '#616161'
+    font: {
+        color: '#616161',
     },
+    list: {
+        paddingTop: '0px',
+        paddingBottom: '0px',
+    }
 });
 
 export default withStyles(styles)(Team)

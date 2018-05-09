@@ -71,16 +71,6 @@ class Login extends Component{
                     invalidUser: true,
                 }),
             )
-        // const history = createHistory();
-        // this.props.submitLogin(this.state.email, this.state.password).then(data => {
-        //     if (!data.error){
-        //         history.push("/home");
-        //     }else{
-        //         this.setState({
-        //             invalidUser: true,
-        //         })   
-        //     }  
-        // })
     }
 
     render(){
@@ -148,7 +138,7 @@ class Login extends Component{
                         Forgot Password?
                         </Link>
                         <Link to="/registration" >
-                        Sign up
+                        Sign Up
                         </Link>
                     </div>
                 </Paper>

@@ -13,20 +13,6 @@ import ConfirmRegistration from '../components/ConfirmRegistration';
 import { CardContent } from 'material-ui';
 
 class Entry extends Component {
-  // constructor(props){
-  //   super(props)
-
-  //   this.submitLogin = this.submitLogin.bind(this)
-  // }
-
-  // submitLogin(email, password){
-  //   //const { email, password } = this.state
-  //   //console.log(`Email: ${this.state.email} P: ${this.state.password} `)
-
-  //   return Auth.signIn(email, password)
-  //       .then(user => ({user: user}))
-  //       .catch(err => ({error: err}))
-  // }
 
   render() {
     const { classes } = this.props

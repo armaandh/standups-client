@@ -341,7 +341,7 @@ const styles = theme => ({
     root: {
         display: 'flex',
         height: '100%',
-        padding: '16px',
+        // padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white'
