@@ -93,7 +93,7 @@ class TeamView extends Component{
             Storage.list(`${this.state.team.name}/`)
                 .then((data) => 
                 { 
-                    this.setState({videos: data})
+                    this.setState({videos: data.sort((v1, v2 ) => parseInt(v2.key.split('/')[2]) > parseInt(v1.key.split('/')[2]))})
                 })
                 .catch((error) => console.log('Fetch all videos ERROR: ', error));   
         }
