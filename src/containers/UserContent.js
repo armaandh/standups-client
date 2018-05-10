@@ -29,7 +29,7 @@ class UserContent extends Component{
             { 
                 this.setState({
                     isVideosFetched: true, 
-                    videos: data.filter(v => {
+                    videos: data.sort((v1, v2 ) => parseInt(v2.key.split('/')[2]) > parseInt(v1.key.split('/')[2])).filter(v => {
                         let videoPath = v.key.split('/')
                         return videoPath[1] === this.props.match.params.username
                     })
