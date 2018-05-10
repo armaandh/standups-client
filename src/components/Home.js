@@ -8,6 +8,9 @@ import Grid from 'material-ui/Grid'
 import { CircularProgress } from 'material-ui/Progress'
 import Fade from 'material-ui/transitions/Fade'
 
+import { API } from 'aws-amplify'
+import { API_GATEWAY_NAME } from './../utils/amazonConfig'
+
 class Home extends Component{
     state = {
         isDataFetched: false,
@@ -15,20 +18,35 @@ class Home extends Component{
     }
 
     componentDidMount(){
-        const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
-        myPromise(2000).then(() => {
-            const data = getAllTeams()
-            this.setState({
-                teams: data,
-                isDataFetched: true
-            })
-        })
+        let params = {
+            headers: {},
+            body: {teamid: 'ROOT'}
+        }
+        API.post(API_GATEWAY_NAME, 'teaminfo', params)
+            .then(response => {console.log('TEAM from API Gateway: ', response.subteams); this.setState({teams: response.subteams, isDataFetched: true})})
+            .catch(error => console.log('Error from gateway', error))
+    }
+
+    componentDidUpdate(){
+        if (!this.state.isDataFetched){
+            let params = {
+                headers: {},
+                body: {teamid: 'ROOT'}
+            }
+            API.post(API_GATEWAY_NAME, 'teaminfo', params)
+                .then(response => {console.log('TEAM from API Gateway: ' + response.subteams); this.setState({teams: response.subteams, isDataFetched: true})})
+                .catch(error => console.log('Error from gateway', error))   
+        }
     }
 
     handleChange = name => event => {
         this.setState({
           [name]: event.target.value,
         });
+    }
+
+    refetchTeamData = () => {
+        this.setState({isDataFetched: false})
     }
 
     render(){
@@ -45,7 +63,7 @@ class Home extends Component{
                         it simpler to grow and manage at all levels.
                     </Typography>
                 <Grid container spacing={0} className={classes.root}>
-                    <TeamList team={null} subTeams={teams}/>                   
+                    <TeamList team={null} subTeams={teams} refetchTeamData={this.refetchTeamData}/>                   
                 </Grid>
                 </div> 
             )

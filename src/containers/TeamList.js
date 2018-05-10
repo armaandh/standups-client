@@ -14,22 +14,17 @@ import CloseIcon from '@material-ui/icons/Close'
 import IconButton from 'material-ui/IconButton'
 import Snackbar from 'material-ui/Snackbar'
 
+import { API_GATEWAY_NAME } from './../utils/amazonConfig'
+import { API } from 'aws-amplify'
+
 class TeamList extends Component{
 
     state={
         addTeamDialogOpen: false,
         teamNameField: '',
+        isTeamSuccessfullyAdded: false,
         activeStep: 0,
         open: false,
-        addMemberDialogOpen: false,
-        openMember: false,
-        memberNameField: '',
-
-        teamOpen: false,
-        addTeam: false,
-        memberOpen: false,
-        addMember: false,
-
     }
 
     handleChange = name => event => {
@@ -49,18 +44,78 @@ class TeamList extends Component{
         if (reason === 'clickaway') {
             return;
           }
-        this.setState({ teamOpen: false, memberOpen: false });
-    };
+        this.setState({ isTeamSuccessfullyAdded: false});
+    }
+
+    submitNewTeam = () => {
+
+        // My Huge appologies. I know It's extremely ugly, but I have no time to optimise it
+        // Also I'm a little bit drunk (pretty much extually) so I don't even bother :)
+        let params = {
+            body: {
+                teamname: this.state.teamNameField
+            }, 
+            headers: {} 
+        }
+
+        API.post(API_GATEWAY_NAME, 'teaminfo',  {
+                headers: {},
+                body: {teamid: 'ROOT'}
+            })
+            .then(response => {
+                let result = response.subteams.filter(t => t.name === this.state.teamNameField)
+                console.log('************', result)
+                if (result.length === 0){
+                    API.post(API_GATEWAY_NAME, 'createteam', params).then(response => {
+                        console.log('New Team Added: ', response)
+                        if (this.props.team !== null){
+                            let params = {
+                                body: {
+                                    parentid: this.props.team.id,
+                                    teamid: response.teamid
+                                },
+                                headers: {}
+                            }
+                            console.log('Im goin to add ', params)
+                            API.post(API_GATEWAY_NAME, 'addchildteam',params)
+                                .then(response => {this.props.refetchTeamData(); console.log('Success for add child team')})
+                                .catch(err => console.log('Error adding child team', err))
+                        }
+                    }).catch(error => {
+                        console.log('New Team Error: ', error.response)
+                    })
+                }else{
+                    let params = {
+                        body: {
+                            parentid: this.props.team.id,
+                            teamid: result[0].teamid
+                        },
+                        headers: {}
+                    }
+                    console.log('Im goin to add ', params)
+                    API.post(API_GATEWAY_NAME, 'addchildteam',params)
+                        .then(response => {this.props.refetchTeamData(); console.log('Success for add child team')})
+                        .catch(err => console.log('Error adding child team', err))
+                }
+                console.log('TEAM from API Gateway: ' + response.subteams);
+                this.setState({teams: response.subteams, isDataFetched: true})
+            })
+            .catch(error => console.log('Error from gateway', error))
+            .then(() =>  {
+                this.props.refetchTeamData()
+                this.setState({ addTeamDialogOpen: false, isTeamSuccessfullyAdded: true, teamNameField: ''})
+            }) 
+    }
 
     render(){
         const { classes, subTeams, refetchTeamData } = this.props
 
         return (
             <Grid container spacing={0} className={classes.root}>
-                {window.location.pathname === '/home' &&
+                {(window.location.pathname === '/home' || window.location.pathname === '/')  &&
                     <Typography className={classes.heading}>
                         Teams
-                        <Button className={classes.button} onClick={() => this.setState({ addTeam: true })}>
+                        <Button className={classes.button} onClick={() => this.setState({ addTeamDialogOpen: true })}>
                             Add Team
                         </Button>
                     </Typography>
@@ -69,7 +124,7 @@ class TeamList extends Component{
                 {new RegExp("\/team\/[0-9]+").test(window.location.pathname) &&
                     <Typography className={classes.heading}>
                         Subteams
-                        <Button className={classes.button} onClick={() => this.setState({ addTeam: true })}>
+                        <Button className={classes.button} onClick={() => this.setState({ addTeamDialogOpen: true })}>
                             Add Team
                         </Button>
                     </Typography>
@@ -79,10 +134,10 @@ class TeamList extends Component{
                         No Teams
                     </Typography>
                 }
-                {subTeams.map(t => <Team team={t} key={t.id} refetchTeamData={refetchTeamData}/>)}
+                {subTeams.map(t => <Team team={t} key={t.teamid} refetchTeamData={refetchTeamData}/>)}
                 <Dialog
-                    open={this.state.addTeam}
-                    onClose={() => this.setState({ addTeam: false })}
+                    open={this.state.addTeamDialogOpen}
+                    onClose={() => this.setState({ addTeamDialogOpen: false })}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                     >
@@ -98,37 +153,11 @@ class TeamList extends Component{
                     />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => this.setState({ addTeam: false })} color="secondary">
+                        <Button onClick={() => this.setState({ addTeamDialogOpen: false })} color="secondary">
                         Cancel
                         </Button>
-                        <Button onClick={() => this.setState({ addTeam: false, teamOpen: true })} color="primary" autoFocus>
+                        <Button onClick={() => this.submitNewTeam()} color="primary" autoFocus>
                         Save
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-                <Dialog
-                    open={this.state.addMember}
-                    onClose={() => this.setState({ addMember: false })}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    >
-                    <DialogTitle id="alert-dialog-title">{"Add a new member"}</DialogTitle>
-                    <DialogContent>
-                    <TextField
-                        id="member-name"
-                        label="Member Name"
-                        className={classes.textField}
-                        type="text"
-                        margin="normal"
-                        onChange={this.handleChange('memberNameField')}
-                    />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => this.setState({ addMember: false })} color="secondary">
-                            Cancel
-                        </Button>
-                        <Button onClick={() => this.setState({ addMember: false, memberOpen: true })} color="primary" autoFocus>
-                            Save
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -137,7 +166,7 @@ class TeamList extends Component{
                         vertical: 'bottom',
                         horizontal: 'left',
                     }}
-                    open={this.state.teamOpen}
+                    open={this.state.isTeamSuccessfullyAdded}
                     autoHideDuration={3000}
                     onClose={this.handleClickClose}
                     SnackbarContentProps={{

@@ -4,25 +4,55 @@ import Member from './../components/Member'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
-// import TextField from 'material-ui/TextField'
-import Dialog, { withMobileDialog } from 'material-ui/Dialog'
-// import AppBar from 'material-ui/AppBar'
-// import Toolbar from 'material-ui/Toolbar'
-// import CloseIcon from '@material-ui/icons/Close'
-// import IconButton from 'material-ui/IconButton'
+import TextField from 'material-ui/TextField'
+import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
+import CloseIcon from '@material-ui/icons/Close'
+import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import classNames from 'classnames'
+import { API } from 'aws-amplify'
+import { API_GATEWAY_NAME } from './../utils/amazonConfig'
+import Dialog, { withMobileDialog, 
+    DialogActions,
+    DialogContent,
+    DialogTitle } from 'material-ui/Dialog'
+import { configuration } from './../utils/amazonConfig'
 
 class MembersList extends Component{
     state = {
         addMemberDialogOpen: false,
-        memberNameField: ''
+        memberNameField: '',
+        showSnackbar: false
     }
 
     handleChange = name => event => {
         this.setState({
           [name]: event.target.value,
         });
+    }
+
+    submitAddMember = () => {
+        let params = {
+            body: {
+                teamid: this.props.team.id,
+                name: this.state.memberNameField,
+                upoolid: configuration.Auth.userPoolId
+            },
+            headers: {}
+        }
+        console.log('Im goin to add ', params)
+        API.post(API_GATEWAY_NAME, 'createteammember',params)
+            .then(response => {console.log('Success for add child member', response)})
+            .catch(err => console.log('Error adding child team', err))
+            .then(() => {
+                this.setState({
+                    addMemberDialogOpen: false,
+                    memberNameField: '',
+                    showSnackbar: true
+                }) 
+                this.props.refetchTeamData()
+             })
     }
 
     render(){
@@ -36,38 +66,37 @@ class MembersList extends Component{
                     </Button></Typography>
                 </Grid>
                 <Grid item xs={12} className={classes.members}>
+                    {members.length === 0 &&
+                        <Typography>No Members</Typography>
+                    }
                     {members.map(m => <Member member={m} key={m.id} />)}
                 </Grid>
-                {/* <Dialog
-                        fullScreen
-                        open={this.state.addMemberDialogOpen}
-                        onClose={() => this.setState({ addMemberDialogOpen: false })}
-                        aria-labelledby="responsive-dialog-title"
-                        >
-                        <AppBar className={classes.appBar}>
-                            <Toolbar>
-                            <IconButton color="inherit" onClick={() => this.setState({ addMemberDialogOpen: false })} aria-label="Close">
-                                <CloseIcon />
-                            </IconButton>
-                            <Typography variant="title" color="inherit" className={classes.flex}>
-                                Add New Member
-                            </Typography>
-                            <Button color="inherit" onClick={() => this.setState({ addMemberDialogOpen: false })}>
-                                save
-                            </Button>
-                            </Toolbar>
-                        </AppBar>
-                            <div className={classes.addMemberContent}>
-                                <TextField
-                                    id="team-name"
-                                    label="Member's name"
-                                    className={classes.textField}
-                                    type="text"
-                                    margin="normal"
-                                    onChange={this.handleChange('memberNameField')}
-                                />
-                            </div>
-                </Dialog> */}
+                <Dialog
+                    open={this.state.addMemberDialogOpen}
+                    onClose={() => this.setState({ addMemberDialogOpen: false })}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    >
+                    <DialogTitle id="alert-dialog-title">{"Add a member"}</DialogTitle>
+                    <DialogContent>
+                    <TextField
+                        id="member-name"
+                        label="Member Name"
+                        className={classes.textField}
+                        type="text"
+                        margin="normal"
+                        onChange={this.handleChange('memberNameField')}
+                    />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => this.setState({ addMemberDialogOpen: false })} color="secondary">
+                        Cancel
+                        </Button>
+                        <Button onClick={() => this.submitAddMember()} color="primary" autoFocus>
+                        Save
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Grid>
         )
     }

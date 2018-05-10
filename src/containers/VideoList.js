@@ -28,7 +28,6 @@ class VideoList extends Component{
 
     render(){
         const { videos, classes } = this.props
-        console.log('VidosikiL', videos)
 
         return (
             <Fragment>

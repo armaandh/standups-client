@@ -61,27 +61,33 @@ class TeamView extends Component{
         //Auth.currentSession()
         //.then(session => this.setState({accessToken: session.accessToken.jwtToken}))
         //.catch(error => console.log('*** Session ERROR: ', error))
-
-        const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
         if (!this.state.isTeamFetched){
-            myPromise(1000).then(() => { 
+            let params = {
+                headers: {},
+                body: {teamid: this.props.match.params.id}
+            }
+            API.post(API_GATEWAY_NAME, 'teaminfo', params)
+                .then(response => {console.log('TEAM from API Gateway: ', response); this.setState({team: response, isTeamFetched: true})})
+                .catch(error => console.log('Error from gateway', error))
+                .then(() => this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()}))
+            /* myPromise(1000).then(() => { 
                 this.setState({
                     team: getTeam(this.props.match.params.id),
                     isTeamFetched: true
                 })
-            }).then(() => this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()}))
+            }).then(() => this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()})) */
         }
     }
 
     componentDidUpdate() {
-        const myPromise = (time) => new Promise((resolve) => setTimeout(resolve, time))
         if (!this.state.isTeamFetched){
-            myPromise(2000).then(() => { 
-                this.setState({
-                    team: getTeam(this.props.match.params.id),
-                    isTeamFetched: true
-                })
-            })
+            let params = {
+                headers: {},
+                body: {teamid: this.props.match.params.id}
+            }
+            API.post(API_GATEWAY_NAME, 'teaminfo', params)
+                .then(response => {console.log('TEAM from API Gateway: ', response); this.setState({team: response, isTeamFetched: true})})
+                .catch(error => console.log('Error from gateway', error))
         }
         if (!this.state.isVideosFetched && this.state.team !== undefined && this.state.isTeamFetched){
             console.log('List: ', this.state.team.name)
@@ -217,7 +223,7 @@ class TeamView extends Component{
                         {team.name}
                     </Typography>
                     <TeamList team={team} subTeams={team.subteams} refetchTeamData={this.refetchTeamData}/>
-                    <MembersList members={team.members} />
+                    <MembersList team={team} members={team.members} refetchTeamData={this.refetchTeamData}/>
                     <VideoList videos={videos}/>
                     <Button variant="fab" color="primary" className={classes.recordVideoButton} onClick={this.openVideoRecordingDialog}>
                         <Videocam />
