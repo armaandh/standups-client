@@ -23,8 +23,14 @@ class Home extends Component{
             body: {teamid: 'ROOT'}
         }
         API.post(API_GATEWAY_NAME, 'teaminfo', params)
-            .then(response => {console.log('TEAM from API Gateway: ', response.subteams); this.setState({teams: response.subteams, isDataFetched: true})})
-            .catch(error => console.log('Error from gateway', error))
+                .then(response => {console.log('TEAM from API Gateway: ' + response.subteams); this.setState({
+                    teams: response.subteams.sort((t1, t2) => {
+                        if(t1.name.toLowerCase() < t2.name.toLowerCase()) return -1;
+                        if(t1.name.toLowerCase() > t2.name.toLowerCase()) return 1;
+                        return 0;
+                        }),
+                    isDataFetched: true})})
+                .catch(error => console.log('Error from gateway', error))   
     }
 
     componentDidUpdate(){
@@ -34,7 +40,13 @@ class Home extends Component{
                 body: {teamid: 'ROOT'}
             }
             API.post(API_GATEWAY_NAME, 'teaminfo', params)
-                .then(response => {console.log('TEAM from API Gateway: ' + response.subteams); this.setState({teams: response.subteams, isDataFetched: true})})
+                .then(response => {console.log('TEAM from API Gateway: ' + response.subteams); this.setState({
+                    teams: response.subteams.sort((t1, t2) => {
+                        if(t1.name.toLowerCase() < t2.name.toLowerCase()) return -1;
+                        if(t1.name.toLowerCase() > t2.name.toLowerCase()) return 1;
+                        return 0;
+                        }),
+                    isDataFetched: true})})
                 .catch(error => console.log('Error from gateway', error))   
         }
     }
