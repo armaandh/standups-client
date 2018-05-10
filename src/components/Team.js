@@ -9,9 +9,10 @@ import ChevronRight from '@material-ui/icons/ChevronRight'
 import IconButton from 'material-ui/IconButton'
 
 const Team = (props) => {
+    console.log('TEAM PROPS: ', props.team)
     return (
         <div className={props.classes.root}>
-        <Link to={`/team/${props.team.teamid}`} onClick={props.refetchTeamData}>
+        <Link to={`/team/${props.team.teamid}`} onClick={() => props.refetchTeamData()}>
             {/* <Paper elevation={1} className={props.classes.teamCard}> */}
             <div>
             <List component="nav" className={props.classes.list}>

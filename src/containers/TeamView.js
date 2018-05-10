@@ -59,9 +59,6 @@ class TeamView extends Component{
         // do we need this??
         this.setState({isVideoRecordingEnabled: false})
 
-        //Auth.currentSession()
-        //.then(session => this.setState({accessToken: session.accessToken.jwtToken}))
-        //.catch(error => console.log('*** Session ERROR: ', error))
         if (!this.state.isTeamFetched){
             let params = {
                 headers: {},
@@ -71,12 +68,6 @@ class TeamView extends Component{
                 .then(response => {console.log('TEAM from API Gateway: ', response); this.setState({team: response, isTeamFetched: true})})
                 .catch(error => console.log('Error from gateway', error))
                 .then(() => this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()}))
-            /* myPromise(1000).then(() => { 
-                this.setState({
-                    team: getTeam(this.props.match.params.id),
-                    isTeamFetched: true
-                })
-            }).then(() => this.setState({isVideoRecordingEnabled: isMediaRecordingSupported()})) */
         }
     }
 
@@ -94,9 +85,9 @@ class TeamView extends Component{
             console.log('List: ', this.state.team.name)
             this.setState({isVideosFetched: true})
             Storage.configure({
-                bucket: 'transcoded-hootsuite-videos', //Your bucket ARN;
-                region: 'us-east-1',//Specify the region your bucket was created in;
-                identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c' //Specify your identityPoolId for Auth and Unauth access to your bucket;
+                bucket: 'transcoded-hootsuite-videos',
+                region: 'us-east-1',
+                identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c'
             }); 
             Storage.list(`${this.state.team.name}/`)
                 .then((data) => 
@@ -118,11 +109,10 @@ class TeamView extends Component{
         if (recorderedVideo !== null){
             Auth.currentUserInfo()
                 .then(userDetails => {
-                    //console.log('Session: ', userDetails.attributes.email)
                     Storage.configure({
-                        bucket: 'ed-photoss', //Your bucket ARN;
-                        region: 'us-east-1',//Specify the region your bucket was created in;
-                        identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c' //Specify your identityPoolId for Auth and Unauth access to your bucket;
+                        bucket: 'ed-photoss',
+                        region: 'us-east-1',
+                        identityPoolId: 'us-east-1:78ff47c8-6193-4413-b70c-5b643e0b132c'
                     });                    
                     Storage.put(`${this.state.team.name}/${formatEmail(userDetails.attributes.email)}/${Date.now().toString()}`, recorderedVideo)
                         .then (result => {
@@ -175,7 +165,7 @@ class TeamView extends Component{
     }
 
     refetchTeamData = (snackbarText) => {
-        this.setState({ isTeamFetched: false, isVideosFetched: false, snackBarOpen: true, snackbarText: snackbarText })
+        this.setState({ isTeamFetched: false, isVideosFetched: false, snackBarOpen: snackbarText === undefined ? false : true, snackbarText: snackbarText === undefined ? '' : snackbarText })
     }
  
     handleFileUploading = (e) => {
@@ -315,7 +305,7 @@ class TeamView extends Component{
                     SnackbarContentProps={{
                         'aria-describedby': 'message-id',
                     }}
-                    message={<span id="message-id">{this.state.snackbarText}</span>}
+                    message={'<span id="message-id">' + this.state.snackbarText + '</span>'}
                     action={[
                         <IconButton
                         key="close"
