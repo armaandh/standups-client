@@ -20,5 +20,6 @@
 
 1. Setup all the infrastructure resources in AWS cloud environment. | Go to https://github.com/armaandh/standups-api and go through all steps
 2. Go to root folder
-2. Install packages | >`npm install`
-3. Run the project | >`npm start`
+3. Include `amazonConfig.js` file into `src/utils folder` | You have to get it after AWS setup is done
+4. Install packages | >`npm install`
+5. Run the project | >`npm start`
