@@ -55,7 +55,8 @@ class TeamView extends Component{
     }
 
     componentDidMount(){
-        //this.setState({isVideoRecordingEnabled: false})
+        // do we need this??
+        this.setState({isVideoRecordingEnabled: false})
 
         //Auth.currentSession()
         //.then(session => this.setState({accessToken: session.accessToken.jwtToken}))
@@ -320,8 +321,6 @@ class TeamView extends Component{
                             height: '100%',
                             position: 'absolute',
                             top: '50%',
-                            left: '50%',
-                            marginRight: '-50%',
                         }}
                         unmountOnExit
                     >
@@ -365,7 +364,10 @@ const styles = theme => ({
         position: 'fixed',
         right: '20px',
         bottom: '20px',
-        backgroundColor: '#fcac3c'
+        backgroundColor: '#fcac3c',
+        '&:hover': {
+            backgroundColor: '#ffbb5b'
+        },
     },
     appBar: {
         position: 'relative',
@@ -389,7 +391,7 @@ const styles = theme => ({
         backgroundColor: 'gray',
     },
     progress: {
-        color: '#fcac3c'
+        color: '#795548'
     },
     videoNote: {
         color: 'white',

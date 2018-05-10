@@ -3,14 +3,15 @@ import Member from './../components/Member'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
-import Button from 'material-ui/Button'
-import TextField from 'material-ui/TextField'
+// import Button from 'material-ui/Button'
+// import TextField from 'material-ui/TextField'
 import Dialog, { withMobileDialog } from 'material-ui/Dialog'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import CloseIcon from '@material-ui/icons/Close'
-import IconButton from 'material-ui/IconButton'
+// import AppBar from 'material-ui/AppBar'
+// import Toolbar from 'material-ui/Toolbar'
+// import CloseIcon from '@material-ui/icons/Close'
+// import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
+import classNames from 'classnames'
 
 class MembersList extends Component{
     state = {
@@ -30,14 +31,15 @@ class MembersList extends Component{
         return(
             <Grid container className={classes.membersList}>
                 <Grid item xs={12}>
-                    <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
+                    {/* <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
                         add member
-                    </Button>
+                    </Button> */}
+                    <Typography className={classes.heading}>Teams</Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} className={classes.members}>
                     {members.map(m => <Member member={m} key={m.id} />)}
                 </Grid>
-                <Dialog
+                {/* <Dialog
                         fullScreen
                         open={this.state.addMemberDialogOpen}
                         onClose={() => this.setState({ addMemberDialogOpen: false })}
@@ -66,7 +68,7 @@ class MembersList extends Component{
                                     onChange={this.handleChange('memberNameField')}
                                 />
                             </div>
-                </Dialog>
+                </Dialog> */}
             </Grid>
         )
     }
@@ -76,7 +78,7 @@ const styles = theme => ({
     membersList:{
         display: 'flex',
         flexDirection: 'column',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
     },
     addMemberContent:{
         display: 'flex',
@@ -108,6 +110,17 @@ const styles = theme => ({
         '&:hover': {
             backgroundColor: '#ffc472'
         },
+    },
+    heading: {
+        fontSize: '1.6rem',
+        textAlign: 'left',
+        padding: '10px',
+        backgroundColor: '#fcac3c',
+        color: 'white',
+        paddingLeft: '20px'
+    },
+    members: {
+        padding: '20px'
     }
 });
 

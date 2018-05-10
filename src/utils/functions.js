@@ -24,9 +24,9 @@ export const dateFormatForUploadedVideo = (value) => {
   let am_pm = date.getHours() >= 12 ? "PM" : "AM";
   hours = hours < 10 ? "0" + hours : hours;
   let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-  let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+  // let seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 
-  return `${hours}:${minutes}:${seconds} ${am_pm}`
+  return `${hours}:${minutes} ${am_pm}`
 };
 
 export const formatEmail = email => {

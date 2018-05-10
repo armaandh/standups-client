@@ -93,7 +93,7 @@ const styles = theme => ({
         flex: '1' 
     },
     progress: {
-        color: '#fcac3c',
+        color: '#795548',
     },
     teamHeader: {
         display: 'flex',

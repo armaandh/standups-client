@@ -59,8 +59,6 @@ class Home extends Component{
                             height: '100%',
                             position: 'absolute',
                             top: '50%',
-                            left: '50%',
-                            marginRight: '-50%',
                         }}
                         unmountOnExit
                     >
@@ -80,13 +78,13 @@ const styles = theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,  
-        padding: '0px'
+        padding: '0px',
     },
     bgc: {
         backgroundColor: 'white',
     },
     progress: {
-        color: '#fcac3c'
+        color: '#795548'
     },
     title: {
         paddingTop: '30px',
@@ -94,7 +92,7 @@ const styles = theme => ({
     description: {
         paddingTop: '20px',
         paddingBottom: '20px'
-    }
+    },
 });
 
 export default withStyles(styles)(Home)

@@ -38,27 +38,32 @@ class Video extends Component{
         return (
             <Paper elevation={2} className={this.props.classes.videoCard}>
                 <Link to={`/usercontent/${authorEmail}`}>
-                    <Typography>by {authorEmail}</Typography>
+                    <Typography className={this.props.classes.heading}>By {authorEmail}</Typography>
                 </Link>
-                <video height="250" width="250" controls>
+                <video height="250" width="250" src={this.state.videoURL} type="video/mp4" playsInline controls preload="auto">
                     <source src={this.state.videoURL} type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
-                <Typography>{dateFormatForUploadedVideo(videoName)}</Typography>
+                <Typography className={this.props.classes.heading}>{dateFormatForUploadedVideo(videoName)}</Typography>
             </Paper>
         )
     }
 }
 
 const styles = theme => ({
-    videoCard:{
+    videoCard: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px',
+        paddingRight: '20px',
+        paddingLeft: '20px',
         flexDirection: 'column',
         margin: '36px'
     },
+    heading: {
+        padding: '10px',
+        fontSize: '1.2rem'
+    }
 });
 
 export default withStyles(styles)(Video)
