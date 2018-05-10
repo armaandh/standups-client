@@ -208,14 +208,17 @@ class TeamView extends Component{
                         <IconButton className={classNames(classes.button, classes.arrow)} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
                             <ArrowBack />
                         </IconButton>
-                        {/* <Typography className={classes.teamTitle} variant="headline"> 
-                            {team.name}
-                        </Typography> */}
+                        <Typography className={classes.teamTitle} variant="headline"> 
+                            Back
+                        </Typography>
                     </Grid>
                 <Grid container spacing={0} className={classes.root}>
+                    <Typography className={classes.teamTitle} variant="headline"> 
+                        {team.name}
+                    </Typography>
                     <TeamList team={team} subTeams={team.subteams} refetchTeamData={this.refetchTeamData}/>
-                    <VideoList videos={videos}/>
                     <MembersList members={team.members} />
+                    <VideoList videos={videos}/>
                     <Button variant="fab" color="primary" className={classes.recordVideoButton} onClick={this.openVideoRecordingDialog}>
                         <Videocam />
                     </Button>

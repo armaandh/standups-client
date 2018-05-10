@@ -3,7 +3,7 @@ import Member from './../components/Member'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
-// import Button from 'material-ui/Button'
+import Button from 'material-ui/Button'
 // import TextField from 'material-ui/TextField'
 import Dialog, { withMobileDialog } from 'material-ui/Dialog'
 // import AppBar from 'material-ui/AppBar'
@@ -31,10 +31,9 @@ class MembersList extends Component{
         return(
             <Grid container className={classes.membersList}>
                 <Grid item xs={12}>
-                    {/* <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
+                    <Typography className={classes.heading}>Members <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
                         add member
-                    </Button> */}
-                    <Typography className={classes.heading}>Teams</Typography>
+                    </Button></Typography>
                 </Grid>
                 <Grid item xs={12} className={classes.members}>
                     {members.map(m => <Member member={m} key={m.id} />)}
@@ -104,15 +103,16 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
         borderRadius: 4,
-        backgroundColor: '#fcac3c',
-        color: 'white',
+        backgroundColor: 'rgb(87, 71, 58)',
+        color: '#ffc472',
         fontSize: '1rem',
         '&:hover': {
-            backgroundColor: '#ffc472'
+            backgroundColor: '#ffc472',
+            color: 'rgb(87, 71, 58)'
         },
     },
     heading: {
-        fontSize: '1.6rem',
+        fontSize: '2rem',
         textAlign: 'left',
         padding: '10px',
         backgroundColor: '#fcac3c',

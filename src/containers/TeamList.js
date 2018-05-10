@@ -57,23 +57,22 @@ class TeamList extends Component{
 
         return (
             <Grid container spacing={0} className={classes.root}>
-                <Grid item xs={12} className={classes.actionBlock}>
-                    <Button className={classes.button} onClick={() => this.setState({ addTeam: true })}>
-                        Add Team
-                    </Button>
-                    {window.location.pathname !== '/home' &&
-                    <Button className={classes.button} onClick={() => this.setState({ addMember: true })}>
-                    Add Member
-                    </Button>
-                    }
-                    
-                </Grid>
                 {window.location.pathname === '/home' &&
-                    <Typography className={classes.heading}>Teams</Typography>
+                    <Typography className={classes.heading}>
+                        Teams
+                        <Button className={classes.button} onClick={() => this.setState({ addTeam: true })}>
+                            Add Team
+                        </Button>
+                    </Typography>
                 }
 
                 {new RegExp("\/team\/[0-9]+").test(window.location.pathname) &&
-                    <Typography className={classes.heading}>Subteams</Typography>
+                    <Typography className={classes.heading}>
+                        Subteams
+                        <Button className={classes.button} onClick={() => this.setState({ addTeam: true })}>
+                            Add Team
+                        </Button>
+                    </Typography>
                 }
                 {subTeams.length === 0 && 
                     <Typography variant="headline" className={classes.noTeams}>
@@ -196,11 +195,12 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
         borderRadius: 4,
-        backgroundColor: '#fcac3c',
-        color: 'white',
+        backgroundColor: 'rgb(87, 71, 58)',
+        color: '#ffc472',
         fontSize: '1rem',
         '&:hover': {
-            backgroundColor: '#ffc472'
+            backgroundColor: '#ffc472',
+            color: 'rgb(87, 71, 58)'
         },
     },
     actionBlock: {
