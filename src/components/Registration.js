@@ -223,7 +223,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px'
+        padding: '10px'
     },
     form: {
         display: 'flex',
@@ -231,21 +231,23 @@ const styles = theme => ({
     },
     registrationContainer:{
         padding: '36px',
+        borderRadius: '20px'
     },
     button: {
         color: 'white',
         margin: '20px auto',
         width: '40%',
-        backgroundColor: '#007bff',
-        borderColor: '#007bff',
+        backgroundColor: '#21a2ff',
+        borderColor: '#21a2ff',
+        borderRadius: '30px',
         '&:hover': {
-            backgroundColor: '#0069d9',
-            borderColor: '#0062cc',
+        backgroundColor: '#20b4f9',
+        borderColor: '#20b4f9',
         },
         '&:active': {
-            boxShadow: 'none',
-            backgroundColor: '#0062cc',
-            borderColor: '#005cbf',
+        boxShadow: 'none',
+        backgroundColor: '#20b4f9',
+        borderColor: '#20b4f9',
         },
         '&:focus': {
             boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
@@ -271,7 +273,7 @@ const styles = theme => ({
     },
     headline:{
         textAlign: 'center',
-        fontSize: '2em'
+        fontSize: '2rem'
     }
 });
   

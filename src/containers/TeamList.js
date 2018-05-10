@@ -102,7 +102,7 @@ class TeamList extends Component{
                         <Button onClick={() => this.setState({ addTeam: false })} color="secondary">
                         Cancel
                         </Button>
-                        <Button onClick={() => this.setState({ addTeam: false, teamOpen: true })} color="primary" autoFocus>
+                        <Button onClick={() => this.setState({ addTeam: false, teamOpen: true })} className={classes.btn} autoFocus>
                         Save
                         </Button>
                     </DialogActions>
@@ -128,7 +128,7 @@ class TeamList extends Component{
                         <Button onClick={() => this.setState({ addMember: false })} color="secondary">
                             Cancel
                         </Button>
-                        <Button onClick={() => this.setState({ addMember: false, memberOpen: true })} color="primary" autoFocus>
+                        <Button onClick={() => this.setState({ addMember: false, memberOpen: true })} className={classes.btn} autoFocus>
                             Save
                         </Button>
                     </DialogActions>
@@ -197,6 +197,7 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         borderRadius: 4,
         backgroundColor: '#fcac3c',
+        borderRadius: '20px',
         color: 'white',
         fontSize: '1rem',
         '&:hover': {
@@ -231,6 +232,9 @@ const styles = theme => ({
         flexDirection: 'column',
         alignSelf: 'flex-start',
     },
+    btn: {
+        color: '#21a2ff',
+    }
 }); 
 
 export default withMobileDialog()(withStyles(styles)(TeamList))
