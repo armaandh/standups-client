@@ -9,6 +9,7 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from 'material-ui/IconButton'
+import Snackbar from 'material-ui/Snackbar'
 import Typography from 'material-ui/Typography'
 import classNames from 'classnames'
 import { API } from 'aws-amplify'
@@ -23,7 +24,6 @@ class MembersList extends Component{
     state = {
         addMemberDialogOpen: false,
         memberNameField: '',
-        showSnackbar: false
     }
 
     handleChange = name => event => {
@@ -43,15 +43,17 @@ class MembersList extends Component{
         }
         console.log('Im goin to add ', params)
         API.post(API_GATEWAY_NAME, 'createteammember',params)
-            .then(response => {console.log('Success for add child member', response)})
+            .then(response => {
+                console.log('Success for add child member', 
+                response)
+            })
             .catch(err => console.log('Error adding child team', err))
             .then(() => {
                 this.setState({
                     addMemberDialogOpen: false,
                     memberNameField: '',
-                    showSnackbar: true
                 }) 
-                this.props.refetchTeamData()
+                this.props.refetchTeamData('New member is successfully added.')
              })
     }
 
@@ -67,7 +69,9 @@ class MembersList extends Component{
                 </Grid>
                 <Grid item xs={12} className={classes.members}>
                     {members.length === 0 &&
-                        <Typography>No Members</Typography>
+                        <Typography variant="headline" className={classes.noTeams}>
+                            No Members
+                        </Typography>
                     }
                     {members.map(m => <Member member={m} key={m.id} />)}
                 </Grid>
@@ -130,26 +134,32 @@ const styles = theme => ({
         flex: 1,
     },
     button: {
-        margin: theme.spacing.unit,
-        borderRadius: 4,
-        backgroundColor: 'rgb(87, 71, 58)',
-        color: '#ffc472',
+        marginLeft: 20,
+        marginBottom: 1,
+        borderRadius: 20,
+        backgroundColor: 'white',
+        color: '#ff9300',
         fontSize: '1rem',
         '&:hover': {
-            backgroundColor: '#ffc472',
-            color: 'rgb(87, 71, 58)'
+            backgroundColor: '#ffc575',
         },
     },
     heading: {
-        fontSize: '2rem',
+        fontSize: '1.6rem',
         textAlign: 'left',
         padding: '10px',
         backgroundColor: '#fcac3c',
         color: 'white',
-        paddingLeft: '20px'
+        paddingLeft: '10px'
     },
     members: {
         padding: '20px'
+    },
+    noTeams: {
+        display: 'flex',
+        margin: '10px',
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
     }
 });
 

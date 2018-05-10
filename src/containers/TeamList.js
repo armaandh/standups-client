@@ -5,14 +5,12 @@ import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import Dialog, { withMobileDialog, 
+import Dialog, { 
+    withMobileDialog, 
     DialogActions,
     DialogContent,
     DialogTitle } from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
-import CloseIcon from '@material-ui/icons/Close'
-import IconButton from 'material-ui/IconButton'
-import Snackbar from 'material-ui/Snackbar'
 
 import { API_GATEWAY_NAME } from './../utils/amazonConfig'
 import { API } from 'aws-amplify'
@@ -22,9 +20,7 @@ class TeamList extends Component{
     state={
         addTeamDialogOpen: false,
         teamNameField: '',
-        isTeamSuccessfullyAdded: false,
         activeStep: 0,
-        open: false,
     }
 
     handleChange = name => event => {
@@ -33,24 +29,7 @@ class TeamList extends Component{
         });
     }
 
-    handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-        this.setState({ open: false, openMember: false });
-    };
-    
-    handleClickClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-          }
-        this.setState({ isTeamSuccessfullyAdded: false});
-    }
-
     submitNewTeam = () => {
-
-        // My Huge appologies. I know It's extremely ugly, but I have no time to optimise it
-        // Also I'm a little bit drunk (pretty much extually) so I don't even bother :)
         let params = {
             body: {
                 teamname: this.state.teamNameField
@@ -78,8 +57,15 @@ class TeamList extends Component{
                             }
                             console.log('Im goin to add ', params)
                             API.post(API_GATEWAY_NAME, 'addchildteam',params)
-                                .then(response => {this.props.refetchTeamData(); console.log('Success for add child team')})
+                                .then(response => { 
+                                    this.setState({ 
+                                        addTeamDialogOpen: false, 
+                                        teamNameField: ''
+                                    })
+                                    console.log('Success for add child team')
+                                })
                                 .catch(err => console.log('Error adding child team', err))
+                                .then(() => this.props.refetchTeamData('New team is successfully added.'))
                         }
                     }).catch(error => {
                         console.log('New Team Error: ', error.response)
@@ -94,17 +80,18 @@ class TeamList extends Component{
                     }
                     console.log('Im goin to add ', params)
                     API.post(API_GATEWAY_NAME, 'addchildteam',params)
-                        .then(response => {this.props.refetchTeamData(); console.log('Success for add child team')})
+                        .then(response => { 
+                            this.setState({ 
+                                addTeamDialogOpen: false, 
+                                teamNameField: ''
+                            })
+                            console.log('Success for add child team')
+                        })
                         .catch(err => console.log('Error adding child team', err))
-                }
-                console.log('TEAM from API Gateway: ' + response.subteams);
-                this.setState({teams: response.subteams, isDataFetched: true})
+                        .then(()  => this.props.refetchTeamData('New team is successfully added.'))
+                } 
             })
             .catch(error => console.log('Error from gateway', error))
-            .then(() =>  {
-                this.props.refetchTeamData()
-                this.setState({ addTeamDialogOpen: false, isTeamSuccessfullyAdded: true, teamNameField: ''})
-            }) 
     }
 
     render(){
@@ -120,8 +107,7 @@ class TeamList extends Component{
                         </Button>
                     </Typography>
                 }
-
-                {new RegExp("\/team\/[0-9]+").test(window.location.pathname) &&
+                {this.props.team !== null &&
                     <Typography className={classes.heading}>
                         Subteams
                         <Button className={classes.button} onClick={() => this.setState({ addTeamDialogOpen: true })}>
@@ -156,59 +142,11 @@ class TeamList extends Component{
                         <Button onClick={() => this.setState({ addTeamDialogOpen: false })} color="secondary">
                         Cancel
                         </Button>
-                        <Button onClick={() => this.submitNewTeam()} color="primary" autoFocus>
+                        <Button onClick={() => this.submitNewTeam()} className={classes.btn} autoFocus>
                         Save
                         </Button>
                     </DialogActions>
                 </Dialog>
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={this.state.isTeamSuccessfullyAdded}
-                    autoHideDuration={3000}
-                    onClose={this.handleClickClose}
-                    SnackbarContentProps={{
-                        'aria-describedby': 'message-id',
-                    }}
-                    message={<span id="message-id">New team is added.</span>}
-                    action={[
-                        <IconButton
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"
-                        className={classes.close}
-                        onClick={this.handleClickClose}
-                        >
-                        <CloseIcon />
-                        </IconButton>,
-                    ]}
-                />
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={this.state.memberOpen}
-                    autoHideDuration={3000}
-                    onClose={this.handleClickClose}
-                    SnackbarContentProps={{
-                        'aria-describedby': 'message-id',
-                    }}
-                    message={<span id="message-id">New member is added to the team.</span>}
-                    action={[
-                        <IconButton
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"
-                        className={classes.close}
-                        onClick={this.handleClickClose}
-                        >
-                        <CloseIcon />
-                        </IconButton>,
-                    ]}
-                />
             </Grid>
         )
     }
@@ -222,37 +160,28 @@ const styles = theme => ({
         padding: '0px'
     },
     button: {
-        margin: theme.spacing.unit,
-        borderRadius: 4,
-        backgroundColor: 'rgb(87, 71, 58)',
-        color: '#ffc472',
+        marginLeft: 20,
+        marginBottom: 1,
+        borderRadius: 20,
+        backgroundColor: 'white',
+        color: '#ff9300',
         fontSize: '1rem',
         '&:hover': {
-            backgroundColor: '#ffc472',
-            color: 'rgb(87, 71, 58)'
+            backgroundColor: '#ffc575',
         },
-    },
-    actionBlock: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        padding: '16px',
     },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
     },
-    mobileStepper: {
-        background: 'white'
-    },
     heading: {
-        fontSize: '2rem',
+        fontSize: '1.6rem',
         textAlign: 'left',
         padding: '10px',
         backgroundColor: '#fcac3c',
         color: 'white',
-        paddingLeft: '20px'
+        paddingLeft: '10px'
     },
     noTeams: {
         display: 'flex',

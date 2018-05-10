@@ -52,6 +52,8 @@ class TeamView extends Component{
         recorderedVideo: null,
         videoStream: null,
         open: false,
+        snackBarOpen: false,
+        snackbarText: ''
     }
 
     componentDidMount(){
@@ -173,8 +175,8 @@ class TeamView extends Component{
         })
     }
 
-    refetchTeamData = () => {
-        this.setState({ isTeamFetched: false, isVideosFetched: false  })
+    refetchTeamData = (snackbarText) => {
+        this.setState({ isTeamFetched: false, isVideosFetched: false, snackBarOpen: true, snackbarText: snackbarText })
     }
  
     handleFileUploading = (e) => {
@@ -188,7 +190,7 @@ class TeamView extends Component{
         if (reason === 'clickaway') {
           return;
         }
-        this.setState({ open: false });
+        this.setState({ open: false, snackBarOpen: false });
       };
 
     render(){
@@ -206,7 +208,6 @@ class TeamView extends Component{
             .then(response => console.log('****** Response', response))
             .catch(error => console.log('****** ', error))
         } */
-
         if (isTeamFetched){
             return (
                 <div>
@@ -260,8 +261,7 @@ class TeamView extends Component{
                                             <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
                                         }
                                         {recorderedVideo !== null &&
-                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls="true" className={classes.streamVideo}></video>
-                                                
+                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls="true" className={classes.streamVideo}></video>     
                                         }
                                         </div>
                                         <div>
@@ -280,7 +280,6 @@ class TeamView extends Component{
                                 (
                                     <Fragment>
                                         {recorderedVideo !== null && 
-                                            
                                                 <video height="250" width="250" controls>
                                                     <source src={window.URL.createObjectURL(recorderedVideo)} type="video/mp4" />
                                                     Your browser does not support the video tag.
@@ -305,7 +304,6 @@ class TeamView extends Component{
                         }}
                         message={<span id="message-id">Video has been saved.</span>}
                         action={[
-                            
                             <IconButton
                             key="close"
                             aria-label="Close"
@@ -318,7 +316,31 @@ class TeamView extends Component{
                         ]}
                         />
                 </Grid>
-                </div>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.snackBarOpen}
+                    autoHideDuration={3000}
+                    onClose={this.handleClose}
+                    SnackbarContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">{this.state.snackbarText}</span>}
+                    action={[
+                        <IconButton
+                        key="close"
+                        aria-label="Close"
+                        color="inherit"
+                        className={classes.close}
+                        onClick={this.handleClose}
+                        >
+                        <CloseIcon />
+                        </IconButton>,
+                    ]}
+                />  
+            </div>
             )
         }else{
             return (
@@ -361,6 +383,7 @@ const styles = theme => ({
     },
     teamTitle: {
         alignSelf: 'center',
+        padding: 20
     },
     button: {
         margin: theme.spacing.unit,

@@ -52,13 +52,12 @@ const styles = theme => ({
         alignItems: 'center',
     },
     heading: {
-        fontSize: '2rem',
+        fontSize: '1.6rem',
         textAlign: 'left',
-        padding: '20px 10px 10px 10px',
+        padding: '10px',
         backgroundColor: '#fcac3c',
         color: 'white',
         width: '100%',
-        marginTop: '20px'
     }
 });
 

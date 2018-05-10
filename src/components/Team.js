@@ -47,6 +47,7 @@ const styles = theme => ({
     },
     font: {
         color: '#616161',
+        fontSize: '1.3rem'
     },
     list: {
         paddingTop: '0px',
