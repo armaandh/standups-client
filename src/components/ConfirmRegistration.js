@@ -70,7 +70,7 @@ class ConfirmRegistration extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.registrationContainer}>
-                    <Typography variant='headline'>Confirm Sign Up</Typography>
+                    <Typography variant='headline' className={classes.headline}>Confirm Sign Up</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             id="email"
@@ -141,7 +141,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px'
+        padding: '10px'
     },
     form: {
         display: 'flex',
@@ -149,11 +149,14 @@ const styles = theme => ({
     },
     registrationContainer:{
         padding: '36px',
+        borderRadius: '20px'
     },
     button: {
         // margin: theme.spacing.unit,
         width: '50%',
         margin: '8px auto',
+        borderRadius: '30px',
+        color: '#21a2ff'
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -167,7 +170,11 @@ const styles = theme => ({
     linkmargin: {
         marginLeft: '10px',
         marginRight: '55px'
-    }
+    },
+    headline: {
+        textAlign: 'center',
+        fontSize: '2rem'
+    },
 });
 
 export default withStyles(styles)(ConfirmRegistration)

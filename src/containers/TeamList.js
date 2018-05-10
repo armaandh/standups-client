@@ -260,6 +260,9 @@ const styles = theme => ({
         flexDirection: 'column',
         alignSelf: 'flex-start',
     },
+    btn: {
+        color: '#21a2ff',
+    }
 }); 
 
 export default withMobileDialog()(withStyles(styles)(TeamList))

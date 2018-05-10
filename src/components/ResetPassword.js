@@ -91,7 +91,7 @@ class ResetPassword extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.resetpasswordContainer}>
-                    <Typography variant='headline'>Reset Your Password</Typography>
+                    <Typography variant='headline' className={classes.headline}>Reset Your Password</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             id="email" // code
@@ -99,7 +99,6 @@ class ResetPassword extends Component{
                             value={email.toLowerCase()}
                             className={classes.textField}
                             margin="normal"
-                            labelFontSize="1.2rem"
                             onChange={this.handleChange('email')}
                             InputProps={{
                                 startAdornment: (
@@ -196,7 +195,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px'
+        padding: '10px'
     },
     form: {
         display: 'flex',
@@ -205,12 +204,14 @@ const styles = theme => ({
     },
     resetpasswordContainer:{
         padding: '36px',
-        fontSize: '1.2rem',
+        borderRadius: '20px'
     },
     button: {
         // margin: theme.spacing.unit,
         width: '50%',
         margin: '8px auto',
+        borderRadius: '30px',
+        color: '#21a2ff'
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -222,11 +223,15 @@ const styles = theme => ({
     },
     linkmargin: {
         marginLeft: '10px',
-        marginRight: '60px'
+        marginRight: '55px'
     },
     font: {
         fontSize: '1.2rem',
-    }
+    },
+    headline: {
+        textAlign: 'center',
+        fontSize: '1.6rem'
+    },
 });
 
 export default withStyles(styles)(ResetPassword)

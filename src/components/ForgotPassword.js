@@ -65,7 +65,7 @@ class ForgotPassword extends Component{
         return (
             <Grid container spacing={0} className={classes.root}>
                 <Paper elevation={2} className={classes.forgotpasswordContainer}>
-                    <Typography variant='headline'>Forgot Password?</Typography>
+                    <Typography variant='headline' className={classes.headline}>Forgot Password?</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             id="email"
@@ -120,7 +120,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px'
+        padding: '10px'
     },
     form: {
         display: 'flex',
@@ -128,11 +128,14 @@ const styles = theme => ({
     },
     forgotpasswordContainer:{
         padding: '36px',
+        borderRadius: '20px'
     },
     button: {
         // margin: theme.spacing.unit,
         width: '50%',
         margin: '10px auto',
+        borderRadius: '30px',
+        color: '#21a2ff'
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -145,7 +148,11 @@ const styles = theme => ({
     },
     linkmargin: {
         marginLeft: '10px',
-    }
+    },
+    headline: {
+        textAlign: 'center',
+        fontSize: '1.6rem'
+    },
 });
   
 export default withStyles(styles)(ForgotPassword)

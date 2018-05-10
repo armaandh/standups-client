@@ -167,33 +167,35 @@ class Login extends Component{
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px'
+        padding: '10px'
     },
     form: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
-    loginContainer:{
+    loginContainer: {
         padding: '36px',
+        borderRadius: '20px'
     },
     button: {
         color: 'white',
         margin: '20px auto',
         width: '40%',
-        backgroundColor: '#43A047',
-        borderColor: '#43A047',
+        backgroundColor: '#21a2ff',
+        borderColor: '#21a2ff',
+        borderRadius: '30px',
         '&:hover': {
-        backgroundColor: '#388E3C',
-        borderColor: '#388E3C',
+        backgroundColor: '#20b4f9',
+        borderColor: '#20b4f9',
         },
         '&:active': {
         boxShadow: 'none',
-        backgroundColor: '#388E3C',
-        borderColor: '#388E3C',
+        backgroundColor: '#20b4f9',
+        borderColor: '#20b4f9',
         },
         '&:focus': {
         boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
@@ -212,10 +214,10 @@ const styles = theme => ({
         marginLeft: '10px',
         marginRight: '70px'
     },
-    headline:{
+    headline: {
         textAlign: 'center',
-        fontSize: '2em'
-    }
+        fontSize: '2rem'
+    },
 });
   
 export default withStyles(styles)(Login)
