@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const validateEmail = email =>  {
   let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regex.test(String(email).toLowerCase());
@@ -49,4 +51,10 @@ export const sortTeamsAlphabetically = (teams) => {
       if(t1.name.toLowerCase() > t2.name.toLowerCase()) return 1;
       return 0;
     })
+}
+
+export const generateSnackbarMessage = (message) => {
+  return (
+    <span id="message-id">{message}</span>
+  )
 }

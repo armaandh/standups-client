@@ -7,15 +7,20 @@ import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import { CircularProgress } from 'material-ui/Progress'
 import Fade from 'material-ui/transitions/Fade'
+import Snackbar from 'material-ui/Snackbar';
+import IconButton from 'material-ui/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
 
 import { API } from 'aws-amplify'
 import { API_GATEWAY_NAME } from './../utils/amazonConfig'
-import { sortTeamsAlphabetically } from './../utils/functions'
+import { sortTeamsAlphabetically, generateSnackbarMessage } from './../utils/functions'
 
 class Home extends Component{
     state = {
         isDataFetched: false,
-        teams: []
+        teams: [],
+        snackBarOpen: false,
+        snackbarText:''
     }
 
     componentDidMount(){
@@ -41,8 +46,11 @@ class Home extends Component{
                 body: {teamid: 'ROOT'}
             }
             API.post(API_GATEWAY_NAME, 'teaminfo', params)
-                .then(response => {console.log('TEAM from API Gateway: ' + response.subteams); this.setState({
-                    teams: sortTeamsAlphabetically(response.subteams), isDataFetched: true})})
+                .then(response => {console.log('TEAM from API Gateway: ' + response.subteams); 
+                this.setState({
+                    teams: sortTeamsAlphabetically(response.subteams), 
+                    isDataFetched: true})
+                })
                 .catch(error => console.log('Error from gateway', error))   
         }
     }
@@ -53,8 +61,19 @@ class Home extends Component{
         });
     }
 
-    refetchTeamData = () => {
-        this.setState({isDataFetched: false})
+    handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        this.setState({ snackBarOpen: false });
+    };
+
+    refetchTeamData = (snackbarText) => {
+        this.setState({
+            isDataFetched: false,
+            snackBarOpen: snackbarText === undefined ? false : true, 
+            snackbarText: snackbarText === undefined ? '' : snackbarText 
+        })
     }
 
     render(){
@@ -73,6 +92,30 @@ class Home extends Component{
                 <Grid container spacing={0} className={classes.root}>
                     <TeamList team={null} subTeams={teams} refetchTeamData={this.refetchTeamData}/>                   
                 </Grid>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.snackBarOpen}
+                    autoHideDuration={3000}
+                    onClose={this.handleClose}
+                    SnackbarContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={generateSnackbarMessage(this.state.snackbarText)}
+                    action={[
+                        <IconButton
+                        key="close"
+                        aria-label="Close"
+                        color="inherit"
+                        className={classes.close}
+                        onClick={this.handleClose}
+                        >
+                        <CloseIcon />
+                        </IconButton>,
+                    ]}
+                /> 
                 </div> 
             )
         }else{

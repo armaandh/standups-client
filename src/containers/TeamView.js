@@ -15,7 +15,7 @@ import {
     isMediaRecordingSupported
 } from '../utils/videoRecording'
 
-import { formatEmail, sortTeamsAlphabetically } from './../utils/functions'
+import { formatEmail, sortTeamsAlphabetically, generateSnackbarMessage  } from './../utils/functions'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -165,7 +165,11 @@ class TeamView extends Component{
     }
 
     refetchTeamData = (snackbarText) => {
-        this.setState({ isTeamFetched: false, isVideosFetched: false, snackBarOpen: snackbarText === undefined ? false : true, snackbarText: snackbarText === undefined ? '' : snackbarText })
+        this.setState({ isTeamFetched: false, 
+            isVideosFetched: false, 
+            snackBarOpen: snackbarText === undefined ? false : true, 
+            snackbarText: snackbarText === undefined ? '' : snackbarText 
+        })
     }
  
     handleFileUploading = (e) => {
@@ -305,7 +309,7 @@ class TeamView extends Component{
                     SnackbarContentProps={{
                         'aria-describedby': 'message-id',
                     }}
-                    message={'<span id="message-id">' + this.state.snackbarText + '</span>'}
+                    message={generateSnackbarMessage(this.state.snackbarText)}
                     action={[
                         <IconButton
                         key="close"

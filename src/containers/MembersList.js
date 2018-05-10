@@ -126,14 +126,14 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 200,
     },
-    appBar: {
-        position: 'relative',
-        backgroundColor: '#FFD54F',
-        color: '#795548'
-      },
-    flex: {
-        flex: 1,
-    },
+    // appBar: {
+    //     position: 'relative',
+    //     backgroundColor: '#FFD54F',
+    //     color: '#795548'
+    //   },
+    // flex: {
+    //     flex: 1,
+    // },
     button: {
         marginLeft: 20,
         marginBottom: 1,

@@ -63,9 +63,11 @@ class TeamList extends Component{
                                         teamNameField: ''
                                     })
                                     console.log('Success for add child team')
+                                    this.props.refetchTeamData('New team is successfully attached.')
                                 })
                                 .catch(err => console.log('Error adding child team', err))
-                                .then(() => this.props.refetchTeamData('New team is successfully added.'))
+                        }else{
+                            this.props.refetchTeamData('New team is successfully added.')
                         }
                     }).catch(error => {
                         console.log('New Team Error: ', error.response)
@@ -88,7 +90,7 @@ class TeamList extends Component{
                             console.log('Success for add child team')
                         })
                         .catch(err => console.log('Error adding child team', err))
-                        .then(()  => this.props.refetchTeamData('New team is successfully added.'))
+                        .then(()  => this.props.refetchTeamData('The team is successfully attached.'))
                 } 
             })
             .catch(error => console.log('Error from gateway', error))
@@ -169,7 +171,7 @@ const styles = theme => ({
         color: '#ff9300',
         fontSize: '1rem',
         '&:hover': {
-            backgroundColor: '#ffc575',
+            backgroundColor: '#ffe491',
         },
     },
     textField: {
