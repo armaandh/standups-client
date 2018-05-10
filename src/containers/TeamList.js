@@ -115,12 +115,14 @@ class TeamList extends Component{
                         </Button>
                     </Typography>
                 }
-                {subTeams.length === 0 && 
-                    <Typography variant="headline" className={classes.noTeams}>
-                        No Teams
-                    </Typography>
-                }
-                {subTeams.map(t => <Team team={t} key={t.teamid} refetchTeamData={refetchTeamData}/>)}
+                <Grid item xs={12} className={classes.teams}>
+                    {subTeams.length === 0 && 
+                        <Typography variant="headline" className={classes.noTeams}>
+                            No Teams
+                        </Typography>
+                    }
+                    {subTeams.map(t => <Team team={t} key={t.teamid} refetchTeamData={refetchTeamData}/>)}
+                </Grid>
                 <Dialog
                     open={this.state.addTeamDialogOpen}
                     onClose={() => this.setState({ addTeamDialogOpen: false })}
@@ -183,11 +185,15 @@ const styles = theme => ({
         color: 'white',
         paddingLeft: '10px'
     },
+    teams: {
+        textAlign: 'left',
+    },
     noTeams: {
         display: 'flex',
         margin: '10px',
         flexDirection: 'column',
         alignSelf: 'flex-start',
+        fontSize: '1.3rem'
     },
     btn: {
         color: '#21a2ff',
