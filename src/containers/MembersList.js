@@ -67,9 +67,9 @@ class MembersList extends Component{
                         add member
                     </Button></Typography>
                 </Grid>
-                <Grid item xs={12} className={classes.members}>
+                <Grid item xs={12}>
                     {members.length === 0 &&
-                        <Typography variant="headline" className={classes.noTeams}>
+                        <Typography variant="headline" className={classes.noMembers}>
                             No Members
                         </Typography>
                     }
@@ -111,6 +111,7 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignSelf: 'flex-start',
+        padding: '0px'
     },
     addMemberContent:{
         display: 'flex',
@@ -155,7 +156,7 @@ const styles = theme => ({
     members: {
         padding: '20px'
     },
-    noTeams: {
+    noMembers: {
         display: 'flex',
         margin: '10px',
         flexDirection: 'column',

@@ -42,3 +42,11 @@ export const compareDateByCalendarDay = (firstDate, secondDate) => {
   console.log(`Day ${d1.getUTCDay()} with ${d2.getUTCDay()}`)
   return d1.getUTCFullYear() === d2.getUTCFullYear() && d1.getUTCMonth() === d2.getUTCMonth() && d1.getUTCDay() === d2.getUTCDay()
 }
+
+export const sortTeamsAlphabetically = (teams) => {
+  return teams.sort((t1, t2) => {
+      if(t1.name.toLowerCase() < t2.name.toLowerCase()) return -1;
+      if(t1.name.toLowerCase() > t2.name.toLowerCase()) return 1;
+      return 0;
+    })
+}

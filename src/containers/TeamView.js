@@ -15,8 +15,7 @@ import {
     isMediaRecordingSupported
 } from '../utils/videoRecording'
 
-import { getTeam } from '../utils/api'
-import { formatEmail } from './../utils/functions'
+import { formatEmail, sortTeamsAlphabetically } from './../utils/functions'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -196,18 +195,7 @@ class TeamView extends Component{
     render(){
         const { videos, team, isTeamFetched, isVideoRecording, isVideoStreamEnabled, videoStream, recorderedVideo, isVideoRecordingEnabled } = this.state 
         const { classes } = this.props
-
-/*         if(this.state.accessToken !== null){
-            const options = {
-                headers: {
-                  Authorization: this.state.accessToken,
-                  'Access-Control-Allow-Origin': '*'
-                }
-            }
-            API.get(API_GATEWAY_NAME, 'dev/teams', options)
-            .then(response => console.log('****** Response', response))
-            .catch(error => console.log('****** ', error))
-        } */
+        
         if (isTeamFetched){
             return (
                 <div>
@@ -223,7 +211,7 @@ class TeamView extends Component{
                     <Typography className={classes.teamTitle} variant="headline"> 
                         {team.name}
                     </Typography>
-                    <TeamList team={team} subTeams={team.subteams} refetchTeamData={this.refetchTeamData}/>
+                    <TeamList team={team} subTeams={sortTeamsAlphabetically(team.subteams)} refetchTeamData={this.refetchTeamData}/>
                     <MembersList team={team} members={team.members} refetchTeamData={this.refetchTeamData}/>
                     <VideoList videos={videos}/>
                     <Button variant="fab" color="primary" className={classes.recordVideoButton} onClick={this.openVideoRecordingDialog}>
