@@ -5,6 +5,7 @@ import { compareDateByCalendarDay } from './../utils/functions'
 
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
+import Typography from 'material-ui/Typography'
 
 class VideoList extends Component{
 
@@ -32,6 +33,10 @@ class VideoList extends Component{
         return (
             <Fragment>
                 <Grid container spacing={0} className={classes.root}>
+                    <Typography className={classes.heading}>Videos</Typography>
+                    {videos.length === 0 &&
+                        <Typography>No uploaded videos</Typography>
+                    }
                     {this.displayVideos(videos)}
                 </Grid>
                 <hr/>
@@ -44,10 +49,18 @@ const styles = theme => ({
     root:{
         display: 'flex',
         height: '100%',
-        padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
     },
+    heading: {
+        fontSize: '2rem',
+        textAlign: 'left',
+        padding: '20px 10px 10px 10px',
+        backgroundColor: '#fcac3c',
+        color: 'white',
+        width: '100%',
+        marginTop: '20px'
+    }
 });
 
 export default withStyles(styles)(VideoList)

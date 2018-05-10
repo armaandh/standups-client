@@ -12,7 +12,7 @@ import Dialog, { withMobileDialog,
 import TextField from 'material-ui/TextField'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from 'material-ui/IconButton'
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from 'material-ui/Snackbar'
 
 class TeamList extends Component{
 
@@ -49,7 +49,7 @@ class TeamList extends Component{
         if (reason === 'clickaway') {
             return;
           }
-    this.setState({ teamOpen: false, memberOpen: false });
+        this.setState({ teamOpen: false, memberOpen: false });
     };
 
     render(){
