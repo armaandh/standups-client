@@ -12,6 +12,7 @@ class VideoList extends Component{
     displayVideos = videos => {
         let videosArray = []
         let previousDate = null
+        console.log('My videos', videos)
         videos.map(v => {
             videosArray.push(
                 <Fragment key={v.key}>
