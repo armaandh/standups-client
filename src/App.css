@@ -35,15 +35,20 @@
 
 main {
   flex: 1;
-  display: flex;
+  /* display: flex; */
 }
+
+/* footer {
+  display: flex;
+  flex: 1;
+} */
 
 footer ul {
   list-style: none;
   font-family: Open Sans,sans-serif;
-  display: flex;
   justify-content: center;
   padding-top: 15px;
+  display: flex;
 }
 
 footer li {
