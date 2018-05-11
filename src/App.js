@@ -44,7 +44,7 @@ class App extends Component {
               <Toolbar className={classes.font}>
                 <div className={classes.leftMenu}>
                   <Link to="/home">
-                    <Button color="inherit" className={classes.menu}><HomeIcon style={{ fontSize: 36 }}/>Standup App</Button>
+                    <Button color="inherit" className={classes.menu}><HomeIcon style={{ fontSize: 36 }}/>Standups App</Button>
                   </Link>
                 </div>
                 <Link to="#" onClick={this.signOut} className={classes.menu}>
