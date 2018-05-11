@@ -44,10 +44,10 @@ class App extends Component {
               <Toolbar className={classes.font}>
                 <div className={classes.leftMenu}>
                   <Link to="/home">
-                    <Button color="inherit"><HomeIcon style={{ fontSize: 36 }}/>Standup App</Button>
+                    <Button color="inherit" className={classes.menu}><HomeIcon style={{ fontSize: 36 }}/>Standup App</Button>
                   </Link>
                 </div>
-                <Link to="#" onClick={this.signOut}>
+                <Link to="#" onClick={this.signOut} className={classes.menu}>
                   <Button color="inherit">Logout</Button>
                 </Link>
               </Toolbar>
@@ -84,6 +84,7 @@ const styles = {
   leftMenu: {
     display: 'flex',
     flex: 1,
+    borderRadius: '20px'
   },
   font: {
     color: '#ffffff',
@@ -94,7 +95,17 @@ const styles = {
     width: '1.4rem'
   },
   navbar: {
-    backgroundColor: '#37474F'
+    backgroundColor: '#37474F',
+  },
+  menu: {
+    '&:hover': {
+      backgroundColor: '#4c6675',
+      borderRadius: '20px'
+      },
+    '&:active': {
+      backgroundColor: '#557382',
+      borderRadius: '20px'
+    },
   }
 };
 

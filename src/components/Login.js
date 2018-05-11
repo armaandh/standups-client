@@ -13,13 +13,13 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import Dialog, {
     DialogActions,
     DialogContent,
-    DialogContentText,
-  } from 'material-ui/Dialog'
+    DialogContentText } from 'material-ui/Dialog'
 import LockOutline from '@material-ui/icons/LockOutline'
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import { validateEmail, validatePassword } from './../utils/functions';
+
 import { Auth } from 'aws-amplify'
 
 class Login extends Component{
@@ -143,23 +143,23 @@ class Login extends Component{
                     </div>
                 </Paper>
                 <Dialog
-                open={this.state.invalidUser}
-                onClose={this.handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                >
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                    Invalid login credentials.
-                    Please try again.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">
-                    Close
-                    </Button>
-                </DialogActions>
-            </Dialog>       
+                    open={this.state.invalidUser}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    >
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                        Invalid login credentials.
+                        Please try again.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                        Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>       
             </Grid>
             </div>
         )

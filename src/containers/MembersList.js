@@ -5,11 +5,6 @@ import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-// import AppBar from 'material-ui/AppBar'
-// import Toolbar from 'material-ui/Toolbar'
-// import CloseIcon from '@material-ui/icons/Close'
-// import IconButton from 'material-ui/IconButton'
-// import Snackbar from 'material-ui/Snackbar'
 import Typography from 'material-ui/Typography'
 import Dialog, { withMobileDialog, 
     DialogActions,
@@ -114,7 +109,7 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignSelf: 'flex-start',
-        padding: '0px'
+        padding: '0px',
     },
     addMemberContent: {
         display: 'flex',
@@ -146,7 +141,7 @@ const styles = theme => ({
         padding: '10px',
         backgroundColor: '#37474F',
         color: '#ffffff',
-        paddingLeft: '10px'
+        paddingLeft: '14px'
     },
     members: {
         textAlign: 'left'
@@ -156,7 +151,8 @@ const styles = theme => ({
         margin: '10px',
         flexDirection: 'column',
         alignSelf: 'flex-start',
-        fontSize: '1.3rem'
+        fontSize: '1.3rem',
+        paddingLeft: '6px'
     }
 });
 

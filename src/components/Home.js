@@ -82,16 +82,16 @@ class Home extends Component{
 
         if (isDataFetched){
             return (
-                <div className={classes.bgc}>           
+                <Grid container spacing={0} className={classes.root}>         
                     <Typography variant="headline" className={classes.title}>A new and bold way to record standup meetings.</Typography>
                     <Typography className={classes.description}>
                         This Standup app makes it easy to record standup meeting videos.
                         It consolidates standup meetings from all hierarchical levels - making 
-                        it simpler to grow and manage at all levels.
+                        it simpler to grow and manage the flow of communication 
+                        between teams at all levels.
                     </Typography>
-                <Grid container spacing={0} className={classes.root}>
                     <TeamList team={null} subTeams={teams} refetchTeamData={this.refetchTeamData}/>                   
-                </Grid>
+               
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -116,7 +116,7 @@ class Home extends Component{
                         </IconButton>,
                     ]}
                 /> 
-                </div> 
+                </Grid>
             )
         }else{
             return (
@@ -141,25 +141,21 @@ const styles = theme => ({
     root: {
         display: 'flex',
         height: '100%',
-        // padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,  
         padding: '0px',
         alignSelf: 'center'
     },
-    bgc: {
-        backgroundColor: '#ffffff',
-    },
     progress: {
-        color: '#03A9F4'
+        color: '#03A9F4',
     },
     title: {
         paddingTop: '30px',
     },
     description: {
-        paddingTop: '20px',
-        paddingBottom: '20px'
+        padding: '20px',
+        paddingBottom: '30px'
     },
 });
 

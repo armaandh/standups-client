@@ -94,22 +94,22 @@ class ForgotPassword extends Component{
                     </div>
                 </Paper>
                 <Dialog
-                open={this.state.invalidUser}
-                onClose={this.handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                >
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                    User does not exist in the system.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">
-                    Close
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                    open={this.state.invalidUser}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    >
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                        User does not exist in the system.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                        Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Grid>
         )
     }

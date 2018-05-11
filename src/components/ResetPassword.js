@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
@@ -56,7 +57,7 @@ class ResetPassword extends Component{
 
     handleMouseDownPassword = event => {
         event.preventDefault();
-      };
+    };
 
     handleClickShowPassword = () => {
         this.setState({ showPassword: !this.state.showPassword });
@@ -94,7 +95,7 @@ class ResetPassword extends Component{
                     <Typography variant='headline' className={classes.headline}>Reset Your Password</Typography>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
-                            id="email" // code
+                            id="email"
                             label="Email"
                             value={email.toLowerCase()}
                             className={classes.textField}
@@ -109,7 +110,7 @@ class ResetPassword extends Component{
                                 }}
                         />
                         <TextField
-                            id="code" // code
+                            id="code"
                             label="Code"
                             value={code}
                             className={classes.textField}
@@ -121,7 +122,7 @@ class ResetPassword extends Component{
                                     <Lock />
                                     </InputAdornment>
                                 ),
-                                }}
+                            }}
                         />
                         <Tooltip 
                             id="tooltip-icon" 
@@ -207,7 +208,6 @@ const styles = theme => ({
         borderRadius: '20px'
     },
     button: {
-        // margin: theme.spacing.unit,
         width: '50%',
         margin: '8px auto',
         borderRadius: '30px',

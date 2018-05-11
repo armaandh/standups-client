@@ -54,7 +54,7 @@ class UserContent extends Component{
                         <Typography className={classes.teamTitle} variant="headline"> 
                         {this.props.match.params.username}
                         </Typography>
-                    </Grid>
+                </Grid>
                 <Paper elevation={2} className={classes.userCard}>
                     <Typography variant="title">User's videos</Typography>
                     {isVideosFetched 

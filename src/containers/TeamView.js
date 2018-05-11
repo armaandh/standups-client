@@ -12,9 +12,7 @@ import {
     getVideoRecordURL, 
     getVideoStreamURL,
     getVideoBlob,
-    isMediaRecordingSupported
-} from '../utils/videoRecording'
-
+    isMediaRecordingSupported } from '../utils/videoRecording'
 import { formatEmail, sortTeamsAlphabetically, generateSnackbarMessage  } from './../utils/functions'
 
 import { withStyles } from 'material-ui/styles'
@@ -33,7 +31,6 @@ import Dialog from 'material-ui/Dialog'
 import Toolbar from 'material-ui/Toolbar'
 import Input from 'material-ui/Input'
 import Snackbar from 'material-ui/Snackbar';
-
 import Stop from '@material-ui/icons/Stop'
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 
@@ -56,7 +53,6 @@ class TeamView extends Component{
     }
 
     componentDidMount(){
-        // do we need this??
         this.setState({isVideoRecordingEnabled: false})
 
         if (!this.state.isTeamFetched){
@@ -185,7 +181,7 @@ class TeamView extends Component{
           return;
         }
         this.setState({ open: false, snackBarOpen: false });
-      };
+    };
 
     render(){
         const { videos, team, isTeamFetched, isVideoRecording, isVideoStreamEnabled, videoStream, recorderedVideo, isVideoRecordingEnabled } = this.state 
@@ -194,136 +190,137 @@ class TeamView extends Component{
         if (isTeamFetched){
             return (
                 <div>
-                    <Grid item xs={12} className={classes.teamHeader}>
-                        <IconButton className={classNames(classes.button, classes.arrow)} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
-                            <ArrowBack />
-                        </IconButton>
-                        <Typography className={classes.navigation} variant="headline"> 
-                            Back
-                        </Typography>
-                    </Grid>
-                <Grid container spacing={0} className={classes.root}>
-                    <Typography className={classes.teamTitle} variant="headline"> 
-                        {team.name}
-                    </Typography>
-                    <TeamList team={team} subTeams={sortTeamsAlphabetically(team.subteams)} refetchTeamData={this.refetchTeamData}/>
-                    <MembersList team={team} members={team.members} refetchTeamData={this.refetchTeamData}/>
-                    <VideoList videos={videos}/>
-                    <Button variant="fab" color="primary" className={classes.recordVideoButton} onClick={this.openVideoRecordingDialog}>
-                        <Videocam />
-                    </Button>
-
-                    <Dialog
-                        fullScreen
-                        open={this.state.addStanupDialogOpen}
-                        onClose={() => this.setState({addStanupDialogOpen: false})}
-                        transition={Transition}
-                        >
-                        <AppBar className={classes.appBar}>
-                            <Toolbar>
-                            <IconButton color="inherit" onClick={this.handleAddVideoDialogClose} aria-label="Close">
-                                <CloseIcon />
+                    <Grid container spacing={0} className={classes.root}>
+                        <Grid item xs={12} className={classes.teamHeader}>
+                            <IconButton className={classNames(classes.button, classes.arrow)} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
+                                <ArrowBack />
                             </IconButton>
-                            <Typography variant="title" color="inherit" className={classes.flex}>
-                                Add Standup
+                            <Typography className={classes.navigation} variant="headline"> 
+                                Back
                             </Typography>
-                            {recorderedVideo !== null &&
-                                <Button color="inherit" onClick={this.submitVideo}>
-                                    save
-                                </Button>
-                            }
-                            </Toolbar>
-                        </AppBar>
-                        <div className={classes.addVideoContent}>
-                            {isVideoRecordingEnabled ? 
-                                (
-                                    <Fragment>
-                                        <div className={classes.streamVideo}>
-                                        {/* <Typography className={classes.videoNote}>Please click the button to start recording.</Typography> */}
-                                        {isVideoStreamEnabled && 
-                                            <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
-                                        }
-                                        {recorderedVideo !== null &&
-                                            <video src={window.URL.createObjectURL(recorderedVideo)} muted controls="true" className={classes.streamVideo}></video>     
-                                        }
-                                        </div>
-                                        <div>
-                                        {isVideoRecording ? (
-                                            <IconButton color="secondary" className={classes.button} aria-label="Stop Recording" onClick={this.handleRecording}>
-                                                <Stop />
-                                            </IconButton>
-                                        ) : (
-                                            <IconButton color="primary" className={classes.button} aria-label="Start Recording" onClick={this.handleRecording}>
-                                                <FiberManualRecord />
-                                            </IconButton>
-                                        )}
-                                        </div>
-                                    </Fragment>
-                                ) :
-                                (
-                                    <Fragment>
-                                        {recorderedVideo !== null && 
-                                                <video height="250" width="250" controls>
-                                                    <source src={window.URL.createObjectURL(recorderedVideo)} type="video/mp4" />
-                                                    Your browser does not support the video tag.
-                                                </video>    
-                                        }
-                                        <Input type="file" inputProps={{'accept': 'video/mp4', 'capture':'user' }} onChange={this.handleFileUploading}/>
-                                    </Fragment>
-                                )
-                            }
-                        </div>
-                    </Dialog>
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        open={this.state.open}
-                        autoHideDuration={4000}
-                        onClose={this.handleClose}
-                        SnackbarContentProps={{
-                            'aria-describedby': 'message-id',
-                        }}
-                        message={<span id="message-id">Video has been saved.</span>}
-                        action={[
-                            <IconButton
-                            key="close"
-                            aria-label="Close"
-                            color="inherit"
-                            className={classes.close}
-                            onClick={this.handleClose}
+                        </Grid>
+                
+                        <Typography className={classes.teamTitle} variant="headline"> 
+                            {team.name}
+                        </Typography>
+                        <TeamList team={team} subTeams={sortTeamsAlphabetically(team.subteams)} refetchTeamData={this.refetchTeamData}/>
+                        <MembersList team={team} members={team.members} refetchTeamData={this.refetchTeamData}/>
+                        <VideoList videos={videos}/>
+                        <Button variant="fab" color="primary" className={classes.recordVideoButton} onClick={this.openVideoRecordingDialog}>
+                            <Videocam />
+                        </Button>
+
+                        <Dialog
+                            fullScreen
+                            open={this.state.addStanupDialogOpen}
+                            onClose={() => this.setState({addStanupDialogOpen: false})}
+                            transition={Transition}
                             >
-                            <CloseIcon />
-                            </IconButton>,
-                        ]}
+                            <AppBar className={classes.appBar}>
+                                <Toolbar>
+                                <IconButton color="inherit" onClick={this.handleAddVideoDialogClose} aria-label="Close">
+                                    <CloseIcon />
+                                </IconButton>
+                                <Typography variant="title" color="inherit" className={classes.flex}>
+                                    Add Standup
+                                </Typography>
+                                {recorderedVideo !== null &&
+                                    <Button color="inherit" onClick={this.submitVideo}>
+                                        save
+                                    </Button>
+                                }
+                                </Toolbar>
+                            </AppBar>
+                            <div className={classes.addVideoContent}>
+                                {isVideoRecordingEnabled ? 
+                                    (
+                                        <Fragment>
+                                            <div className={classes.streamVideo}>
+                                            {/* <Typography className={classes.videoNote}>Please click the button to start recording.</Typography> */}
+                                            {isVideoStreamEnabled && 
+                                                <video src={videoStream} muted autoPlay className={classes.streamVideo}></video>
+                                            }
+                                            {recorderedVideo !== null &&
+                                                <video src={window.URL.createObjectURL(recorderedVideo)} muted controls="true" className={classes.streamVideo}></video>     
+                                            }
+                                            </div>
+                                            <div>
+                                            {isVideoRecording ? (
+                                                <IconButton color="secondary" className={classes.button} aria-label="Stop Recording" onClick={this.handleRecording}>
+                                                    <Stop />
+                                                </IconButton>
+                                            ) : (
+                                                <IconButton color="primary" className={classes.button} aria-label="Start Recording" onClick={this.handleRecording}>
+                                                    <FiberManualRecord />
+                                                </IconButton>
+                                            )}
+                                            </div>
+                                        </Fragment>
+                                    ) :
+                                    (
+                                        <Fragment>
+                                            {recorderedVideo !== null && 
+                                                    <video height="250" width="250" controls>
+                                                        <source src={window.URL.createObjectURL(recorderedVideo)} type="video/mp4" />
+                                                        Your browser does not support the video tag.
+                                                    </video>    
+                                            }
+                                            <Input type="file" inputProps={{'accept': 'video/mp4', 'capture':'user' }} onChange={this.handleFileUploading}/>
+                                        </Fragment>
+                                    )
+                                }
+                            </div>
+                        </Dialog>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            open={this.state.open}
+                            autoHideDuration={4000}
+                            onClose={this.handleClose}
+                            SnackbarContentProps={{
+                                'aria-describedby': 'message-id',
+                            }}
+                            message={<span id="message-id">Video has been saved.</span>}
+                            action={[
+                                <IconButton
+                                key="close"
+                                aria-label="Close"
+                                color="inherit"
+                                className={classes.close}
+                                onClick={this.handleClose}
+                                >
+                                <CloseIcon />
+                                </IconButton>,
+                            ]}
+                            />
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            open={this.state.snackBarOpen}
+                            autoHideDuration={3000}
+                            onClose={this.handleClose}
+                            SnackbarContentProps={{
+                                'aria-describedby': 'message-id',
+                            }}
+                            message={generateSnackbarMessage(this.state.snackbarText)}
+                            action={[
+                                <IconButton
+                                key="close"
+                                aria-label="Close"
+                                color="inherit"
+                                className={classes.close}
+                                onClick={this.handleClose}
+                                >
+                                <CloseIcon />
+                                </IconButton>,
+                            ]}
                         />
-                </Grid>
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={this.state.snackBarOpen}
-                    autoHideDuration={3000}
-                    onClose={this.handleClose}
-                    SnackbarContentProps={{
-                        'aria-describedby': 'message-id',
-                    }}
-                    message={generateSnackbarMessage(this.state.snackbarText)}
-                    action={[
-                        <IconButton
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"
-                        className={classes.close}
-                        onClick={this.handleClose}
-                        >
-                        <CloseIcon />
-                        </IconButton>,
-                    ]}
-                />  
-            </div>
+                    </Grid>   
+                </div>
             )
         }else{
             return (
@@ -354,7 +351,6 @@ const styles = theme => ({
     root: {
         display: 'flex',
         height: '100%',
-        // padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#ffffff'

@@ -185,7 +185,7 @@ const styles = theme => ({
         padding: '10px',
         backgroundColor: '#37474F',
         color: '#ffffff',
-        paddingLeft: '10px'
+        paddingLeft: '14px'
     },
     teams: {
         textAlign: 'left',
@@ -195,7 +195,8 @@ const styles = theme => ({
         margin: '10px',
         flexDirection: 'column',
         alignSelf: 'flex-start',
-        fontSize: '1.3rem'
+        fontSize: '1.3rem',
+        paddingLeft: '6px'
     },
     btn: {
         color: '#21a2ff',

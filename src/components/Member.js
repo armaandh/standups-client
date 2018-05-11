@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { withStyles } from 'material-ui'
 import Avatar from 'material-ui/Avatar'
 import Chip from 'material-ui/Chip'
+
 import { getInitialsFromName } from './../utils/functions'
-import { Link } from 'react-router-dom'
 
 function Member(props){
     return (

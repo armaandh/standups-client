@@ -7,7 +7,7 @@ const DateHedlineSeparator = props => {
     let options = { year: 'numeric', month: 'long', day: 'numeric' }
     let date = new Date(parseInt(props.date.split('/')[2]) + new Date().getTimezoneOffset()*(60+7)*1000)
 
-    console.log('Is date present in broser: ' , new Date().getTimezoneOffset())
+    console.log('Is date present in browser: ' , new Date().getTimezoneOffset())
 
     return (
         <Grid item xs={12} className={props.classes.root}>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles'
+
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
@@ -53,8 +54,7 @@ class Registration extends Component{
         if(name === 'confirmPassword' && validatePassword(password)){
             password !== event.target.value 
                 ? this.setState({ passwordsMatchErrorMessage: "Passwords do not match. "})
-                : this.setState((nextState, props) => ({...nextState, passwordsMatchErrorMessage: ''})) 
-                
+                : this.setState((nextState, props) => ({...nextState, passwordsMatchErrorMessage: ''}))     
         }
     }
 

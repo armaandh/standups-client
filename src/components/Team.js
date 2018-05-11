@@ -28,8 +28,7 @@ const Team = (props) => {
             </List>
             </div>
                 {/* <Typography variant="display1" className={props.classes.font}>{props.team.name}</Typography>
-            </Paper>
-            <Divider /> */}
+            </Paper> */}
         </Link>
         </div>
     )
@@ -44,7 +43,6 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         // justifyContent: 'center',
-        // padding: '16px',
     },
     font: {
         color: '#616161',

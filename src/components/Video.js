@@ -71,17 +71,13 @@ const styles = theme => ({
         fontSize: '1.2rem'
     },
     video: {
-        width:'100%',
-        height:'342px',
-        //position: 'absolute',
-        //transform: 'translateX(-50%)',
+        width: '100%',
+        height: '342px',
         objectFit: 'contain'
     },
     vidContainer: {
         width: '100%',
         maxWidth:'500px',
-        // height: '0',
-        // paddingTop: '66.666%', 
         position: 'relative'
     },    
 });

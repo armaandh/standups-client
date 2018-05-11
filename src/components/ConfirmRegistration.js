@@ -152,7 +152,6 @@ const styles = theme => ({
         borderRadius: '20px'
     },
     button: {
-        // margin: theme.spacing.unit,
         width: '50%',
         margin: '8px auto',
         borderRadius: '30px',

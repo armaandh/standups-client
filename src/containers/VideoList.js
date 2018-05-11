@@ -63,6 +63,7 @@ const styles = theme => ({
         backgroundColor: '#37474F',
         color: '#ffffff',
         width: '100%',
+        paddingLeft: '14px'
     },
     videos: {
         textAlign: 'left'
@@ -72,7 +73,8 @@ const styles = theme => ({
         margin: '10px',
         flexDirection: 'column',
         alignSelf: 'flex-start',
-        fontSize: '1.3rem'
+        fontSize: '1.3rem',
+        paddingLeft: '6px'
     },
 });
 
