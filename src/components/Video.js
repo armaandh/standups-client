@@ -5,7 +5,6 @@ import { Storage } from 'aws-amplify'
 import Typography from 'material-ui/Typography'
 import { dateFormatForUploadedVideo } from './../utils/functions'
 import { Link } from 'react-router-dom'
-import classNames from 'classnames'
 
 class Video extends Component{
     constructor(props){
