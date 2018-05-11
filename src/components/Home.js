@@ -126,8 +126,6 @@ class Home extends Component{
                         style={{
                             transitionDelay: !isDataFetched ? '800ms' : '0ms',
                             height: '100%',
-                            position: 'absolute',
-                            top: '50%',
                         }}
                         unmountOnExit
                     >
@@ -148,12 +146,13 @@ const styles = theme => ({
         alignItems: 'center',
         flexGrow: 1,  
         padding: '0px',
+        alignSelf: 'center'
     },
     bgc: {
-        backgroundColor: 'white',
+        backgroundColor: '#ffffff',
     },
     progress: {
-        color: '#795548'
+        color: '#03A9F4'
     },
     title: {
         paddingTop: '30px',

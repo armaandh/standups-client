@@ -137,7 +137,7 @@ class ConfirmRegistration extends Component{
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -147,7 +147,7 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column'
     },
-    registrationContainer:{
+    registrationContainer: {
         padding: '36px',
         borderRadius: '20px'
     },

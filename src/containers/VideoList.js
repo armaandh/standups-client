@@ -32,10 +32,14 @@ class VideoList extends Component{
         return (
             <Fragment>
                 <Grid container spacing={0} className={classes.root}>
-                    <Typography className={classes.heading}>Videos</Typography>
-                    {videos.length === 0 &&
-                        <Typography>No uploaded videos</Typography>
-                    }
+                    <Grid item xs={12}>
+                        <Typography className={classes.heading}>Videos</Typography>
+                    </Grid>
+                    <Grid item xs={12} className={classes.videos}>
+                        {videos.length === 0 &&
+                            <Typography className={classes.noVideos}>No uploaded videos</Typography>
+                        }
+                    </Grid>
                     {this.displayVideos(videos)}
                 </Grid>
                 <hr/>
@@ -45,7 +49,7 @@ class VideoList extends Component{
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         height: '100%',
         justifyContent: 'center',
@@ -56,9 +60,19 @@ const styles = theme => ({
         textAlign: 'left',
         padding: '10px',
         backgroundColor: '#fcac3c',
-        color: 'white',
+        color: '#ffffff',
         width: '100%',
-    }
+    },
+    videos: {
+        textAlign: 'left'
+    },
+    noVideos: {
+        display: 'flex',
+        margin: '10px',
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        fontSize: '1.3rem'
+    },
 });
 
 export default withStyles(styles)(VideoList)

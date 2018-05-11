@@ -182,7 +182,7 @@ const styles = theme => ({
         borderRadius: '20px'
     },
     button: {
-        color: 'white',
+        color: '#ffffff',
         margin: '20px auto',
         width: '40%',
         backgroundColor: '#21a2ff',

@@ -40,7 +40,7 @@ class Entry extends Component {
 }
 
 const styles = theme => ({
-  root:{
+  root: {
     display: 'flex',
     height: '100%',
     padding: '40px',

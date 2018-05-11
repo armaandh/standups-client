@@ -356,7 +356,7 @@ const styles = theme => ({
         // padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#ffffff'
     },
     teamHeader: {
         display: 'flex',
@@ -374,7 +374,7 @@ const styles = theme => ({
             backgroundColor: '#ffecd3'
         },
     },
-    recordVideoButton:{
+    recordVideoButton: {
         position: 'fixed',
         right: '20px',
         bottom: '20px',
@@ -391,7 +391,7 @@ const styles = theme => ({
     flex: {
         flex: 1,
     },
-    addVideoContent:{
+    addVideoContent: {
         display: 'flex',
         flex: '1 1 auto',
         margin: '0 auto',
@@ -399,16 +399,16 @@ const styles = theme => ({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    streamVideo:{
+    streamVideo: {
         width: "300px",
         height: "300px",
         backgroundColor: 'gray',
     },
     progress: {
-        color: '#795548'
+        color: '#03A9F4'
     },
     videoNote: {
-        color: 'white',
+        color: '#ffffff',
         textAlign: 'center',
     },
     arrow: {

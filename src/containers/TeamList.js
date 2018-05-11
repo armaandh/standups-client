@@ -167,7 +167,7 @@ const styles = theme => ({
         marginLeft: 20,
         marginBottom: 1,
         borderRadius: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#ffffff',
         color: '#ff9300',
         fontSize: '1rem',
         '&:hover': {
@@ -184,7 +184,7 @@ const styles = theme => ({
         textAlign: 'left',
         padding: '10px',
         backgroundColor: '#fcac3c',
-        color: 'white',
+        color: '#ffffff',
         paddingLeft: '10px'
     },
     teams: {

@@ -116,7 +116,7 @@ class ForgotPassword extends Component{
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -126,7 +126,7 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column'
     },
-    forgotpasswordContainer:{
+    forgotpasswordContainer: {
         padding: '36px',
         borderRadius: '20px'
     },

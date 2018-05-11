@@ -86,7 +86,7 @@ const styles = {
     flex: 1,
   },
   font: {
-    color: '#795548',
+    color: '#ffffff',
     paddingLeft: '10px',
     paddingRight: '10px'
   }, 
@@ -94,7 +94,7 @@ const styles = {
     width: '1.4rem'
   },
   navbar: {
-    backgroundColor: '#FFD54F'
+    backgroundColor: '#37474F'
   }
 };
 

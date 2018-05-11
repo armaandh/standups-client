@@ -219,7 +219,7 @@ class Registration extends Component{
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -229,12 +229,12 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column'
     },
-    registrationContainer:{
+    registrationContainer: {
         padding: '36px',
         borderRadius: '20px'
     },
     button: {
-        color: 'white',
+        color: '#ffffff',
         margin: '20px auto',
         width: '40%',
         backgroundColor: '#21a2ff',
@@ -271,7 +271,7 @@ const styles = theme => ({
         fontSize: '12px',
         marginTop: '5px'
     },
-    headline:{
+    headline: {
         textAlign: 'center',
         fontSize: '2rem'
     }

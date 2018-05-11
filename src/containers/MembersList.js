@@ -107,13 +107,13 @@ class MembersList extends Component{
 }
 
 const styles = theme => ({
-    membersList:{
+    membersList: {
         display: 'flex',
         flexDirection: 'column',
         alignSelf: 'flex-start',
         padding: '0px'
     },
-    addMemberContent:{
+    addMemberContent: {
         display: 'flex',
         flex: '1 1 auto',
         margin: '0 auto',
@@ -126,19 +126,11 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 200,
     },
-    // appBar: {
-    //     position: 'relative',
-    //     backgroundColor: '#FFD54F',
-    //     color: '#795548'
-    //   },
-    // flex: {
-    //     flex: 1,
-    // },
     button: {
         marginLeft: 20,
         marginBottom: 1,
         borderRadius: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#ffffff',
         color: '#ff9300',
         fontSize: '1rem',
         '&:hover': {
@@ -150,7 +142,7 @@ const styles = theme => ({
         textAlign: 'left',
         padding: '10px',
         backgroundColor: '#fcac3c',
-        color: 'white',
+        color: '#ffffff',
         paddingLeft: '10px'
     },
     members: {

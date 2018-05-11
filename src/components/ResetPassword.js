@@ -191,7 +191,7 @@ class ResetPassword extends Component{
 }
 
 const styles = theme => ({
-    root:{
+    root: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -202,7 +202,7 @@ const styles = theme => ({
         flexDirection: 'column',
         fontSize: '1.2rem',
     },
-    resetpasswordContainer:{
+    resetpasswordContainer: {
         padding: '36px',
         borderRadius: '20px'
     },
