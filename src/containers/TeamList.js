@@ -55,17 +55,17 @@ class TeamList extends Component{
                                 },
                                 headers: {}
                             }
-                            console.log('Im goin to add ', params)
+                            console.log('About to add ', params)
                             API.post(API_GATEWAY_NAME, 'addchildteam',params)
                                 .then(response => { 
                                     this.setState({ 
                                         addTeamDialogOpen: false, 
                                         teamNameField: ''
                                     })
-                                    console.log('Success for add child team')
+                                    console.log('Successfully added child team')
                                     this.props.refetchTeamData('New team is successfully attached.')
                                 })
-                                .catch(err => console.log('Error adding child team', err))
+                                .catch(err => console.log('Error in adding child team', err))
                         }else{
                             this.props.refetchTeamData('New team is successfully added.')
                         }
@@ -80,14 +80,14 @@ class TeamList extends Component{
                         },
                         headers: {}
                     }
-                    console.log('Im goin to add ', params)
+                    console.log('About to add ', params)
                     API.post(API_GATEWAY_NAME, 'addchildteam',params)
                         .then(response => { 
                             this.setState({ 
                                 addTeamDialogOpen: false, 
                                 teamNameField: ''
                             })
-                            console.log('Success for add child team')
+                            console.log('Successfully added child team')
                         })
                         .catch(err => console.log('Error adding child team', err))
                         .then(()  => this.props.refetchTeamData('The team is successfully attached.'))
@@ -167,11 +167,11 @@ const styles = theme => ({
         marginLeft: 20,
         marginBottom: 1,
         borderRadius: 20,
-        backgroundColor: '#ffffff',
-        color: '#ff9300',
+        backgroundColor: '#21a2ff',
+        color: '#ffffff',
         fontSize: '1rem',
         '&:hover': {
-            backgroundColor: '#ffe491',
+            backgroundColor: '#84cbff',
         },
     },
     textField: {
@@ -183,7 +183,7 @@ const styles = theme => ({
         fontSize: '1.6rem',
         textAlign: 'left',
         padding: '10px',
-        backgroundColor: '#fcac3c',
+        backgroundColor: '#37474F',
         color: '#ffffff',
         paddingLeft: '10px'
     },

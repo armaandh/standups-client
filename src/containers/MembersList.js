@@ -133,18 +133,18 @@ const styles = theme => ({
         marginLeft: 20,
         marginBottom: 1,
         borderRadius: 20,
-        backgroundColor: '#ffffff',
-        color: '#ff9300',
+        backgroundColor: '#21a2ff',
+        color: '#ffffff',
         fontSize: '1rem',
         '&:hover': {
-            backgroundColor: '#ffc575',
+            backgroundColor: '#84cbff',
         },
     },
     heading: {
         fontSize: '1.6rem',
         textAlign: 'left',
         padding: '10px',
-        backgroundColor: '#fcac3c',
+        backgroundColor: '#37474F',
         color: '#ffffff',
         paddingLeft: '10px'
     },

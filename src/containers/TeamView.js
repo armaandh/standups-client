@@ -197,7 +197,7 @@ class TeamView extends Component{
                         <IconButton className={classNames(classes.button, classes.arrow)} aria-label="Delete" color="primary" onClick={() => {this.refetchTeamData(); this.props.history.goBack()}}>
                             <ArrowBack />
                         </IconButton>
-                        <Typography className={classes.teamTitle} variant="headline"> 
+                        <Typography className={classes.navigation} variant="headline"> 
                             Back
                         </Typography>
                     </Grid>
@@ -361,24 +361,30 @@ const styles = theme => ({
     teamHeader: {
         display: 'flex',
         flexDirection: 'row',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        backgroundColor: '#ECEFF1'
+    },
+    navigation: {
+        alignSelf: 'center',
+        color: '#0D47A1',
     },
     teamTitle: {
         alignSelf: 'center',
-        padding: 20
+        color: '#0D47A1',
+        margin: '20px'
     },
     button: {
         margin: theme.spacing.unit,
-        color: '#4f3e27',
+        color: '#0D47A1',
         '&:hover': {
-            backgroundColor: '#ffecd3'
+            backgroundColor: '#d4ebfc'
         },
     },
     recordVideoButton: {
         position: 'fixed',
         right: '20px',
         bottom: '20px',
-        backgroundColor: '#fcac3c',
+        backgroundColor: '#21a2ff',
         '&:hover': {
             backgroundColor: '#ffbb5b'
         },
@@ -412,7 +418,7 @@ const styles = theme => ({
         textAlign: 'center',
     },
     arrow: {
-        color: '#795548'
+        color: '#0D47A1'
     }
 });
 

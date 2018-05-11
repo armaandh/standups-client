@@ -19,7 +19,8 @@ const styles = theme => ({
         display: 'flex',
         width: '100%',
         padding: '16px',
-        borderBottom: '1px solid lightgrey'
+        borderBottom: '1px solid lightgrey',
+        margin: '20px'
     },
 })
 

@@ -59,7 +59,7 @@ const styles = theme => ({
         fontSize: '1.6rem',
         textAlign: 'left',
         padding: '10px',
-        backgroundColor: '#fcac3c',
+        backgroundColor: '#37474F',
         color: '#ffffff',
         width: '100%',
     },

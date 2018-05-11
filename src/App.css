@@ -38,10 +38,9 @@ main {
   /* display: flex; */
 }
 
-/* footer {
-  display: flex;
-  flex: 1;
-} */
+footer {
+  background-color: #ECEFF1; 
+}
 
 footer ul {
   list-style: none;
