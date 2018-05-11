@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
+import { CardContent } from 'material-ui';
 
 import Login from './../components/Login'
 import Registration from './../components/Registration'
 import ForgotPassword from './../components/ForgotPassword'
 import ResetPassword from './../components/ResetPassword';
-
-import Hootsuite_logo from './../images/252px-Hootsuite_logo.svg.png'
 import ConfirmRegistration from '../components/ConfirmRegistration';
-import { CardContent } from 'material-ui';
+import Hootsuite_logo from './../images/252px-Hootsuite_logo.svg.png'
 
 class Entry extends Component {
 

@@ -5,22 +5,23 @@ import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import CloseIcon from '@material-ui/icons/Close'
-import IconButton from 'material-ui/IconButton'
-import Snackbar from 'material-ui/Snackbar'
+// import AppBar from 'material-ui/AppBar'
+// import Toolbar from 'material-ui/Toolbar'
+// import CloseIcon from '@material-ui/icons/Close'
+// import IconButton from 'material-ui/IconButton'
+// import Snackbar from 'material-ui/Snackbar'
 import Typography from 'material-ui/Typography'
-import classNames from 'classnames'
-import { API } from 'aws-amplify'
-import { API_GATEWAY_NAME } from './../utils/amazonConfig'
 import Dialog, { withMobileDialog, 
     DialogActions,
     DialogContent,
     DialogTitle } from 'material-ui/Dialog'
+
+import { API } from 'aws-amplify'
+import { API_GATEWAY_NAME } from './../utils/amazonConfig'
 import { configuration } from './../utils/amazonConfig'
 
 class MembersList extends Component{
+
     state = {
         addMemberDialogOpen: false,
         memberNameField: '',
@@ -41,13 +42,13 @@ class MembersList extends Component{
             },
             headers: {}
         }
-        console.log('Im goin to add ', params)
+        console.log('About to add ', params)
         API.post(API_GATEWAY_NAME, 'createteammember',params)
             .then(response => {
-                console.log('Success for add child member', 
+                console.log('Success for adding child member', 
                 response)
             })
-            .catch(err => console.log('Error adding child team', err))
+            .catch(err => console.log('Error in adding child team', err))
             .then(() => {
                 this.setState({
                     addMemberDialogOpen: false,
@@ -63,9 +64,11 @@ class MembersList extends Component{
         return(
             <Grid container className={classes.membersList}>
                 <Grid item xs={12}>
-                    <Typography className={classes.heading}>Members <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
-                        add member
-                    </Button></Typography>
+                    <Typography className={classes.heading}>Members 
+                        <Button className={classes.button} onClick={() => this.setState({ addMemberDialogOpen: true })}>
+                            Add Member
+                        </Button>
+                    </Typography>
                 </Grid>
                 <Grid item xs={12} className={classes.members}>
                     {members.length === 0 &&
